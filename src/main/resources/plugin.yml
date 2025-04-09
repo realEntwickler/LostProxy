@@ -1,0 +1,11 @@
+name: ${artifactId}
+version: ${version}
+author: realEntwickler
+database: true
+loadbefore:
+  - CloudNet-Bridge
+  - CloudNet-CloudPerms
+  - CloudNet-SyncProxy
+description: This is the managing system for our proxies at LostName.eu
+website: https://www.lostname.eu
+main: eu.lostname.lostproxy.LostProxy
