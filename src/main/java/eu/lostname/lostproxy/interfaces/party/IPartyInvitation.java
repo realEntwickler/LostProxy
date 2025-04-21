@@ -14,7 +14,7 @@ public class IPartyInvitation {
 
     private final ProxiedPlayer invitationFor;
     private final IParty party;
-    private Timer timer;
+    private final Timer timer;
 
     public IPartyInvitation(ProxiedPlayer invitationFor, IParty party) {
         this.invitationFor = invitationFor;
