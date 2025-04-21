@@ -51,8 +51,6 @@ public class Property {
                 Properties prop = new Properties();
 
                 // set the properties value
-                prop.setProperty("db.port", "27017");
-                prop.setProperty("db.host", "localhost");
                 prop.setProperty("db.username", "root");
                 prop.setProperty("db.password", "root");
                 prop.setProperty("db.database", "root");
