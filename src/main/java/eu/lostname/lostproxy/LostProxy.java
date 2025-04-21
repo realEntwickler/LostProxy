@@ -114,6 +114,12 @@ public class LostProxy extends Plugin {
     }
 
     @Override
+    public void onEnable()
+    {
+        new LostProxy();
+    }
+
+    @Override
     public void onDisable() {
         super.onDisable();
 
