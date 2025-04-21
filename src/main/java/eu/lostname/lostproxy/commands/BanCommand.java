@@ -162,7 +162,7 @@ public class BanCommand extends Command implements TabExecutor {
                                         iBanHistory.addEntry(new IBanEntry(EBanEntryType.BAN_ENTRY, uuid, invoker, currentTimeMillis, iBanReason.getName(), iBanReason.getTime(), iBanReason.getETimeUnit(), end));
 
                                         LostProxy.getInstance().getHistoryManager().saveBanHistory(iBanHistory);
-                                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7wegen §e" + iBanReason.getName() + " §7für §c" + "%time%" + (ban.getEnd() == -1 ? "§4permanent" : iBanReason.getTime() + " " + ETimeUnit.getDisplayName(iBanReason.getTime(), iBanReason.getETimeUnit()) + " §7gebannt§8.")).build());
+                                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7wegen §e" + iBanReason.getName() + " §7für §c" + (ban.getEnd() == -1 ? "§4permanent" : iBanReason.getTime() + " " + ETimeUnit.getDisplayName(iBanReason.getTime(), iBanReason.getETimeUnit()) + " §7gebannt§8.")).build());
                                     } else {
                                         commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst den Banngrund §e" + iBanReason.getName() + " §cnicht §7benutzen§8.").build());
                                     }
