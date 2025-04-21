@@ -13,12 +13,16 @@ package eu.lostname.lostproxy.manager;
 import eu.cloudnetservice.modules.bridge.player.CloudOfflinePlayer;
 import eu.lostname.lostproxy.utils.CloudServices;
 
+import java.util.List;
 import java.util.UUID;
 
 public class PlayerManager {
 
     public UUID getUUIDofPlayername(String playername) {
-        CloudOfflinePlayer player = CloudServices.PLAYER_MANAGER.offlinePlayers(playername).getFirst();
+        List<CloudOfflinePlayer> cloudOfflinePlayers = CloudServices.PLAYER_MANAGER.registeredPlayers().stream().filter(filter -> filter.name().equalsIgnoreCase(playername)).toList();
+        if (cloudOfflinePlayers.isEmpty())
+            return null;
+        CloudOfflinePlayer player = cloudOfflinePlayers.getFirst();
         return player != null ? player.uniqueId() : null;
     }
 

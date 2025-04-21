@@ -42,10 +42,15 @@ public class LostProxy extends Plugin {
     private final ClanManager clanManager;
     private final SettingsManager settingsManager;
     private final ReportManager reportManager;
-    private Property property;
+    private final Property property;
     private ScheduledTask restartTask;
 
     public LostProxy () {
+        instance = this;
+
+        property = new Property();
+        property.setDefaultProps();
+
         this.gson = new Gson();
         this.database = new LostProxyDatabase(property.get("cfg", "db.database"), property.get("cfg", "db.username"), property.get("cfg", "db.password"));
         //this.linkageManager = new LinkageManager(gson);
@@ -98,31 +103,19 @@ public class LostProxy extends Plugin {
         getProxy().getPluginManager().registerListener(this, new ChatListener());
         getProxy().getPluginManager().registerListener(this, new ServerSwitchListener());
 
-        CloudServices.LUCKPERMS = LuckPermsProvider.get();
-        CloudServices.SYNCPROXY_MANAGEMENT = InjectionLayer.ext().instance(ServiceRegistry.class).firstProvider(SyncProxyManagement.class);
-        CloudServices.PLAYER_MANAGER = InjectionLayer.ext().instance(ServiceRegistry.class).firstProvider(eu.cloudnetservice.modules.bridge.player.PlayerManager.class);
-
         this.restartTask = null;
-    }
-
-    @Override
-    public void onLoad() {
-        instance = this;
-
-        property = new Property();
-        property.setDefaultProps();
     }
 
     @Override
     public void onEnable()
     {
-        new LostProxy();
+        CloudServices.LUCKPERMS = LuckPermsProvider.get();
+        CloudServices.SYNCPROXY_MANAGEMENT = InjectionLayer.ext().instance(ServiceRegistry.class).firstProvider(SyncProxyManagement.class);
+        CloudServices.PLAYER_MANAGER = InjectionLayer.ext().instance(ServiceRegistry.class).firstProvider(eu.cloudnetservice.modules.bridge.player.PlayerManager.class);
     }
 
     @Override
     public void onDisable() {
-        super.onDisable();
-
         database.getMongoClient().close();
         //getTeamSpeakManager().getTs3Query().exit();
     }
