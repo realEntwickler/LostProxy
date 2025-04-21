@@ -73,22 +73,22 @@ public class MuteCommand extends Command implements TabExecutor {
                                     });
                                     commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
                                 } else {
-                                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Zurzeit sind §ckeinerlei §7Mutegründe für dich verfügbar§8.").build());
+                                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Zurzeit sind §ckeinerlei §7Mutegründe für dich verfügbar§7.").build());
                                 }
                             } else {
-                                commandSender.sendMessage(new MessageBuilder($.BKMS + "Zurzeit sind §ckeinerlei §7Mutegründe registriert§8.").build());
+                                commandSender.sendMessage(new MessageBuilder($.BKMS + "Zurzeit sind §ckeinerlei §7Mutegründe registriert§7.").build());
                             }
                         } else {
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7zu §emuten§8.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7zu §emuten§7.").build());
                         }
                     } else {
-                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7ist §cbereits §7gemutet§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7ist §cbereits §7gemutet§7.").build());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst dich §cnicht §7selber muten§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst dich §cnicht §7selber muten§7.").build());
             }
         } else if (strings.length == 2) {
             if (!commandSender.getName().equalsIgnoreCase(strings[0])) {
@@ -116,11 +116,11 @@ public class MuteCommand extends Command implements TabExecutor {
 
                                         if (targetIPlayer.isOnline()) {
                                             if (muteDuration == -1) {
-                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder($.BKMS + "Du wurdest §4permanent §7gemutet§8.").build());
+                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder($.BKMS + "Du wurdest §4permanent §7gemutet§7.").build());
                                                 ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§8» §7Grund §8» §c" + mute.getReason()).build());
                                                 ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§8§m--------------------§r").build());
                                             } else {
-                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder($.BKMS + "Du wurdest §ctemporär §7gemutet§8.").build());
+                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder($.BKMS + "Du wurdest §ctemporär §7gemutet§7.").build());
                                                 ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§8» §7Grund §8» §c" + mute.getReason()).build());
                                                 ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§8» §7Verleibende Zeit §8» §c" + LostProxy.getInstance().getMuteManager().calculateRemainingTime(mute.getEnd())).build());
                                                 ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§8» §7Läuft ab am §8» §c" + new SimpleDateFormat("dd.MM.yyyy").format(mute.getEnd()) + " §7um §c" + new SimpleDateFormat("HH:mm:ss").format(mute.getEnd()) + " §7Uhr").build());
@@ -139,30 +139,30 @@ public class MuteCommand extends Command implements TabExecutor {
                                         iMuteHistory.addEntry(new IMuteEntry(EMuteEntryType.MUTE_ENTRY, uuid, invokerId, currentTimeMillis, iMuteReason.getName(), iMuteReason.getTime(), iMuteReason.getETimeUnit(), end));
 
                                         LostProxy.getInstance().getHistoryManager().saveMuteHistory(iMuteHistory);
-                                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7wegen §e" + iMuteReason.getName() + " §7für §c" + (iMuteReason.getTime() == -1 ? "§4permanent" : iMuteReason.getTime() + " " + ETimeUnit.getDisplayName(iMuteReason.getTime(), iMuteReason.getETimeUnit())) + " §7gemutet§8.").build());
+                                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7wegen §e" + iMuteReason.getName() + " §7für §c" + (iMuteReason.getTime() == -1 ? "§4permanent" : iMuteReason.getTime() + " " + ETimeUnit.getDisplayName(iMuteReason.getTime(), iMuteReason.getETimeUnit())) + " §7gemutet§7.").build());
                                     } else {
-                                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast darfst den Mutegrund §e" + iMuteReason.getName() + " §cnicht §7benutzen§8.").build());
+                                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast darfst den Mutegrund §e" + iMuteReason.getName() + " §cnicht §7benutzen§7.").build());
                                     }
                                 } else {
-                                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Mutegrund wurde §cnicht §7gefunden§8.").build());
+                                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Mutegrund wurde §cnicht §7gefunden§7.").build());
                                 }
                             } catch (NumberFormatException numberFormatException) {
-                                commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Zahl angegeben§8.").build());
+                                commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Zahl angegeben§7.").build());
                             }
                         } else {
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7zu §emuten§8.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7zu §emuten§7.").build());
                         }
                     } else {
-                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7ist §cbereits §7gemutet§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7ist §cbereits §7gemutet§7.").build());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst dich §cnicht §7selber muten§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst dich §cnicht §7selber muten§7.").build());
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§8.").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
         }
     }
 

@@ -25,8 +25,8 @@ public class IPartyInvitation {
             public void run() {
                 if (invitationFor != null) {
                     LostProxy.getInstance().getPartyManager().getInvitations().remove(IPartyInvitation.this);
-                    invitationFor.sendMessage(new MessageBuilder($.PARTY + "Deine Einladung für die Party von " + new IPlayer(party.getLeader().getUniqueId()).getDisplaywithPlayername() + " §7ist §cabgelaufen§8.").build());
-                    party.getLeader().sendMessage(new MessageBuilder($.PARTY + "Die Einladung für " + new IPlayer(invitationFor.getUniqueId()).getDisplaywithPlayername() + " §7ist §cabgelaufen§8.").build());
+                    invitationFor.sendMessage(new MessageBuilder($.PARTY + "Deine Einladung für die Party von " + new IPlayer(party.getLeader().getUniqueId()).getDisplaywithPlayername() + " §7ist §cabgelaufen§7.").build());
+                    party.getLeader().sendMessage(new MessageBuilder($.PARTY + "Die Einladung für " + new IPlayer(invitationFor.getUniqueId()).getDisplaywithPlayername() + " §7ist §cabgelaufen§7.").build());
                 }
             }
         }, TimeUnit.MINUTES.toMillis(5));

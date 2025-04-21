@@ -43,12 +43,12 @@ public class IParty {
 
     public void addMember (ProxiedPlayer proxiedPlayer) {
         members.put(proxiedPlayer, EPartyRole.MEMBER);
-        sendMessage(new MessageBuilder($.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §7ist der Party beigetreten§8.").build());
+        sendMessage(new MessageBuilder($.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §7ist der Party beigetreten§7.").build());
     }
 
     public void removeMember (ProxiedPlayer proxiedPlayer) {
         members.remove(proxiedPlayer);
-        sendMessage(new MessageBuilder($.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §7hat die Party verlassen§8.").build());
+        sendMessage(new MessageBuilder($.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §7hat die Party verlassen§7.").build());
     }
 
     public boolean isLeader (ProxiedPlayer proxiedPlayer) {

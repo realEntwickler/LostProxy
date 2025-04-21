@@ -41,7 +41,7 @@ public class PlayerDisconnectListener implements Listener {
         IPlayer iPlayer = new IPlayer(proxiedPlayer.getUniqueId());
         if (proxiedPlayer.hasPermission("lostproxy.command.team") && proxiedPlayer.hasPermission("lostproxy.command.team.logout")) {
             if (LostProxy.getInstance().getTeamManager().logout(proxiedPlayer)) {
-                LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplay() + iPlayer.getPlayerName() + " §7hat das Netzwerk §cverlassen§8.").build()));
+                LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplay() + iPlayer.getPlayerName() + " §7hat das Netzwerk §cverlassen§7.").build()));
             }
         }
 
@@ -53,7 +53,7 @@ public class PlayerDisconnectListener implements Listener {
             iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline()).forEach(one -> {
                 UUID friendUUID = UUID.fromString(one);
                 if (LostProxy.getInstance().getFriendManager().getFriendData(friendUUID).areNotifyMessagesEnabled())
-                    ProxyServer.getInstance().getPlayer(friendUUID).sendMessage(new MessageBuilder($.FRIENDS + iPlayer.getDisplay() + proxiedPlayer.getName() + " §7ist nun §coffline§8.").build());
+                    ProxyServer.getInstance().getPlayer(friendUUID).sendMessage(new MessageBuilder($.FRIENDS + iPlayer.getDisplay() + proxiedPlayer.getName() + " §7ist nun §coffline§7.").build());
             });
         }
 
@@ -68,13 +68,13 @@ public class PlayerDisconnectListener implements Listener {
                     if (newLeader != null) {
                         party.setLeader(newLeader);
                         party.setCurrentServer(newLeader.getServer().getInfo());
-                        party.sendMessage(new MessageBuilder($.PARTY + new IPlayer(newLeader.getUniqueId()).getDisplaywithPlayername() + " §7ist der neue §ePartyleiter§8.").build());
+                        party.sendMessage(new MessageBuilder($.PARTY + new IPlayer(newLeader.getUniqueId()).getDisplaywithPlayername() + " §7ist der neue §ePartyleiter§7.").build());
                     } else {
-                        party.sendMessage(new MessageBuilder($.PARTY + "Es trat ein §cFehler §7bei der Suche nach einem neuen Partyleiter auf§8.").build());
+                        party.sendMessage(new MessageBuilder($.PARTY + "Es trat ein §cFehler §7bei der Suche nach einem neuen Partyleiter auf§7.").build());
                     }
                 } else {
                     party.removeMember(proxiedPlayer);
-                    proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Du hast die Party §cverlassen§8.").build());
+                    proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Du hast die Party §cverlassen§7.").build());
                 }
             } else {
                 party.delete();

@@ -47,31 +47,31 @@ public class TeamCommand extends Command implements TabExecutor {
                         if (player.hasPermission("lostproxy.command.team.login")) {
                             if (!LostProxy.getInstance().getTeamManager().isLoggedIn(player)) {
                                 if (LostProxy.getInstance().getTeamManager().login(player)) {
-                                    LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplay() + player.getName() + " §7hat sich §aeingeloggt§8.").build()));
+                                    LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplay() + player.getName() + " §7hat sich §aeingeloggt§7.").build()));
                                 } else {
-                                    player.sendMessage(new MessageBuilder($.TMS + "§7Es ist ein §4Fehler §7aufgetreten§8. §7Bitte kontaktiere sofort das Referat §4DEV/01§8!").build());
+                                    player.sendMessage(new MessageBuilder($.TMS + "§7Es ist ein §4Fehler §7aufgetreten§7. §7Bitte kontaktiere sofort das Referat §4DEV/01§8!").build());
                                 }
                             } else {
-                                player.sendMessage(new MessageBuilder($.TMS + "Du bist §cbereits §7eingeloggt§8.").build());
+                                player.sendMessage(new MessageBuilder($.TMS + "Du bist §cbereits §7eingeloggt§7.").build());
                             }
                         } else {
-                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§8.").build());
+                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§7.").build());
                         }
                         break;
                     case "logout":
                         if (player.hasPermission("lostproxy.command.team.logout")) {
                             if (LostProxy.getInstance().getTeamManager().isLoggedIn(player)) {
                                 if (LostProxy.getInstance().getTeamManager().logout(player)) {
-                                    player.sendMessage(new MessageBuilder($.TMS + "Du wurdest §causgeloggt§8.").build());
-                                    LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplay() + player.getName() + " §7hat sich §causgeloggt§8.").build()));
+                                    player.sendMessage(new MessageBuilder($.TMS + "Du wurdest §causgeloggt§7.").build());
+                                    LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplay() + player.getName() + " §7hat sich §causgeloggt§7.").build()));
                                 } else {
-                                    player.sendMessage(new MessageBuilder($.TMS + "§7Es ist ein §4Fehler §7aufgetreten§8. §7Bitte kontaktiere sofort das Referat §4DEV/01§8!").build());
+                                    player.sendMessage(new MessageBuilder($.TMS + "§7Es ist ein §4Fehler §7aufgetreten§7. §7Bitte kontaktiere sofort das Referat §4DEV/01§8!").build());
                                 }
                             } else {
-                                player.sendMessage(new MessageBuilder($.TMS + "Du bist §cnicht §7eingeloggt§8.").build());
+                                player.sendMessage(new MessageBuilder($.TMS + "Du bist §cnicht §7eingeloggt§7.").build());
                             }
                         } else {
-                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§8.").build());
+                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§7.").build());
                         }
                         break;
                     case "list":
@@ -82,18 +82,18 @@ public class TeamCommand extends Command implements TabExecutor {
                                 player.sendMessage(new MessageBuilder("§8» " + allIPlayer.getDisplay() + allIPlayer.getPlayerName() + " §8┃ " + (LostProxy.getInstance().getTeamManager().isLoggedIn(all) ? "§a✔" : "§c✖") + " §8» §7" + all.getServer().getInfo().getName()).build());
                             });
                         } else {
-                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§8.").build());
+                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§7.").build());
                         }
                         break;
                     default:
-                        player.sendMessage(new MessageBuilder($.TMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§8.").build());
+                        player.sendMessage(new MessageBuilder($.TMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
                         break;
                 }
             } else {
-                player.sendMessage(new MessageBuilder($.TMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§8.").build());
+                player.sendMessage(new MessageBuilder($.TMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.TMS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§8.").build());
+            commandSender.sendMessage(new MessageBuilder($.TMS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§7.").build());
         }
     }
 

@@ -33,11 +33,11 @@ public class ClanChatCommand extends Command {
 
                     LostProxy.getInstance().getClanManager().getClanPlayerDatasFromClan(clan.getId()).stream().filter(filter -> ProxyServer.getInstance().getPlayer(filter.getUniqueId()) != null).forEach(all -> ProxyServer.getInstance().getPlayer(all.getUniqueId()).sendMessage(new MessageBuilder($.CLANS + iPlayer.getDisplaywithPlayername() + " §8➡ §7" + stringBuilder).build()));
                 } else {
-                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist in §ckeinem §7Clan§8.").build());
+                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist in §ckeinem §7Clan.").build());
                 }
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.CLANS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§8.").build());
+            commandSender.sendMessage(new MessageBuilder($.CLANS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen.").build());
         }
     }
 }

@@ -42,14 +42,14 @@ public class ChatListener implements Listener {
                         if (player.hasPermission("lostproxy.bkms.bypasschat")) {
                             return;
                         }
-                        player.sendMessage(new MessageBuilder($.BKMS + "Du bist §4permanent §7gemutet§8.").build());
+                        player.sendMessage(new MessageBuilder($.BKMS + "Du bist §4permanent §7gemutet§7.").build());
                         player.sendMessage(new MessageBuilder("§8» §7Grund §8» §c" + iMute.getReason()).build());
                         player.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
                     } else if (iMute.getEnd() > System.currentTimeMillis()) {
                         if (player.hasPermission("lostproxy.bkms.bypasschat")) {
                             return;
                         }
-                        player.sendMessage(new MessageBuilder($.BKMS + "Du bist §ctemporär §7gemutet§8.").build());
+                        player.sendMessage(new MessageBuilder($.BKMS + "Du bist §ctemporär §7gemutet§7.").build());
                         player.sendMessage(new MessageBuilder("§8» §7Grund §8» §c" + iMute.getReason()).build());
                         player.sendMessage(new MessageBuilder("§8» §7Verleibende Zeit §8» §c" + LostProxy.getInstance().getMuteManager().calculateRemainingTime(iMute.getEnd())).build());
                         player.sendMessage(new MessageBuilder("§8» §7Läuft ab am §8» §c" + new SimpleDateFormat("dd.MM.yyyy").format(iMute.getEnd()) + " §7um §c" + new SimpleDateFormat("HH:mm:ss").format(iMute.getEnd()) + " §7Uhr").build());

@@ -22,7 +22,7 @@ public class ServerSwitchListener implements Listener {
                 party.setCurrentServer(proxiedPlayer.getServer().getInfo());
 
                 if (!party.getCurrentServer().getName().startsWith("Lobby-")) {
-                    party.sendMessage(new MessageBuilder($.PARTY + "Die Party betritt den Server §e" + party.getCurrentServer().getName() + "§8.").build());
+                    party.sendMessage(new MessageBuilder($.PARTY + "Die Party betritt den Server §e" + party.getCurrentServer().getName() + "§7.").build());
                     party.getOnlyMembers().forEach(one -> one.connect(party.getCurrentServer()));
                 }
             }

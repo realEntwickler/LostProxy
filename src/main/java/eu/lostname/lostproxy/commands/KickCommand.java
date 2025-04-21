@@ -39,7 +39,7 @@ public class KickCommand extends Command implements TabExecutor {
             commandSender.sendMessage(new MessageBuilder("§8» §c/kick <Spieler> [Grund] §8┃ §7Kicke den angegebenen Spieler mit einem Grund").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/kick ").build());
             commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
         } else if (strings.length == 1) {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§8.").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
         } else {
 
             ProxiedPlayer target = null;
@@ -60,7 +60,7 @@ public class KickCommand extends Command implements TabExecutor {
                         LostProxy.getInstance().getHistoryManager().saveKickHistory(iKickHistory);
                         target.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
                                 "\n" +
-                                "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§8." +
+                                "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7." +
                                 "\n" +
                                 "\n" +
                                 "§7Grund §8➡ §e" + reason +
@@ -68,7 +68,7 @@ public class KickCommand extends Command implements TabExecutor {
                                 "\n" +
                                 "§7Bei weiteren Fragen besuche unser §eForum§8!" +
                                 "\n" +
-                                " §8» §cforum§8.§clostname§8.§ceu §8«" +
+                                " §8» §cforum§7.§clostname§7.§ceu §8«" +
                                 "\n" +
                                 "\n" +
                                 "§8§m--------------------------------------§r").build());
@@ -79,15 +79,15 @@ public class KickCommand extends Command implements TabExecutor {
                         } else {
                             LostProxy.getInstance().getTeamManager().sendKickNotify("§4Konsole", targetIPlayer.getDisplay() + targetIPlayer.getPlayerName(), reason);
                         }
-                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7wegen §e" + reason + " §7gekickt§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7wegen §e" + reason + " §7gekickt§7.").build());
                     } else {
-                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7zu §ekicken§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7zu §ekicken§7.").build());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst dich §cnicht §7selber §ekicken§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst dich §cnicht §7selber §ekicken§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler konnte §cnicht §7gefunden werden§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler konnte §cnicht §7gefunden werden§7.").build());
             }
         }
     }

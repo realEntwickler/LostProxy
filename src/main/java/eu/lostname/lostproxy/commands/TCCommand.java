@@ -40,11 +40,11 @@ public class TCCommand extends Command {
                     IPlayer iPlayer = new IPlayer(player.getUniqueId());
                     LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplay() + player.getName() + " §8» §7" + msg).build()));
                 } else {
-                    player.sendMessage(new MessageBuilder($.TMS + "Du bist §cnicht §7eingeloggt§8.").build());
+                    player.sendMessage(new MessageBuilder($.TMS + "Du bist §cnicht §7eingeloggt§7.").build());
                 }
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.TMS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§8.").build());
+            commandSender.sendMessage(new MessageBuilder($.TMS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§7.").build());
         }
     }
 }

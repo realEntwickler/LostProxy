@@ -29,19 +29,19 @@ public class NotifyCommand extends Command {
 
             if (LostProxy.getInstance().getTeamManager().hasNotificationsEnabled(player)) {
                 if (LostProxy.getInstance().getTeamManager().disableNotifications(player)) {
-                    player.sendMessage(new MessageBuilder($.NOTIFICATIONS + "§7Du erhälst nun §ckeine §7Benachrichtigungen mehr§8.").build());
+                    player.sendMessage(new MessageBuilder($.NOTIFICATIONS + "§7Du erhälst nun §ckeine §7Benachrichtigungen mehr§7.").build());
                 } else {
-                    player.sendMessage(new MessageBuilder($.NOTIFICATIONS + "Beim §eVerarbeiten §7dieser Anfrage §7ist ein §4Fehler §7aufgetreten§8. §7Bitte kontaktiere sofort das Referat §4DEV/01§8!").build());
+                    player.sendMessage(new MessageBuilder($.NOTIFICATIONS + "Beim §eVerarbeiten §7dieser Anfrage §7ist ein §4Fehler §7aufgetreten§7. §7Bitte kontaktiere sofort das Referat §4DEV/01§8!").build());
                 }
             } else {
                 if (LostProxy.getInstance().getTeamManager().enableNotifications(player)) {
-                    player.sendMessage(new MessageBuilder($.NOTIFICATIONS + "§7Du erhälst nun §aBenachrichtigungen§8.").build());
+                    player.sendMessage(new MessageBuilder($.NOTIFICATIONS + "§7Du erhälst nun §aBenachrichtigungen§7.").build());
                 } else {
-                    player.sendMessage(new MessageBuilder($.NOTIFICATIONS + "Beim §eVerarbeiten §7dieser Anfrage §7ist ein §4Fehler §7aufgetreten§8. §7Bitte kontaktiere sofort das Referat §4DEV/01§8!").build());
+                    player.sendMessage(new MessageBuilder($.NOTIFICATIONS + "Beim §eVerarbeiten §7dieser Anfrage §7ist ein §4Fehler §7aufgetreten§7. §7Bitte kontaktiere sofort das Referat §4DEV/01§8!").build());
                 }
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.NOTIFICATIONS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§8.").build());
+            commandSender.sendMessage(new MessageBuilder($.NOTIFICATIONS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§7.").build());
         }
     }
 }

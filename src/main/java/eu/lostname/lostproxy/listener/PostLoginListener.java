@@ -54,14 +54,14 @@ public class PostLoginListener implements Listener {
 
         if (player.hasPermission("lostproxy.notify")) {
             if (LostProxy.getInstance().getTeamManager().enableNotifications(player)) {
-                player.sendMessage(new MessageBuilder($.NOTIFICATIONS + "§7Du erhälst nun §aBenachrichtigungen§8.").build());
+                player.sendMessage(new MessageBuilder($.NOTIFICATIONS + "§7Du erhälst nun §aBenachrichtigungen§7.").build());
             }
         }
 
         if (player.hasPermission("lostproxy.command.team") && player.hasPermission("lostproxy.command.team.login")) {
-            LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplaywithPlayername() + " §7hat das Netzwerk §abetreten§8.").build()));
+            LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplaywithPlayername() + " §7hat das Netzwerk §abetreten§7.").build()));
             if (LostProxy.getInstance().getTeamManager().login(player)) {
-                player.sendMessage(new MessageBuilder($.TMS + "§7Du wurdest §aeingeloggt§8.").build());
+                player.sendMessage(new MessageBuilder($.TMS + "§7Du wurdest §aeingeloggt§7.").build());
             }
         }
 
@@ -73,21 +73,21 @@ public class PostLoginListener implements Listener {
                 onlineFriends.forEach(one -> {
                     UUID friendUUID = UUID.fromString(one);
                     if (LostProxy.getInstance().getFriendManager().getFriendData(friendUUID).areNotifyMessagesEnabled())
-                        ProxyServer.getInstance().getPlayer(friendUUID).sendMessage(new MessageBuilder($.FRIENDS + iPlayer.getDisplay() + player.getName() + " §7ist nun §aonline§8.").build());
+                        ProxyServer.getInstance().getPlayer(friendUUID).sendMessage(new MessageBuilder($.FRIENDS + iPlayer.getDisplay() + player.getName() + " §7ist nun §aonline§7.").build());
                 });
 
 
-            player.sendMessage(new MessageBuilder($.FRIENDS + "Zurzeit " + (onlineFriends.size() == 1 ? "ist" : "sind") + " §e" + onlineFriends.size() + " §7" + (onlineFriends.size() == 1 ? "Freund" : "Freunde") + " online§8.").build());
+            player.sendMessage(new MessageBuilder($.FRIENDS + "Zurzeit " + (onlineFriends.size() == 1 ? "ist" : "sind") + " §e" + onlineFriends.size() + " §7" + (onlineFriends.size() == 1 ? "Freund" : "Freunde") + " online§7.").build());
         }
 
         HashMap<String, Long> requests = iFriendData.getRequests();
         if (!requests.isEmpty()) {
-            player.sendMessage(new MessageBuilder($.FRIENDS + "Du hast noch §e" + (requests.size() == 1 ? "eine" : requests.size()) + " §7offene Freundschaftsanfragen§8.").build());
+            player.sendMessage(new MessageBuilder($.FRIENDS + "Du hast noch §e" + (requests.size() == 1 ? "eine" : requests.size()) + " §7offene Freundschaftsanfragen§7.").build());
         }
 
         List<IClanInvitation> invitations = LostProxy.getInstance().getClanManager().getClanInvitationsByPlayer(player.getUniqueId());
         if (!invitations.isEmpty()) {
-            player.sendMessage(new MessageBuilder($.CLANS + "Du hast noch §e" + (invitations.size() == 1 ? "eine" : invitations.size()) + " §7offene Claneinladungen§8.").build());
+            player.sendMessage(new MessageBuilder($.CLANS + "Du hast noch §e" + (invitations.size() == 1 ? "eine" : invitations.size()) + " §7offene Claneinladungen§7.").build());
         }
     }
 }

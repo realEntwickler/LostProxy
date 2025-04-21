@@ -29,7 +29,7 @@ public class PreLoginListener implements Listener {
                 event.setCancelled(true);
                 event.setCancelReason(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
                         "\n" +
-                        "§7Du bist §4§npermanent§r §7vom Netzwerk §4gebannt§8." +
+                        "§7Du bist §4§npermanent§r §7vom Netzwerk §4gebannt§7." +
                         "\n" +
                         "\n" +
                         "§7Grund §8➡ §e" + iBan.getReason() +
@@ -37,7 +37,7 @@ public class PreLoginListener implements Listener {
                         "\n" +
                         "§7FÜr weitere Fragen oder zum Stellen eines Entbannugsantrag besuche das Forum§8!" +
                         "\n" +
-                        " §8» §cforum§8.§clostname§8.§ceu §8«" +
+                        " §8» §cforum§7.§clostname§7.§ceu §8«" +
                         "\n" +
                         "\n" +
                         "§8§m--------------------------------------§r").build());
@@ -47,7 +47,7 @@ public class PreLoginListener implements Listener {
                 event.setCancelled(true);
                 event.setCancelReason(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
                         "\n" +
-                        "§7Du bist §4temporär §7vom Netzwerk §4gebannt§8." +
+                        "§7Du bist §4temporär §7vom Netzwerk §4gebannt§7." +
                         "\n" +
                         "\n" +
                         "§7Grund §8➡ §e" + iBan.getReason() +
@@ -59,7 +59,7 @@ public class PreLoginListener implements Listener {
                         "\n" +
                         "§7FÜr weitere Fragen oder zum Stellen eines Entbannugsantrag besuche das Forum§8!" +
                         "\n" +
-                        " §8» §cforum§8.§clostname§8.§ceu §8«" +
+                        " §8» §cforum§7.§clostname§7.§ceu §8«" +
                         "\n" +
                         "\n" +
                         "§8§m--------------------------------------§r").build());

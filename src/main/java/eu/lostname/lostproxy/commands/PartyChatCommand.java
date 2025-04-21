@@ -33,11 +33,11 @@ public class PartyChatCommand extends Command {
 
                     party.sendMessage(new MessageBuilder($.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §8➡ §7" + stringBuilder).build());
                 } else {
-                    proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Du bist in §ckeiner §7Party§8.").build());
+                    proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Du bist in §ckeiner §7Party.").build());
                 }
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.PARTY + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§8.").build());
+            commandSender.sendMessage(new MessageBuilder($.PARTY + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen.").build());
         }
     }
 }

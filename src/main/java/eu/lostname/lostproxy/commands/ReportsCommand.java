@@ -21,7 +21,7 @@ public class ReportsCommand extends Command {
                 proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §c/reports list §8» §7Listet alle offenen Reports auf").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/reports list").build());
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.REPORT + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§8.").build());
+            commandSender.sendMessage(new MessageBuilder($.REPORT + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§7.").build());
         }
     }
 }

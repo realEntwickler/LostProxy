@@ -49,10 +49,10 @@ public class BanHistoryClearCommand extends Command implements TabExecutor {
                         LostProxy.getInstance().getHistoryManager().getBanHistoryClearCommandProcess().add(commandSender.getName());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7ist §cleer§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7ist §cleer§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden.").build());
             }
         } else {
             if (strings[1].equalsIgnoreCase("confirmed")) {
@@ -65,15 +65,15 @@ public class BanHistoryClearCommand extends Command implements TabExecutor {
                         if (!iBanHistory.getHistory().isEmpty()) {
                             iBanHistory.getHistory().clear();
                             LostProxy.getInstance().getHistoryManager().saveBanHistory(iBanHistory);
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §aerfolgreich §7die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + "  §cgelöscht§8.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §aerfolgreich §7die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + "  §cgelöscht§7.").build());
                         } else {
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7ist §cleer§8.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7ist §cleer§7.").build());
                         }
                     } else {
-                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §eVerifizierung §7für diesen §eProzess §7beantragt§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §eVerifizierung §7für diesen §eProzess §7beantragt§7.").build());
                 }
             } else {
                 sendHelp(commandSender);

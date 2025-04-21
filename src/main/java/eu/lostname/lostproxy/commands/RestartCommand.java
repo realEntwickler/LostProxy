@@ -24,7 +24,7 @@ public class RestartCommand extends Command {
                 if (strings[0].equalsIgnoreCase("now")) {
                     ProxyServer.getInstance().getPlayers().forEach(all -> all.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
                             "\n" +
-                            "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§8." +
+                            "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7." +
                             "\n" +
                             "\n" +
                             "§7Grund §8➡ §eNeustart des Netzwerkes" +
@@ -32,7 +32,7 @@ public class RestartCommand extends Command {
                             "\n" +
                             "§7Bei weiteren Fragen besuche unser §eForum§8!" +
                             "\n" +
-                            " §8» §cforum§8.§clostname§8.§ceu §8«" +
+                            " §8» §cforum§7.§clostname§7.§ceu §8«" +
                             "\n" +
                             "\n" +
                             "§8§m--------------------------------------§r").build()));
@@ -50,12 +50,12 @@ public class RestartCommand extends Command {
                                 case 3:
                                 case 2:
                                 case 1:
-                                    ProxyServer.getInstance().broadcast(new MessageBuilder($.LOSTNAME + "Das Netzwerk wird in §c" + seconds[0] + " Sekunde" + (seconds[0] == 1 ? "" : "n") + " §7neugestartet§8.").build());
+                                    ProxyServer.getInstance().broadcast(new MessageBuilder($.LOSTNAME + "Das Netzwerk wird in §c" + seconds[0] + " Sekunde" + (seconds[0] == 1 ? "" : "n") + " §7neugestartet§7.").build());
                                     break;
                                 case 0:
                                     ProxyServer.getInstance().getPlayers().forEach(all -> all.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
                                             "\n" +
-                                            "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§8." +
+                                            "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7." +
                                             "\n" +
                                             "\n" +
                                             "§7Grund §8➡ §eNeustart des Netzwerkes" +
@@ -63,7 +63,7 @@ public class RestartCommand extends Command {
                                             "\n" +
                                             "§7Bei weiteren Fragen besuche unser §eForum§8!" +
                                             "\n" +
-                                            " §8» §cforum§8.§clostname§8.§ceu §8«" +
+                                            " §8» §cforum§7.§clostname§7.§ceu §8«" +
                                             "\n" +
                                             "\n" +
                                             "§8§m--------------------------------------§r").build()));
@@ -74,7 +74,7 @@ public class RestartCommand extends Command {
                             seconds[0]--;
                         }, 0, 1, TimeUnit.SECONDS));
                     } else {
-                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Es ist §cbereits §7ein Neustart im Gange§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Es ist §cbereits §7ein Neustart im Gange§7.").build());
                     }
                 } else if (strings[0].equalsIgnoreCase("60")) {
                     if (LostProxy.getInstance().getRestartTask() == null) {
@@ -90,12 +90,12 @@ public class RestartCommand extends Command {
                                 case 3:
                                 case 2:
                                 case 1:
-                                    ProxyServer.getInstance().broadcast(new MessageBuilder($.LOSTNAME + "Das Netzwerk wird in §c" + seconds[0] + " Sekunde" + (seconds[0] == 1 ? "" : "n") + " §7neugestartet§8.").build());
+                                    ProxyServer.getInstance().broadcast(new MessageBuilder($.LOSTNAME + "Das Netzwerk wird in §c" + seconds[0] + " Sekunde" + (seconds[0] == 1 ? "" : "n") + " §7neugestartet§7.").build());
                                     break;
                                 case 0:
                                     ProxyServer.getInstance().getPlayers().forEach(all -> all.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
                                             "\n" +
-                                            "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§8." +
+                                            "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7." +
                                             "\n" +
                                             "\n" +
                                             "§7Grund §8➡ §eNeustart des Netzwerkes" +
@@ -103,7 +103,7 @@ public class RestartCommand extends Command {
                                             "\n" +
                                             "§7Bei weiteren Fragen besuche unser §eForum§8!" +
                                             "\n" +
-                                            " §8» §cforum§8.§clostname§8.§ceu §8«" +
+                                            " §8» §cforum§7.§clostname§7.§ceu §8«" +
                                             "\n" +
                                             "\n" +
                                             "§8§m--------------------------------------§r").build()));
@@ -114,16 +114,16 @@ public class RestartCommand extends Command {
                             seconds[0]--;
                         }, 0, 1, TimeUnit.SECONDS));
                     } else {
-                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Es ist §cbereits §7ein Neustart im Gange§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Es ist §cbereits §7ein Neustart im Gange§7.").build());
                     }
                 } else if (strings[0].equalsIgnoreCase("cancel")) {
                     if (LostProxy.getInstance().getRestartTask() != null) {
                         LostProxy.getInstance().getRestartTask().cancel();
                         LostProxy.getInstance().setRestartTask(null);
 
-                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Der Neustart wurde §cabgebrochen§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Der Neustart wurde §cabgebrochen§7.").build());
                     } else {
-                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Es ist §ckein §7Neustart im Gange§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Es ist §ckein §7Neustart im Gange§7.").build());
                     }
                 }
             } else if (strings.length >= 2) {
