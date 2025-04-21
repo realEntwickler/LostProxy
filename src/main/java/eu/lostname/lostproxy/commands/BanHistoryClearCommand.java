@@ -15,7 +15,7 @@ import eu.lostname.lostproxy.builder.MessageBuilder;
 import eu.lostname.lostproxy.interfaces.IPlayer;
 import eu.lostname.lostproxy.interfaces.historyandentries.ban.IBanHistory;
 import eu.lostname.lostproxy.utils.MongoCollection;
-import eu.lostname.lostproxy.utils.Prefix;
+import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -43,16 +43,16 @@ public class BanHistoryClearCommand extends Command implements TabExecutor {
                 IPlayer targetiPlayer = new IPlayer(targetUUID);
                 IBanHistory iBanHistory = LostProxy.getInstance().getHistoryManager().getBanHistory(targetUUID);
                 if (iBanHistory.getHistory().size() > 0) {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Möchtest du wirklich die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7löschen§8?").build());
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "§7[§aKlick§7]").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/bhclear " + strings[0] + " confirmed").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Möchtest du wirklich die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7löschen§8?").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "§7[§aKlick§7]").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/bhclear " + strings[0] + " confirmed").build());
                     if (!LostProxy.getInstance().getHistoryManager().getBanHistoryClearCommandProcess().contains(commandSender.getName())) {
                         LostProxy.getInstance().getHistoryManager().getBanHistoryClearCommandProcess().add(commandSender.getName());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7ist §cleer§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7ist §cleer§8.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
             }
         } else {
             if (strings[1].equalsIgnoreCase("confirmed")) {
@@ -65,15 +65,15 @@ public class BanHistoryClearCommand extends Command implements TabExecutor {
                         if (iBanHistory.getHistory().size() > 0) {
                             iBanHistory.getHistory().clear();
                             LostProxy.getInstance().getHistoryManager().saveBanHistory(iBanHistory);
-                            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Du hast §aerfolgreich §7die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + "  §cgelöscht§8.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §aerfolgreich §7die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + "  §cgelöscht§8.").build());
                         } else {
-                            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7ist §cleer§8.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7ist §cleer§8.").build());
                         }
                     } else {
-                        commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Du hast §ckeine §eVerifizierung §7für diesen §eProzess §7beantragt§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §eVerifizierung §7für diesen §eProzess §7beantragt§8.").build());
                 }
             } else {
                 sendHelp(commandSender);
@@ -82,7 +82,7 @@ public class BanHistoryClearCommand extends Command implements TabExecutor {
     }
 
     private void sendHelp(CommandSender commandSender) {
-        commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Benutzung§8: §c/bhclear <Spieler>").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/bhclear ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").build());
+        commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c/bhclear <Spieler>").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/bhclear ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").build());
     }
 
     @Override

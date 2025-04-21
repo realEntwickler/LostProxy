@@ -4,7 +4,7 @@ import eu.lostname.lostproxy.LostProxy;
 import eu.lostname.lostproxy.builder.MessageBuilder;
 import eu.lostname.lostproxy.interfaces.IPlayer;
 import eu.lostname.lostproxy.interfaces.party.IParty;
-import eu.lostname.lostproxy.utils.Prefix;
+import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -22,7 +22,7 @@ public class PartyChatCommand extends Command {
             ProxiedPlayer proxiedPlayer = (ProxiedPlayer) commandSender;
 
             if (strings.length == 0) {
-                proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Benutzung§8: §5/pc [Nachricht]").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/pc ").build());
+                proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Benutzung§8: §5/pc [Nachricht]").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/pc ").build());
             } else {
                 IParty party = LostProxy.getInstance().getPartyManager().getParty(proxiedPlayer);
 
@@ -32,13 +32,13 @@ public class PartyChatCommand extends Command {
                         stringBuilder.append(string).append(" ");
                     }
 
-                    party.sendMessage(new MessageBuilder(Prefix.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §8➡ §7" + stringBuilder).build());
+                    party.sendMessage(new MessageBuilder($.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §8➡ §7" + stringBuilder).build());
                 } else {
-                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Du bist in §ckeiner §7Party§8.").build());
+                    proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Du bist in §ckeiner §7Party§8.").build());
                 }
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder(Prefix.PARTY + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§8.").build());
+            commandSender.sendMessage(new MessageBuilder($.PARTY + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§8.").build());
         }
     }
 }

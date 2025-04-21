@@ -2,7 +2,7 @@ package eu.lostname.lostproxy.commands;
 
 import eu.lostname.lostproxy.LostProxy;
 import eu.lostname.lostproxy.builder.MessageBuilder;
-import eu.lostname.lostproxy.utils.Prefix;
+import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
@@ -18,7 +18,7 @@ public class RestartCommand extends Command {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage(new MessageBuilder(Prefix.LOSTNAME + "Benutzung§8: §c/restart <now,30,60,cancel> [Grund]").build());
+            commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Benutzung§8: §c/restart <now,30,60,cancel> [Grund]").build());
         } else {
             if (strings.length == 1) {
                 if (strings[0].equalsIgnoreCase("now")) {
@@ -50,7 +50,7 @@ public class RestartCommand extends Command {
                                 case 3:
                                 case 2:
                                 case 1:
-                                    ProxyServer.getInstance().broadcast(new MessageBuilder(Prefix.LOSTNAME + "Das Netzwerk wird in §c" + seconds[0] + " Sekunde" + (seconds[0] == 1 ? "" : "n") + " §7neugestartet§8.").build());
+                                    ProxyServer.getInstance().broadcast(new MessageBuilder($.LOSTNAME + "Das Netzwerk wird in §c" + seconds[0] + " Sekunde" + (seconds[0] == 1 ? "" : "n") + " §7neugestartet§8.").build());
                                     break;
                                 case 0:
                                     ProxyServer.getInstance().getPlayers().forEach(all -> all.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
@@ -74,7 +74,7 @@ public class RestartCommand extends Command {
                             seconds[0]--;
                         }, 0, 1, TimeUnit.SECONDS));
                     } else {
-                        commandSender.sendMessage(new MessageBuilder(Prefix.LOSTPROXY + "Es ist §cbereits §7ein Neustart im Gange§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Es ist §cbereits §7ein Neustart im Gange§8.").build());
                     }
                 } else if (strings[0].equalsIgnoreCase("60")) {
                     if (LostProxy.getInstance().getRestartTask() == null) {
@@ -90,7 +90,7 @@ public class RestartCommand extends Command {
                                 case 3:
                                 case 2:
                                 case 1:
-                                    ProxyServer.getInstance().broadcast(new MessageBuilder(Prefix.LOSTNAME + "Das Netzwerk wird in §c" + seconds[0] + " Sekunde" + (seconds[0] == 1 ? "" : "n") + " §7neugestartet§8.").build());
+                                    ProxyServer.getInstance().broadcast(new MessageBuilder($.LOSTNAME + "Das Netzwerk wird in §c" + seconds[0] + " Sekunde" + (seconds[0] == 1 ? "" : "n") + " §7neugestartet§8.").build());
                                     break;
                                 case 0:
                                     ProxyServer.getInstance().getPlayers().forEach(all -> all.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
@@ -114,16 +114,16 @@ public class RestartCommand extends Command {
                             seconds[0]--;
                         }, 0, 1, TimeUnit.SECONDS));
                     } else {
-                        commandSender.sendMessage(new MessageBuilder(Prefix.LOSTPROXY + "Es ist §cbereits §7ein Neustart im Gange§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Es ist §cbereits §7ein Neustart im Gange§8.").build());
                     }
                 } else if (strings[0].equalsIgnoreCase("cancel")) {
                     if (LostProxy.getInstance().getRestartTask() != null) {
                         LostProxy.getInstance().getRestartTask().cancel();
                         LostProxy.getInstance().setRestartTask(null);
 
-                        commandSender.sendMessage(new MessageBuilder(Prefix.LOSTPROXY + "Der Neustart wurde §cabgebrochen§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Der Neustart wurde §cabgebrochen§8.").build());
                     } else {
-                        commandSender.sendMessage(new MessageBuilder(Prefix.LOSTPROXY + "Es ist §ckein §7Neustart im Gange§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Es ist §ckein §7Neustart im Gange§8.").build());
                     }
                 }
             }
