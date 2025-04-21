@@ -126,6 +126,8 @@ public class RestartCommand extends Command {
                         commandSender.sendMessage(new MessageBuilder($.LOSTPROXY + "Es ist §ckein §7Neustart im Gange§8.").build());
                     }
                 }
+            } else if (strings.length >= 2) {
+                //TODO: Restart with custom grund
             }
         }
     }
