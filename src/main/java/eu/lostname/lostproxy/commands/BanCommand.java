@@ -55,11 +55,11 @@ public class BanCommand extends Command implements TabExecutor {
                     IPlayer targetIPlayer = new IPlayer(uuid);
                     IBan iBan = LostProxy.getInstance().getBanManager().getBan(uuid);
                     if (iBan == null) {
-                        if (commandSender.hasPermission("lostproxy.command.ban.group." + targetIPlayer.getIPermissionGroup().getName().toLowerCase())) {
-                            if (LostProxy.getInstance().getReasonManager().getRegistedBanReasons().size() > 0) {
+                        if (commandSender.hasPermission("lostproxy.command.ban.group." + targetIPlayer.getPermissionGroup().getDisplayName().toLowerCase())) {
+                            if (!LostProxy.getInstance().getReasonManager().getRegistedBanReasons().isEmpty()) {
                                 List<IBanReason> iBanReasons = LostProxy.getInstance().getReasonManager().getRegistedBanReasons().stream().filter(one -> commandSender.hasPermission(one.getPermission())).collect(Collectors.toList());
 
-                                if (iBanReasons.size() > 0) {
+                                if (!iBanReasons.isEmpty()) {
                                     iBanReasons.sort(Comparator.comparingInt(IReason::getId));
 
                                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Verfügbare Banngründe§8:").build());
@@ -95,7 +95,7 @@ public class BanCommand extends Command implements TabExecutor {
                     IPlayer targetIPlayer = new IPlayer(uuid);
                     IBan iBan = LostProxy.getInstance().getBanManager().getBan(uuid);
                     if (iBan == null) {
-                        if (commandSender.hasPermission("lostproxy.command.ban.group." + targetIPlayer.getIPermissionGroup().getName().toLowerCase())) {
+                        if (commandSender.hasPermission("lostproxy.command.ban.group." + targetIPlayer.getPermissionGroup().getDisplayName().toLowerCase())) {
                             try {
                                 int reasonId = Integer.parseInt(strings[1]);
 
@@ -150,8 +150,7 @@ public class BanCommand extends Command implements TabExecutor {
                                             }
                                         }
 
-                                        if (commandSender instanceof ProxiedPlayer) {
-                                            ProxiedPlayer sender = (ProxiedPlayer) commandSender;
+                                        if (commandSender instanceof ProxiedPlayer sender) {
                                             IPlayer iPlayerSync = new IPlayer(sender.getUniqueId());
                                             LostProxy.getInstance().getTeamManager().sendBanNotify(iPlayerSync.getDisplay() + sender.getName(), targetIPlayer.getDisplay() + targetIPlayer.getPlayerName(), iBanReason);
                                         } else {
@@ -194,12 +193,11 @@ public class BanCommand extends Command implements TabExecutor {
         commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c/ban <Spieler> (ID)").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/ban ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").build());
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public Iterable<String> onTabComplete(CommandSender commandSender, String[] strings) {
         ArrayList<String> list = new ArrayList<>();
         if (strings.length == 1) {
-            CloudServices.PLAYER_MANAGER.getOnlinePlayers().stream().filter(one -> one.getName().startsWith(strings[0])).forEach(one -> list.add(one.getName()));
+            CloudServices.PLAYER_MANAGER.onlinePlayers().players().stream().filter(one -> one.name().startsWith(strings[0])).forEach(one -> list.add(one.name()));
         } else if (strings.length == 2) {
             LostProxy.getInstance().getReasonManager().getRegistedBanReasons().stream().filter(one -> commandSender.hasPermission(one.getPermission()) && String.valueOf(one.getId()).startsWith(strings[1])).forEach(one -> list.add(String.valueOf(one.getId())));
         }
