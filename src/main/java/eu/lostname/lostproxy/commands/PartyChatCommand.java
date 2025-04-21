@@ -21,7 +21,7 @@ public class PartyChatCommand extends Command {
         if (commandSender instanceof ProxiedPlayer proxiedPlayer) {
 
             if (strings.length == 0) {
-                proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Benutzung§8: §5/pc [Nachricht]").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/pc ").build());
+                proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Benutzung§8: §5/pc [Nachricht]").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/pc ").build());
             } else {
                 IParty party = LostProxy.getInstance().getPartyManager().getParty(proxiedPlayer);
 

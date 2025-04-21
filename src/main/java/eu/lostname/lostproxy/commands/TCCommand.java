@@ -16,6 +16,7 @@ import eu.lostname.lostproxy.interfaces.IPlayer;
 import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
@@ -30,21 +31,20 @@ public class TCCommand extends Command {
         if (commandSender instanceof ProxiedPlayer player) {
 
             if (strings.length == 0) {
-                player.sendMessage(new MessageBuilder($.TMS + "Benutzung von §a/tc§8:").build());
-                player.sendMessage(new MessageBuilder("§8» §a/tc [Nachricht] §8┃ §7Schreibe in den TeamChat").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tc ").build());
-                player.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+                player.sendMessage(new MessageBuilder($.TMS + "Benutzung von §e/tc§8:").build());
+                player.sendMessage(new MessageBuilder("§8┃ §e/tc [Nachricht] §8» §7Schreibe in den TeamChat").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tc ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
             } else {
                 if (LostProxy.getInstance().getTeamManager().isLoggedIn(player)) {
                     String msg = LostProxy.getInstance().formatArrayToString(0, strings);
 
                     IPlayer iPlayer = new IPlayer(player.getUniqueId());
-                    LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplay() + player.getName() + " §8» §7" + msg).build()));
+                    LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TEAM_CHAT + iPlayer.getDisplaywithPlayername() + " §8➡ §7" + msg).build()));
                 } else {
-                    player.sendMessage(new MessageBuilder($.TMS + "Du bist §cnicht §7eingeloggt§7.").build());
+                    player.sendMessage(new MessageBuilder($.TMS + "Du bist §cnicht §7eingeloggt.").build());
                 }
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.TMS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§7.").build());
+            commandSender.sendMessage(new MessageBuilder($.TMS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen.").build());
         }
     }
 }

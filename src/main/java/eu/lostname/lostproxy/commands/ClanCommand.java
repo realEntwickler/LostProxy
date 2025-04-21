@@ -32,11 +32,11 @@ public class ClanCommand extends Command {
 
             if (strings.length == 0) {
                 proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Benutzung von §e/clan§8:").build());
-                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §e/clan create <Name> <Tag> §8» §7Erstellt einen Clan").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/clan create ").build());
-                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §e/clan delete §8» §7Löscht einen Clan").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan delete").build());
-                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §e/clan info §8» §7Zeigt Informationen über deinen Clan").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/clan info").build());
-                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §e/clan leave §8» §7Verlässt einen Clan").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/clan leave").build());
-                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §e/clan 2 §8» §7zeigt weitere Hilfe").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/clan 2").build());
+                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §e/clan create <Name> <Tag> §8» §7Erstellt einen Clan").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/clan create ").build());
+                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §e/clan delete §8» §7Löscht einen Clan").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan delete").build());
+                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §e/clan info §8» §7Zeigt Informationen über deinen Clan").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/clan info").build());
+                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §e/clan leave §8» §7Verlässt einen Clan").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/clan leave").build());
+                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §e/clan 2 §8» §7zeigt weitere Hilfe").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/clan 2").build());
                 proxiedPlayer.sendMessage(new MessageBuilder("§8§m-------------------§r").build());
             } else if (strings.length == 1) {
                 switch (strings[0]) {
@@ -109,7 +109,7 @@ public class ClanCommand extends Command {
                                         }
                                     });
                                 } else {
-                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Da du der Einzige §eClanleader §7bist§8, §7musst du den Clan §clöschen§8, §7um ihn zu verlassen§7.").build());
+                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Da du der Einzige §eClanleader §7bist§8, §7musst du den Clan §clöschen§8, §7um ihn zu verlassen.").build());
                                 }
                             } else {
 
@@ -125,7 +125,7 @@ public class ClanCommand extends Command {
                                 });
                             }
                         } else {
-                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist in §ckeinem §7Clan§7.").build());
+                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist in §ckeinem §7Clan.").build());
                         }
                         break;
                 }
@@ -147,7 +147,7 @@ public class ClanCommand extends Command {
                                                 if (LostProxy.getInstance().getClanManager().getClanInvitationsByPlayer(targetUniqueId).stream().noneMatch(filter -> filter.getClanUid().equalsIgnoreCase(clan.getId()))) {
                                                     new IClanInvitation(targetUniqueId.toString(), clan.getId()).save();
 
-                                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetIPlayer.getDisplaywithPlayername() + " §7wurde in den Clan eingeladen§7.").build());
+                                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetIPlayer.getDisplaywithPlayername() + " §7wurde in den Clan eingeladen.").build());
 
                                                     ProxiedPlayer targetProxiedPlayer = ProxyServer.getInstance().getPlayer(targetUniqueId);
                                                     if (targetProxiedPlayer != null) {
@@ -163,26 +163,26 @@ public class ClanCommand extends Command {
                                                         targetProxiedPlayer.sendMessage(informationComponent);
                                                     }
                                                 } else {
-                                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetIPlayer.getDisplaywithPlayername() + " §7hat §cbereits §7eine Einladung zum Clan erhalten§7.").build());
+                                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetIPlayer.getDisplaywithPlayername() + " §7hat §cbereits §7eine Einladung zum Clan erhalten.").build());
                                                 }
                                             } else {
                                                 proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Der Clan ist §cvoll§7.").build());
                                             }
                                         } else {
-                                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast innerhalb des Clans dazu §ckeine §7Rechte§7.").build());
+                                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast innerhalb des Clans dazu §ckeine §7Rechte.").build());
                                         }
                                     } else {
-                                        proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist in §ckeinem §7Clan§7.").build());
+                                        proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist in §ckeinem §7Clan.").build());
                                     }
                                 } else {
                                     proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetIPlayer.getDisplaywithPlayername() + " §7hat Clan-Einladungen §cdeaktiviert§7.").build());
                                 }
                             } else {
-                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetIPlayer.getDisplaywithPlayername() + " §7ist §cbereits §7in einem Clan§7.").build());
+                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetIPlayer.getDisplaywithPlayername() + " §7ist §cbereits §7in einem Clan.").build());
 
                             }
                         } else {
-                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
+                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Der angegebene Spieler wurde §cnicht §7gefunden.").build());
                         }
                         break;
                     case "accept":
@@ -204,21 +204,21 @@ public class ClanCommand extends Command {
                                             iClanPlayerData.save();
 
                                             playerDatasFromClan.add(iClanPlayerData);
-                                            playerDatasFromClan.stream().filter(filter -> new IPlayer(filter.getUniqueId()).isOnline()).forEach(one -> ProxyServer.getInstance().getPlayer(one.getUniqueId()).sendMessage(new MessageBuilder($.CLANS + iPlayer.getDisplaywithPlayername() + " §7ist dem Clan beigetreten§7.").build()));
+                                            playerDatasFromClan.stream().filter(filter -> new IPlayer(filter.getUniqueId()).isOnline()).forEach(one -> ProxyServer.getInstance().getPlayer(one.getUniqueId()).sendMessage(new MessageBuilder($.CLANS + iPlayer.getDisplaywithPlayername() + " §7ist dem Clan beigetreten.").build()));
                                         } else {
-                                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Die Einladung konnte §cnicht §7akzeptiert werden§8, §7da der Clan §cvoll §7ist§7.").build());
+                                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Die Einladung konnte §cnicht §7akzeptiert werden§8, §7da der Clan §cvoll §7ist.").build());
                                         }
                                     } else {
-                                        proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast §ckeine §7Einladung von diesem Clan erhalten§7.").build());
+                                        proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast §ckeine §7Einladung von diesem Clan erhalten.").build());
                                     }
                                 } else {
-                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Der angegebene Clan wurde §cnicht §7gefunden§7.").build());
+                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Der angegebene Clan wurde §cnicht §7gefunden.").build());
                                 }
                             } else {
-                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast §ckeine §7Einladungen zu einem Clan erhalten§7.").build());
+                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast §ckeine §7Einladungen zu einem Clan erhalten.").build());
                             }
                         } else {
-                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist §cbereits §7in einem Clan§7.").build());
+                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist §cbereits §7in einem Clan.").build());
                         }
                         break;
                     case "deny":
@@ -236,13 +236,13 @@ public class ClanCommand extends Command {
                                     proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast die Einladung von §e" + clan.getName() + " §7erfolgreich §cabgelehnt§7.").build());
                                     playerDatasFromClan.stream().filter(filter -> filter.getClanRole() != EClanRole.MEMBER && new IPlayer(filter.getUniqueId()).isOnline()).forEach(one -> ProxyServer.getInstance().getPlayer(one.getUniqueId()).sendMessage(new MessageBuilder($.CLANS + iPlayer.getDisplaywithPlayername() + " §7hat die Claneinladung §cabgelehnt§7.").build()));
                                 } else {
-                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast §ckeine §7Einladung von diesem Clan erhalten§7.").build());
+                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast §ckeine §7Einladung von diesem Clan erhalten.").build());
                                 }
                             } else {
-                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Der angegebene Clan wurde §cnicht §7gefunden§7.").build());
+                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Der angegebene Clan wurde §cnicht §7gefunden.").build());
                             }
                         } else {
-                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast §ckeine §7Einladungen zu einem Clan erhalten§7.").build());
+                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast §ckeine §7Einladungen zu einem Clan erhalten.").build());
                         }
                         break;
                     case "promote":
@@ -275,20 +275,20 @@ public class ClanCommand extends Command {
                                                 });
                                                 break;
                                             default:
-                                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetColorWithPlayername + " §7kann §cnicht §7mehr befördert werden§7.").build());
+                                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetColorWithPlayername + " §7kann §cnicht §7mehr befördert werden.").build());
                                                 break;
                                         }
                                     } else {
-                                        proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetColorWithPlayername + " §7ist §cnicht §7in deinem Clan§7.").build());
+                                        proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetColorWithPlayername + " §7ist §cnicht §7in deinem Clan.").build());
                                     }
                                 } else {
-                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
+                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Der angegebene Spieler wurde §cnicht §7gefunden.").build());
                                 }
                             } else {
-                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast innerhalb des Clans dazu §ckeine §7Rechte§7.").build());
+                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast innerhalb des Clans dazu §ckeine §7Rechte.").build());
                             }
                         } else {
-                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist in §ckeinem §7Clan§7.").build());
+                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist in §ckeinem §7Clan.").build());
                         }
                         break;
                     case "demote":
@@ -322,29 +322,29 @@ public class ClanCommand extends Command {
                                                     });
                                                     break;
                                                 default:
-                                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetColorWithPlayername + " §7kann §cnicht §7mehr heruntergestuft werden§7.").build());
+                                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetColorWithPlayername + " §7kann §cnicht §7mehr heruntergestuft werden.").build());
                                                     break;
                                             }
                                         } else {
-                                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetColorWithPlayername + " §7ist §cnicht §7in deinem Clan§7.").build());
+                                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + targetColorWithPlayername + " §7ist §cnicht §7in deinem Clan.").build());
                                         }
                                     } else {
-                                        proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
+                                        proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Der angegebene Spieler wurde §cnicht §7gefunden.").build());
                                     }
                                 } else {
-                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du kannst dich §cnicht §7selber herunterstufen§7.").build());
+                                    proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du kannst dich §cnicht §7selber herunterstufen.").build());
                                 }
                             } else {
-                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast innerhalb des Clans dazu §ckeine §7Rechte§7.").build());
+                                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du hast innerhalb des Clans dazu §ckeine §7Rechte.").build());
                             }
                         } else {
-                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist in §ckeinem §7Clan§7.").build());
+                            proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist in §ckeinem §7Clan.").build());
                         }
                         break;
                 }
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.CLANS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§7.").build());
+            commandSender.sendMessage(new MessageBuilder($.CLANS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen.").build());
         }
     }
 }

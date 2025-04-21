@@ -35,12 +35,11 @@ public class MuteReasonsCommand extends Command implements TabExecutor {
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0 || strings.length == 5 || strings.length >= 7) {
             commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/mutereasons§8:").build());
-            commandSender.sendMessage(new MessageBuilder("§8» §c/mutereasons list §8┃ §7Liste dir alle Mutegruende auf").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons list").build());
-            commandSender.sendMessage(new MessageBuilder("§8» §c/mutereasons add <ID> <Name> <Zeit> <Zeiteinheit> <Permission> §8┃ §7Liste dir alle Mutegruende auf").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons add NAME ZEIT ZEITEINHEIT PERMISSION").build());
-            commandSender.sendMessage(new MessageBuilder("§8» §c/mutereasons <ID> §8┃ §7Zeige Informationen über einen Mutegrund an").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons ID").build());
-            commandSender.sendMessage(new MessageBuilder("§8» §c/mutereasons <ID> set <id,name,time,timeunit,permission> <Wert> §8┃ §7Bearbeite einen Mutegrund").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons ID set ").build());
-            commandSender.sendMessage(new MessageBuilder("§8» §c/mutereasons <ID> delete §8┃ §7Lösche einen Mutegrund").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons ID set ").build());
-            commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mutereasons list §8» §7Liste dir alle Mutegruende auf").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons list").build());
+            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mutereasons add <ID> <Name> <Zeit> <Zeiteinheit> <Permission> §8» §7Liste dir alle Mutegruende auf").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons add NAME ZEIT ZEITEINHEIT PERMISSION").build());
+            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mutereasons <ID> §8» §7Zeige Informationen über einen Mutegrund an").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons ID").build());
+            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mutereasons <ID> set <id,name,time,timeunit,permission> <Wert> §8» §7Bearbeite einen Mutegrund").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons ID set ").build());
+            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mutereasons <ID> delete §8» §7Lösche einen Mutegrund").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons ID set ").build());
         } else if (strings.length == 1) {
             if ("list".equals(strings[0])) {
                 if (commandSender.hasPermission("lostproxy.command.mutereasons.list")) {
@@ -76,7 +75,7 @@ public class MuteReasonsCommand extends Command implements TabExecutor {
                     if (strings[1].equalsIgnoreCase("delete")) {
                         if (commandSender.hasPermission("lostproxy.command.mutereasons.delete")) {
                             commandSender.sendMessage(new MessageBuilder($.BKMS + "Soll der Mutegrund §e" + iMuteReason.getName() + " §8(§e" + iMuteReason.getId() + "§8) §7tatsächlich gelöscht werden§7.").build());
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "§7[§a§lKlick§7]").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mutereasons " + iMuteReason.getId() + " delete confirmed").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "§a┃").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mutereasons " + iMuteReason.getId() + " delete confirmed").build());
 
                             if (!LostProxy.getInstance().getReasonManager().getMuteReasonCommandProcess().contains(commandSender.getName())) {
                                 LostProxy.getInstance().getReasonManager().getMuteReasonCommandProcess().add(commandSender.getName());

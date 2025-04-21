@@ -36,16 +36,15 @@ public class MuteHistoryClearCommand extends Command implements TabExecutor {
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0 || strings.length >= 3) {
             commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/mhclear§8:").build());
-            commandSender.sendMessage(new MessageBuilder("§8» §c/mhclear <Spieler> §8┃ §7Leert die Mute-History des angegebenen Spielers").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mhclear ").build());
-            commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mhclear <Spieler> §8» §7Leert die Mute-History des angegebenen Spielers").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mhclear ").build());
         } else if (strings.length == 1) {
             UUID targetUUID = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (targetUUID != null) {
                 IPlayer targetiPlayer = new IPlayer(targetUUID);
                 IMuteHistory iMuteHistory = LostProxy.getInstance().getHistoryManager().getMuteHistory(targetUUID);
                 if (!iMuteHistory.getHistory().isEmpty()) {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Möchtest du wirklich die §eMute-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §clöschen§8?").build());
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "§7[§a§lKlick§7]").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mhclear " + strings[0] + " confirmed").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Möchtest du wirklich die §eMute-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §clöschen§7?").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "§a☑").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mhclear " + strings[0] + " confirmed").build());
                     if (!LostProxy.getInstance().getHistoryManager().getMuteHistoryClearCommandProcess().contains(commandSender.getName())) {
                         LostProxy.getInstance().getHistoryManager().getMuteHistoryClearCommandProcess().add(commandSender.getName());
                     }

@@ -21,6 +21,7 @@ import eu.lostname.lostproxy.utils.$;
 import eu.lostname.lostproxy.utils.MongoCollection;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
@@ -40,8 +41,7 @@ public class UnmuteCommand extends Command implements TabExecutor {
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length <= 1) {
             commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/unmute§8:").build());
-            commandSender.sendMessage(new MessageBuilder("§8» §c/unmute <Spieler> [Grund] §8┃ §7Entmutet einen gemuteten Spieler").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/unmute ").build());
-            commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+            commandSender.sendMessage(new MessageBuilder("§8┃ §c/unmute <Spieler> [Grund] §8» §7Entmutet einen gemuteten Spieler").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/unmute ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
         } else {
             UUID uuid = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (uuid != null) {
@@ -55,13 +55,13 @@ public class UnmuteCommand extends Command implements TabExecutor {
 
                     iMuteHistory.addEntry(new IMuteEntry(EMuteEntryType.UNMUTE_ENTRY, uuid, invokerId, System.currentTimeMillis(), reason, 0, null, 0));
                     LostProxy.getInstance().getHistoryManager().saveMuteHistory(iMuteHistory);
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7wurde §aentmutet§7.").build());
                     LostProxy.getInstance().getTeamManager().sendUnmuteNotify(commandSender instanceof ProxiedPlayer ? new IPlayer(((ProxiedPlayer) commandSender).getUniqueId()).getDisplay() + commandSender.getName() : "§4Konsole", targetIPlayer.getDisplay() + targetIPlayer.getPlayerName(), reason);
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplaywithPlayername() + " §7wurde §aentmutet§7.").build());
                 } else {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7ist §cnicht §7gemutet§7.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + targetIPlayer.getDisplaywithPlayername() + " §7ist §cnicht §7gemutet.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden.").build());
             }
         }
     }

@@ -40,7 +40,7 @@ public class BanHistoryCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length != 1) {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c/banhistory <Spieler>").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/bh ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c/banhistory <Spieler>").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/bh ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
         } else {
             UUID targetUUID = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (targetUUID != null) {
@@ -48,7 +48,7 @@ public class BanHistoryCommand extends Command implements TabExecutor {
                 IPlayer targetIPlayer = new IPlayer(targetUUID);
                 if (!iBanHistory.getHistory().isEmpty()) {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Bans von " + targetIPlayer.getDisplaywithPlayername() + "§8:").build());
-                    commandSender.sendMessage(new MessageBuilder("§8┃ §7Anzahl §8» §c" + iBanHistory.getHistory().size()).build());
+                    commandSender.sendMessage(new MessageBuilder("§8┃ §7Anzahl §8» §e" + iBanHistory.getHistory().size()).build());
                     AtomicInteger currentEntry = new AtomicInteger(-1);
 
                     iBanHistory.getHistory().forEach(iBanEntry -> {
@@ -63,7 +63,7 @@ public class BanHistoryCommand extends Command implements TabExecutor {
                                 String unbanTime = new SimpleDateFormat("HH:mm:ss").format(new Date(iBanEntry.getEnd()));
 
                                 boolean banIsPermanent = iBanEntry.getTime() == -1;
-                                commandSender.sendMessage(new MessageBuilder("§8┃ §cBan §8» §e" + date + " §7@ §e" + time + " §8» " + (iBanEntry.isInvokerConsole() ? "§4System" : new IPlayer(UUID.fromString(iBanEntry.getInvokerId())).getDisplaywithPlayername()) + " §8» §e" + iBanEntry.getReason() + " §8» §c" + (banIsPermanent ? "permanent" : iBanEntry.getTime() + " " + ETimeUnit.getDisplayName(iBanEntry.getTime(), iBanEntry.getETimeUnit())) + " §8» §a" + (banIsPermanent ? "/" : unbanDate + " §7@ §a" + unbanTime)).build());
+                                commandSender.sendMessage(new MessageBuilder("§8┃ §cBan §8» §e" + date + " §7@ §e" + time + " §8» " + (iBanEntry.isInvokerConsole() ? "§4System" : new IPlayer(UUID.fromString(iBanEntry.getInvokerId())).getDisplaywithPlayername()) + " §8» §e" + iBanEntry.getReason() + " §8» §c" + (banIsPermanent ? "§4permanent" : iBanEntry.getTime() + " " + ETimeUnit.getDisplayName(iBanEntry.getTime(), iBanEntry.getETimeUnit())) + " §8» §a" + (banIsPermanent ? "/" : unbanDate + " §7@ §a" + unbanTime)).build());
                                 break;
                             case UNBAN_ENTRY:
                                 commandSender.sendMessage(new MessageBuilder("§8┃ §aUnban §8» §e" + date + " §7@ §e" + time + " §8» " + (iBanEntry.isInvokerConsole() ? "§4System" : new IPlayer(UUID.fromString(iBanEntry.getInvokerId())).getDisplaywithPlayername()) + " §8» §e" + iBanEntry.getReason()).build());
@@ -75,9 +75,9 @@ public class BanHistoryCommand extends Command implements TabExecutor {
 
                         currentEntry.set(currentEntry.get() + 1);
 
-                        if (iBanHistory.getHistory().size() == currentEntry.get()) {
+                        /*if (iBanHistory.getHistory().size() == currentEntry.get()) {
                             commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
-                        }
+                        }*/
                     });
                 } else {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + targetIPlayer.getDisplaywithPlayername() + " §7hat §ckeine §7Ban-History.").build());

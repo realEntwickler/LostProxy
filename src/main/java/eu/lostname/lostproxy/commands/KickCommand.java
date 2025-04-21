@@ -20,6 +20,7 @@ import eu.lostname.lostproxy.utils.CloudServices;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
@@ -35,9 +36,7 @@ public class KickCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/kick§8:").build());
-            commandSender.sendMessage(new MessageBuilder("§8» §c/kick <Spieler> [Grund] §8┃ §7Kicke den angegebenen Spieler mit einem Grund").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/kick ").build());
-            commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c§c/kick <Spieler> [Grund]").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/kick ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
         } else if (strings.length == 1) {
             commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
         } else {
@@ -77,11 +76,11 @@ public class KickCommand extends Command implements TabExecutor {
                         if (commandSender instanceof ProxiedPlayer) {
                             LostProxy.getInstance().getTeamManager().sendKickNotify(new IPlayer(((ProxiedPlayer) commandSender).getUniqueId()).getDisplaywithPlayername(), targetIPlayer.getDisplaywithPlayername(), reason);
                         } else {
-                            LostProxy.getInstance().getTeamManager().sendKickNotify("§4Konsole", targetIPlayer.getDisplay() + targetIPlayer.getPlayerName(), reason);
+                            LostProxy.getInstance().getTeamManager().sendKickNotify("§4Konsole", targetIPlayer.getDisplaywithPlayername(), reason);
                         }
-                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7wegen §e" + reason + " §7gekickt§7.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplaywithPlayername() + " §7wegen §e" + reason + " §7gekickt.").build());
                     } else {
-                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7zu §ekicken§7.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getDisplaywithPlayername() + " §7zu §ekicken§7.").build());
                     }
                 } else {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst dich §cnicht §7selber §ekicken§7.").build());

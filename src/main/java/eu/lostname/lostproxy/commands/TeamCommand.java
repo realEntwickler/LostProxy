@@ -17,6 +17,7 @@ import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
@@ -35,11 +36,10 @@ public class TeamCommand extends Command implements TabExecutor {
         if (commandSender instanceof ProxiedPlayer player) {
 
             if (strings.length == 0) {
-                player.sendMessage(new MessageBuilder($.TMS + "Benutzung von §a/team§8:").build());
-                player.sendMessage(new MessageBuilder("§8» §a/team login §8┃ §7Loggt dich in das Team Management System ein").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team login").build());
-                player.sendMessage(new MessageBuilder("§8» §a/team logout §8┃ §7Loggt dich aus dem Team Management System aus").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team logout").build());
-                player.sendMessage(new MessageBuilder("§8» §a/team list §8┃ §7Liste dir alle verfügbaren Teammitglieder auf").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team list").build());
-                player.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+                player.sendMessage(new MessageBuilder($.TMS + "Benutzung von §e/team§8:").build());
+                player.sendMessage(new MessageBuilder("§8┃ §e/team login §8» §7Loggt dich in das Team Management System ein").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team login").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
+                player.sendMessage(new MessageBuilder("§8┃ §e/team logout §8» §7Loggt dich aus dem Team Management System aus").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team logout").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
+                player.sendMessage(new MessageBuilder("§8┃ §e/team list §8» §7Liste dir alle verfügbaren Teammitglieder auf").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team list").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
             } else if (strings.length == 1) {
                 IPlayer iPlayer = new IPlayer(player.getUniqueId());
                 switch (strings[0]) {
@@ -49,13 +49,13 @@ public class TeamCommand extends Command implements TabExecutor {
                                 if (LostProxy.getInstance().getTeamManager().login(player)) {
                                     LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplay() + player.getName() + " §7hat sich §aeingeloggt§7.").build()));
                                 } else {
-                                    player.sendMessage(new MessageBuilder($.TMS + "§7Es ist ein §4Fehler §7aufgetreten§7. §7Bitte kontaktiere sofort das Referat §4DEV/01§8!").build());
+                                    player.sendMessage(new MessageBuilder($.TMS + "§7Es ist ein §4Fehler §7aufgetreten§7. §7Bitte kontaktiere sofort das Referat §4DEV/01§7.").build());
                                 }
                             } else {
-                                player.sendMessage(new MessageBuilder($.TMS + "Du bist §cbereits §7eingeloggt§7.").build());
+                                player.sendMessage(new MessageBuilder($.TMS + "Du bist §cbereits §7eingeloggt.").build());
                             }
                         } else {
-                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§7.").build());
+                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen.").build());
                         }
                         break;
                     case "logout":
@@ -65,13 +65,13 @@ public class TeamCommand extends Command implements TabExecutor {
                                     player.sendMessage(new MessageBuilder($.TMS + "Du wurdest §causgeloggt§7.").build());
                                     LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder($.TMS + iPlayer.getDisplay() + player.getName() + " §7hat sich §causgeloggt§7.").build()));
                                 } else {
-                                    player.sendMessage(new MessageBuilder($.TMS + "§7Es ist ein §4Fehler §7aufgetreten§7. §7Bitte kontaktiere sofort das Referat §4DEV/01§8!").build());
+                                    player.sendMessage(new MessageBuilder($.TMS + "§7Es ist ein §4Fehler §7aufgetreten§7. §7Bitte kontaktiere sofort das Referat §4DEV/01§7.").build());
                                 }
                             } else {
-                                player.sendMessage(new MessageBuilder($.TMS + "Du bist §cnicht §7eingeloggt§7.").build());
+                                player.sendMessage(new MessageBuilder($.TMS + "Du bist §cnicht §7eingeloggt.").build());
                             }
                         } else {
-                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§7.").build());
+                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen.").build());
                         }
                         break;
                     case "list":
@@ -79,21 +79,21 @@ public class TeamCommand extends Command implements TabExecutor {
                             player.sendMessage(new MessageBuilder($.TMS + "Übersicht der Teammitglieder§8:").build());
                             ProxyServer.getInstance().getPlayers().stream().filter(filter -> filter.hasPermission("lostproxy.command.team")).sorted(Comparator.comparingInt(one -> new IPlayer(one.getUniqueId()).getSortId())).forEach(all -> {
                                 IPlayer allIPlayer = new IPlayer(all.getUniqueId());
-                                player.sendMessage(new MessageBuilder("§8» " + allIPlayer.getDisplay() + allIPlayer.getPlayerName() + " §8┃ " + (LostProxy.getInstance().getTeamManager().isLoggedIn(all) ? "§a✔" : "§c✖") + " §8» §7" + all.getServer().getInfo().getName()).build());
+                                player.sendMessage(new MessageBuilder("§8┃ " + allIPlayer.getDisplaywithPlayername() + " §8» " + (LostProxy.getInstance().getTeamManager().isLoggedIn(all) ? "§a✔" : "§c✖") + " §8┃ §7" + all.getServer().getInfo().getName()).build());
                             });
                         } else {
-                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§7.").build());
+                            player.sendMessage(new MessageBuilder($.TMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen.").build());
                         }
                         break;
                     default:
-                        player.sendMessage(new MessageBuilder($.TMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
+                        player.sendMessage(new MessageBuilder($.TMS + "Bitte beachte die §eBenutzung §7dieses Kommandos.").build());
                         break;
                 }
             } else {
-                player.sendMessage(new MessageBuilder($.TMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
+                player.sendMessage(new MessageBuilder($.TMS + "Bitte beachte die §eBenutzung §7dieses Kommandos.").build());
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.TMS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§7.").build());
+            commandSender.sendMessage(new MessageBuilder($.TMS + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen.").build());
         }
     }
 

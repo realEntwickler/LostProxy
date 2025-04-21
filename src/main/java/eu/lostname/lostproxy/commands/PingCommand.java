@@ -46,18 +46,18 @@ public class PingCommand extends Command implements TabExecutor {
 
                     if (target != null) {
                         IPlayer iPlayer = new IPlayer(target.getUniqueId());
-                        player.sendMessage(new MessageBuilder($.LOSTNAME + "Der Ping von " + iPlayer.getDisplay() + target.getName() + " §7beträgt aktuell§8: §c" + target.getPing() + "ms").build());
+                        player.sendMessage(new MessageBuilder($.LOSTNAME + "Der Ping von " + iPlayer.getDisplaywithPlayername() + " §7beträgt aktuell§8: §c" + target.getPing() + "ms").build());
                     } else {
                         player.sendMessage(new MessageBuilder($.LOSTNAME + "Der angegebene Spieler konnte §cnicht §7gefunden werden§7.").build());
                     }
                 } else {
-                    player.sendMessage(new MessageBuilder($.LOSTNAME + "Dein Ping beträgt aktuell §8» §c" + player.getPing() + "ms").build());
+                    player.sendMessage(new MessageBuilder($.LOSTNAME + "Dein Ping beträgt aktuell§8: §c" + player.getPing() + "ms").build());
                 }
             } else {
-                player.sendMessage(new MessageBuilder($.LOSTNAME + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
+                player.sendMessage(new MessageBuilder($.LOSTNAME + "Bitte beachte die §eBenutzung §7dieses Kommandos.").build());
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§7.").build());
+            commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen.").build());
         }
     }
 

@@ -40,7 +40,7 @@ public class EACommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length != 1) {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c/ea <Spieler>").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/ea ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c/ea <Spieler>").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/ea ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
         } else {
             UUID uuid = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (uuid != null) {

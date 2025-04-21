@@ -37,7 +37,6 @@ public class KickHistoryClearCommand extends Command implements TabExecutor {
         if (strings.length == 0) {
             commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/khclear§8:").build());
             commandSender.sendMessage(new MessageBuilder("§8» §c/khclear <Spieler> §8┃ §7Leert die Kick-History des angegebenen Spielers").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/khclear ").build());
-            commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
         } else if (strings.length == 1) {
             UUID targetUUID = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (targetUUID != null) {

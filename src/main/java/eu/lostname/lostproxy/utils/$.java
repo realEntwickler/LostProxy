@@ -16,9 +16,10 @@ public class $ {
     public static final String LOSTNAME = "§8┃ §cLostName §8» §7";
     public static final String NOTIFICATIONS = "§8┃ §bNotify §8» §7";
     public static final String WARTUNGEN = "§8┃ §5Maintenance §8» §7";
-    public static final String BKMS = "§8┃ §cBKM-System §8» §7";
+    public static final String BKMS = "§8┃ §cBKMS §8» §7";
     public static final String TEAMSPEAK = "§8┃ §bTeamSpeak §8» §7";
     public static final String TMS = "§8┃ §eTeam §8» §7";
+    public static final String TEAM_CHAT = "§8┃ §eTeamChat §8» §7";
     public static final String FRIENDS = "§8┃ §aFreunde §8» §7";
     public static final String BROADCAST = "§8┃ §eBroadcast §8» §7";
     public static final String PARTY = "§8┃ §5Party §8» §7";
