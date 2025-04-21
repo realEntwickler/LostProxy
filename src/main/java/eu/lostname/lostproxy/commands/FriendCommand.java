@@ -72,8 +72,8 @@ public class FriendCommand extends Command {
                     case "list":
                         if (!iFriendData.getFriends().isEmpty()) {
                             player.sendMessage(new MessageBuilder($.FRIENDS + "Deine Freundesliste §8(§e" + iFriendData.getFriends().size() + "§8):").build());
-                            List<String> onlineFriends = iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline()).filter(filter -> LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSeeOnlineStatusAllowed()).collect(Collectors.toList());
-                            List<String> offlineFriends = iFriendData.getFriends().keySet().stream().filter(filter -> !new IPlayer(UUID.fromString(filter)).isOnline() || !LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSeeOnlineStatusAllowed()).collect(Collectors.toList());
+                            List<String> onlineFriends = iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline()).filter(filter -> LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSeeOnlineStatusAllowed()).toList();
+                            List<String> offlineFriends = iFriendData.getFriends().keySet().stream().filter(filter -> !new IPlayer(UUID.fromString(filter)).isOnline() || !LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSeeOnlineStatusAllowed()).toList();
 
                             onlineFriends.forEach(online -> {
                                 IPlayer friendiPlayer = new IPlayer(UUID.fromString(online));
@@ -384,7 +384,7 @@ public class FriendCommand extends Command {
                         }
                         break;
                     case "broadcast":
-                        List<String> sortedFriends = iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline() && LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSentMessages()).collect(Collectors.toList());
+                        List<String> sortedFriends = iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline() && LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSentMessages()).toList();
 
                         if (!sortedFriends.isEmpty()) {
                             sortedFriends.forEach(sortedFriend -> {
@@ -403,7 +403,7 @@ public class FriendCommand extends Command {
                 }
             } else {
                 if (strings[0].equalsIgnoreCase("broadcast")) {
-                    List<String> sortedFriends = iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline() && LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSentMessages()).collect(Collectors.toList());
+                    List<String> sortedFriends = iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline() && LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSentMessages()).toList();
 
                     if (!sortedFriends.isEmpty()) {
                         String message = LostProxy.getInstance().formatArrayToString(1, strings);

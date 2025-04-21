@@ -18,7 +18,6 @@ import net.md_5.bungee.api.plugin.Command;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class ClanCommand extends Command {
     public ClanCommand(String clan, String s, String clans) {
@@ -205,9 +204,7 @@ public class ClanCommand extends Command {
                                             iClanPlayerData.save();
 
                                             playerDatasFromClan.add(iClanPlayerData);
-                                            playerDatasFromClan.stream().filter(filter -> new IPlayer(filter.getUniqueId()).isOnline()).forEach(one -> {
-                                                ProxyServer.getInstance().getPlayer(one.getUniqueId()).sendMessage(new MessageBuilder($.CLANS + iPlayer.getDisplaywithPlayername() + " §7ist dem Clan beigetreten§8.").build());
-                                            });
+                                            playerDatasFromClan.stream().filter(filter -> new IPlayer(filter.getUniqueId()).isOnline()).forEach(one -> ProxyServer.getInstance().getPlayer(one.getUniqueId()).sendMessage(new MessageBuilder($.CLANS + iPlayer.getDisplaywithPlayername() + " §7ist dem Clan beigetreten§8.").build()));
                                         } else {
                                             proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Die Einladung konnte §cnicht §7akzeptiert werden§8, §7da der Clan §cvoll §7ist§8.").build());
                                         }

@@ -66,9 +66,9 @@ public class PostLoginListener implements Listener {
         }
 
         IFriendData iFriendData = LostProxy.getInstance().getFriendManager().getFriendData(player.getUniqueId());
-        final List<String> onlineFriends = iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline()).collect(Collectors.toList());
+        final List<String> onlineFriends = iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline()).toList();
 
-        if (onlineFriends.size() > 0) {
+        if (!onlineFriends.isEmpty()) {
             if (iFriendData.canFriendsSeeOnlineStatusAllowed())
                 onlineFriends.forEach(one -> {
                     UUID friendUUID = UUID.fromString(one);
@@ -81,12 +81,12 @@ public class PostLoginListener implements Listener {
         }
 
         HashMap<String, Long> requests = iFriendData.getRequests();
-        if (requests.size() > 0) {
+        if (!requests.isEmpty()) {
             player.sendMessage(new MessageBuilder($.FRIENDS + "Du hast noch §e" + (requests.size() == 1 ? "eine" : requests.size()) + " §7offene Freundschaftsanfragen§8.").build());
         }
 
         List<IClanInvitation> invitations = LostProxy.getInstance().getClanManager().getClanInvitationsByPlayer(player.getUniqueId());
-        if (invitations.size() > 0) {
+        if (!invitations.isEmpty()) {
             player.sendMessage(new MessageBuilder($.CLANS + "Du hast noch §e" + (invitations.size() == 1 ? "eine" : invitations.size()) + " §7offene Claneinladungen§8.").build());
         }
     }

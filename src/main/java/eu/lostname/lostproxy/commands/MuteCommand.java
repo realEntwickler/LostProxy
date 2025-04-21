@@ -166,7 +166,6 @@ public class MuteCommand extends Command implements TabExecutor {
         }
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public Iterable<String> onTabComplete(CommandSender commandSender, String[] strings) {
         ArrayList<String> list = new ArrayList<>();

@@ -179,7 +179,7 @@ public class PartyCommand extends Command {
                     case "accept":
                         List<IPartyInvitation> invitations = LostProxy.getInstance().getPartyManager().getInvitations(proxiedPlayer);
 
-                        IPartyInvitation partyInvitation = invitations.stream().filter(filter -> filter.getParty().getLeader().getName().equalsIgnoreCase(strings[1])).collect(Collectors.toList()).stream().findFirst().orElse(null);
+                        IPartyInvitation partyInvitation = invitations.stream().filter(filter -> filter.getParty().getLeader().getName().equalsIgnoreCase(strings[1])).toList().stream().findFirst().orElse(null);
 
                         if (partyInvitation != null) {
                             IParty party = partyInvitation.getParty();
