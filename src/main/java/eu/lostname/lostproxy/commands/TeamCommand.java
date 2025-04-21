@@ -32,8 +32,7 @@ public class TeamCommand extends Command implements TabExecutor {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        if (commandSender instanceof ProxiedPlayer) {
-            ProxiedPlayer player = (ProxiedPlayer) commandSender;
+        if (commandSender instanceof ProxiedPlayer player) {
 
             if (strings.length == 0) {
                 player.sendMessage(new MessageBuilder($.TMS + "Benutzung von §a/team§8:").build());

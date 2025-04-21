@@ -18,8 +18,7 @@ public class ClanChatCommand extends Command {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        if (commandSender instanceof ProxiedPlayer) {
-            ProxiedPlayer proxiedPlayer = (ProxiedPlayer) commandSender;
+        if (commandSender instanceof ProxiedPlayer proxiedPlayer) {
             IPlayer iPlayer = new IPlayer(proxiedPlayer.getUniqueId());
 
             if (strings.length == 0) {

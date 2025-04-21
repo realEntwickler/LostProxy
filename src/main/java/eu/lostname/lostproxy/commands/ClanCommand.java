@@ -28,8 +28,7 @@ public class ClanCommand extends Command {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        if (commandSender instanceof ProxiedPlayer) {
-            ProxiedPlayer proxiedPlayer = (ProxiedPlayer) commandSender;
+        if (commandSender instanceof ProxiedPlayer proxiedPlayer) {
             IPlayer iPlayer = new IPlayer(proxiedPlayer.getUniqueId());
 
             if (strings.length == 0) {
@@ -75,16 +74,16 @@ public class ClanCommand extends Command {
                             proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §7Anzahl an maximalen Mitgliedern §8» §e" + iClan.getMaxSize()).build());
 
                             List<IClanPlayerData> playerData = LostProxy.getInstance().getClanManager().getClanPlayerDatasFromClan(iClan.getId());
-                            List<IClanPlayerData> leaders = playerData.stream().filter(filter -> filter.getClanRole() == EClanRole.LEADER).collect(Collectors.toList());
+                            List<IClanPlayerData> leaders = playerData.stream().filter(filter -> filter.getClanRole() == EClanRole.LEADER).toList();
                             proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §7Leader §8(§c" + leaders.size() + "§8):").build());
 
                             leaders.forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8» " + new IPlayer(one.getUniqueId()).getDisplaywithPlayername()).build()));
 
-                            List<IClanPlayerData> moderatoren = playerData.stream().filter(filter -> filter.getClanRole() == EClanRole.MODERATOR).collect(Collectors.toList());
+                            List<IClanPlayerData> moderatoren = playerData.stream().filter(filter -> filter.getClanRole() == EClanRole.MODERATOR).toList();
                             proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §7Moderatoren §8(§9" + moderatoren.size() + "§8):").build());
                             moderatoren.forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8» " + new IPlayer(one.getUniqueId()).getDisplaywithPlayername()).build()));
 
-                            List<IClanPlayerData> mitglieder = playerData.stream().filter(filter -> filter.getClanRole() == EClanRole.MEMBER).collect(Collectors.toList());
+                            List<IClanPlayerData> mitglieder = playerData.stream().filter(filter -> filter.getClanRole() == EClanRole.MEMBER).toList();
                             proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §7Mitglieder §8(§e" + mitglieder.size() + "§8):").build());
                             mitglieder.forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8» " + new IPlayer(one.getUniqueId()).getDisplaywithPlayername()).build()));
                         } else {
@@ -192,7 +191,7 @@ public class ClanCommand extends Command {
                         IClanPlayerData iClanPlayerData = LostProxy.getInstance().getClanManager().getClanPlayerData(proxiedPlayer.getUniqueId());
 
                         if (iClanPlayerData == null) {
-                            if (clanInvitations.size() > 0) {
+                            if (!clanInvitations.isEmpty()) {
                                 IClan clan = LostProxy.getInstance().getClanManager().getClanByName(strings[1]);
 
                                 if (clan != null) {
@@ -228,7 +227,7 @@ public class ClanCommand extends Command {
                     case "deny":
                         clanInvitations = LostProxy.getInstance().getClanManager().getClanInvitationsByPlayer(proxiedPlayer.getUniqueId());
 
-                        if (clanInvitations.size() > 0) {
+                        if (!clanInvitations.isEmpty()) {
                             IClan clan = LostProxy.getInstance().getClanManager().getClanByName(strings[1]);
 
                             if (clan != null) {

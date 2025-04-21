@@ -43,7 +43,7 @@ public class MuteHistoryClearCommand extends Command implements TabExecutor {
             if (targetUUID != null) {
                 IPlayer targetiPlayer = new IPlayer(targetUUID);
                 IMuteHistory iMuteHistory = LostProxy.getInstance().getHistoryManager().getMuteHistory(targetUUID);
-                if (iMuteHistory.getHistory().size() > 0) {
+                if (!iMuteHistory.getHistory().isEmpty()) {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Möchtest du wirklich die §eMute-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §clöschen§8?").build());
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "§7[§a§lKlick§7]").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mhclear " + strings[0] + " confirmed").build());
                     if (!LostProxy.getInstance().getHistoryManager().getMuteHistoryClearCommandProcess().contains(commandSender.getName())) {
@@ -63,7 +63,7 @@ public class MuteHistoryClearCommand extends Command implements TabExecutor {
                         IPlayer targetiPlayer = new IPlayer(targetUUID);
                         IMuteHistory iMuteHistory = LostProxy.getInstance().getHistoryManager().getMuteHistory(targetUUID);
                         LostProxy.getInstance().getHistoryManager().getMuteHistoryClearCommandProcess().remove(commandSender.getName());
-                        if (iMuteHistory.getHistory().size() > 0) {
+                        if (!iMuteHistory.getHistory().isEmpty()) {
                             iMuteHistory.getHistory().clear();
                             LostProxy.getInstance().getHistoryManager().saveMuteHistory(iMuteHistory);
                             commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §aerfolgreich §7die §eMute-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §cgelöscht§8.").build());

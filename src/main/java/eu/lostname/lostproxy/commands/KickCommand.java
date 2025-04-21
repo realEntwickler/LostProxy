@@ -52,7 +52,7 @@ public class KickCommand extends Command implements TabExecutor {
                 if (!commandSender.getName().equalsIgnoreCase(target.getName())) {
 
                     IPlayer targetIPlayer = new IPlayer(target.getUniqueId());
-                    if (commandSender.hasPermission("lostproxy.command.kick." + targetIPlayer.getIPermissionGroup().getName().toLowerCase())) {
+                    if (commandSender.hasPermission("lostproxy.command.kick." + targetIPlayer.getPermissionGroup().getDisplayName().toLowerCase())) {
                         String reason = LostProxy.getInstance().formatArrayToString(1, strings);
 
                         IKickHistory iKickHistory = LostProxy.getInstance().getHistoryManager().getKickHistory(target.getUniqueId());
@@ -97,7 +97,7 @@ public class KickCommand extends Command implements TabExecutor {
     public Iterable<String> onTabComplete(CommandSender commandSender, String[] strings) {
         ArrayList<String> list = new ArrayList<>();
         if (strings.length == 1) {
-            CloudServices.PLAYER_MANAGER.getOnlinePlayers().forEach(one -> list.add(one.getName()));
+            CloudServices.PLAYER_MANAGER.onlinePlayers().players().forEach(one -> list.add(one.name()));
             list.removeIf(filter -> !filter.toLowerCase().startsWith(strings[0].toLowerCase()));
         }
         return list;

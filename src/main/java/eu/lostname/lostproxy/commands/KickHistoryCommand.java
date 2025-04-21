@@ -47,7 +47,7 @@ public class KickHistoryCommand extends Command implements TabExecutor {
             if (targetUUID != null) {
                 IKickHistory iKickHistory = LostProxy.getInstance().getHistoryManager().getKickHistory(targetUUID);
                 IPlayer iPlayer = new IPlayer(targetUUID);
-                if (iKickHistory.getHistory().size() > 0) {
+                if (!iKickHistory.getHistory().isEmpty()) {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Kicks von " + iPlayer.getDisplay() + iPlayer.getPlayerName() + "§8:").build());
                     commandSender.sendMessage(new MessageBuilder("§8» §7Anzahl §8┃ §c" + iKickHistory.getHistory().size()).build());
                     AtomicInteger currentEntry = new AtomicInteger(-1);
@@ -86,7 +86,7 @@ public class KickHistoryCommand extends Command implements TabExecutor {
         if (strings.length == 1) {
             LostProxy.getInstance().getDatabase().getMongoDatabase().getCollection(MongoCollection.KICK_HISTORIES).find().forEach((Consumer<? super Document>) one -> {
                 IKickHistory iKickHistory = LostProxy.getInstance().getGson().fromJson(one.toJson(), IKickHistory.class);
-                if (iKickHistory.getHistory().size() > 0) {
+                if (!iKickHistory.getHistory().isEmpty()) {
                     IPlayer iPlayer = new IPlayer(iKickHistory.getUniqueId());
                     if (iPlayer.getPlayerName().toLowerCase().startsWith(strings[0].toLowerCase()))
                         list.add(iPlayer.getPlayerName());

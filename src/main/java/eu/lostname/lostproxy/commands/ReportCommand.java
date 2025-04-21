@@ -22,8 +22,7 @@ public class ReportCommand extends Command {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        if (commandSender instanceof ProxiedPlayer) {
-            ProxiedPlayer proxiedPlayer = (ProxiedPlayer) commandSender;
+        if (commandSender instanceof ProxiedPlayer proxiedPlayer) {
 
             if (strings.length == 0) {
                 proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Benutzung§8: §c/report <Spieler>").build());
@@ -32,7 +31,7 @@ public class ReportCommand extends Command {
 
                 if (targetProxiedPlayer != null) {
                     if (!targetProxiedPlayer.getName().equalsIgnoreCase(proxiedPlayer.getName())) {
-                        if (LostProxy.getInstance().getReportManager().getReportReasons().size() > 0) {
+                        if (!LostProxy.getInstance().getReportManager().getReportReasons().isEmpty()) {
                             proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Für welches Verhalten möchtest du " + new IPlayer(targetProxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §7melden?").build());
                             LostProxy.getInstance().getReportManager().getReportReasons().forEach(iReportReason -> proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §c" + iReportReason.getID() + " §8» §c" + iReportReason.getName() + " §8┃ §7" + iReportReason.getDescription()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §7aKlicke§8, §7um diesen Meldegrund auszuwählen").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/report " + targetProxiedPlayer.getName() + " " + iReportReason.getID()).build()));
                         } else {

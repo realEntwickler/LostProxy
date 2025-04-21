@@ -42,7 +42,7 @@ public class BanHistoryClearCommand extends Command implements TabExecutor {
             if (targetUUID != null) {
                 IPlayer targetiPlayer = new IPlayer(targetUUID);
                 IBanHistory iBanHistory = LostProxy.getInstance().getHistoryManager().getBanHistory(targetUUID);
-                if (iBanHistory.getHistory().size() > 0) {
+                if (!iBanHistory.getHistory().isEmpty()) {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Möchtest du wirklich die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7löschen§8?").build());
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "§7[§aKlick§7]").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/bhclear " + strings[0] + " confirmed").build());
                     if (!LostProxy.getInstance().getHistoryManager().getBanHistoryClearCommandProcess().contains(commandSender.getName())) {
@@ -62,7 +62,7 @@ public class BanHistoryClearCommand extends Command implements TabExecutor {
                         IPlayer targetiPlayer = new IPlayer(targetUUID);
                         IBanHistory iBanHistory = LostProxy.getInstance().getHistoryManager().getBanHistory(targetUUID);
                         LostProxy.getInstance().getHistoryManager().getBanHistoryClearCommandProcess().remove(commandSender.getName());
-                        if (iBanHistory.getHistory().size() > 0) {
+                        if (!iBanHistory.getHistory().isEmpty()) {
                             iBanHistory.getHistory().clear();
                             LostProxy.getInstance().getHistoryManager().saveBanHistory(iBanHistory);
                             commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §aerfolgreich §7die §eBan-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + "  §cgelöscht§8.").build());
@@ -91,7 +91,7 @@ public class BanHistoryClearCommand extends Command implements TabExecutor {
         if (strings.length == 1) {
             LostProxy.getInstance().getDatabase().getMongoDatabase().getCollection(MongoCollection.BAN_HISTORIES).find().forEach((Consumer<? super Document>) one -> {
                 IBanHistory iBanHistory = LostProxy.getInstance().getGson().fromJson(one.toJson(), IBanHistory.class);
-                if (iBanHistory.getHistory().size() > 0) {
+                if (!iBanHistory.getHistory().isEmpty()) {
                     IPlayer iPlayer = new IPlayer(iBanHistory.getUniqueId());
                     if (iPlayer.getPlayerName().toLowerCase().startsWith(strings[0].toLowerCase()))
                         list.add(iPlayer.getPlayerName());

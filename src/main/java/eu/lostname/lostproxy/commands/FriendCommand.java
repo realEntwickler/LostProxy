@@ -70,7 +70,7 @@ public class FriendCommand extends Command {
                         player.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
                         break;
                     case "list":
-                        if (iFriendData.getFriends().size() > 0) {
+                        if (!iFriendData.getFriends().isEmpty()) {
                             player.sendMessage(new MessageBuilder($.FRIENDS + "Deine Freundesliste §8(§e" + iFriendData.getFriends().size() + "§8):").build());
                             List<String> onlineFriends = iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline()).filter(filter -> LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSeeOnlineStatusAllowed()).collect(Collectors.toList());
                             List<String> offlineFriends = iFriendData.getFriends().keySet().stream().filter(filter -> !new IPlayer(UUID.fromString(filter)).isOnline() || !LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSeeOnlineStatusAllowed()).collect(Collectors.toList());
@@ -79,7 +79,7 @@ public class FriendCommand extends Command {
                                 IPlayer friendiPlayer = new IPlayer(UUID.fromString(online));
 
                                 TextComponent playerNameComponent = new MessageBuilder("§8┃ " + friendiPlayer.getDisplaywithPlayername() + " §8» ").build();
-                                TextComponent serverComponent = new MessageBuilder("§e§n" + friendiPlayer.getCloudPlayer().getConnectedService().getServerName()).addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/friend jump " + friendiPlayer.getPlayerName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um " + friendiPlayer.getDisplaywithPlayername() + " §7nachzuspringen§8.").build();
+                                TextComponent serverComponent = new MessageBuilder("§e§n" + friendiPlayer.getCloudPlayer().connectedService().serverName()).addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/friend jump " + friendiPlayer.getPlayerName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um " + friendiPlayer.getDisplaywithPlayername() + " §7nachzuspringen§8.").build();
                                 playerNameComponent.addExtra(serverComponent);
 
                                 player.sendMessage(playerNameComponent);
@@ -107,7 +107,7 @@ public class FriendCommand extends Command {
                         }
                         break;
                     case "requests":
-                        if (iFriendData.getRequests().size() > 0) {
+                        if (!iFriendData.getRequests().isEmpty()) {
                             player.sendMessage(new MessageBuilder($.FRIENDS + "Freundschaftsanfragen §8(§e" + iFriendData.getRequests().size() + "§8):").build());
                             iFriendData.getRequests().keySet().forEach(all -> {
                                 IPlayer friendiPlayer = new IPlayer(UUID.fromString(all));
@@ -128,7 +128,7 @@ public class FriendCommand extends Command {
                         }
                         break;
                     case "acceptall":
-                        if (iFriendData.getRequests().size() > 0) {
+                        if (!iFriendData.getRequests().isEmpty()) {
                             iFriendData.getRequests().keySet().forEach(request -> {
                                 IPlayer requestIPlayer = new IPlayer(UUID.fromString(request));
 
@@ -153,7 +153,7 @@ public class FriendCommand extends Command {
                         }
                         break;
                     case "denyall":
-                        if (iFriendData.getRequests().size() > 0) {
+                        if (!iFriendData.getRequests().isEmpty()) {
                             iFriendData.getRequests().keySet().forEach(request -> {
                                 IPlayer requestIPlayer = new IPlayer(UUID.fromString(request));
 
@@ -386,7 +386,7 @@ public class FriendCommand extends Command {
                     case "broadcast":
                         List<String> sortedFriends = iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline() && LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSentMessages()).collect(Collectors.toList());
 
-                        if (sortedFriends.size() > 0) {
+                        if (!sortedFriends.isEmpty()) {
                             sortedFriends.forEach(sortedFriend -> {
                                 UUID sortedFriendUUID = UUID.fromString(sortedFriend);
                                 IPlayer sortedFriendIPlayer = new IPlayer(sortedFriendUUID);
@@ -405,7 +405,7 @@ public class FriendCommand extends Command {
                 if (strings[0].equalsIgnoreCase("broadcast")) {
                     List<String> sortedFriends = iFriendData.getFriends().keySet().stream().filter(filter -> new IPlayer(UUID.fromString(filter)).isOnline() && LostProxy.getInstance().getFriendManager().getFriendData(UUID.fromString(filter)).canFriendsSentMessages()).collect(Collectors.toList());
 
-                    if (sortedFriends.size() > 0) {
+                    if (!sortedFriends.isEmpty()) {
                         String message = LostProxy.getInstance().formatArrayToString(1, strings);
 
                         sortedFriends.forEach(sortedFriend -> {

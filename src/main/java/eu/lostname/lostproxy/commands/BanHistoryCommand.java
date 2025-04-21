@@ -46,7 +46,7 @@ public class BanHistoryCommand extends Command implements TabExecutor {
             if (targetUUID != null) {
                 IBanHistory iBanHistory = LostProxy.getInstance().getHistoryManager().getBanHistory(targetUUID);
                 IPlayer targetIPlayer = new IPlayer(targetUUID);
-                if (iBanHistory.getHistory().size() > 0) {
+                if (!iBanHistory.getHistory().isEmpty()) {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Bans von " + targetIPlayer.getDisplaywithPlayername() + "§8:").build());
                     commandSender.sendMessage(new MessageBuilder("§8┃ §7Anzahl §8» §c" + iBanHistory.getHistory().size()).build());
                     AtomicInteger currentEntry = new AtomicInteger(-1);

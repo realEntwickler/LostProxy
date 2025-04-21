@@ -25,8 +25,7 @@ public class NotifyCommand extends Command {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        if (commandSender instanceof ProxiedPlayer) {
-            ProxiedPlayer player = (ProxiedPlayer) commandSender;
+        if (commandSender instanceof ProxiedPlayer player) {
 
             if (LostProxy.getInstance().getTeamManager().hasNotificationsEnabled(player)) {
                 if (LostProxy.getInstance().getTeamManager().disableNotifications(player)) {

@@ -43,7 +43,7 @@ public class KickHistoryClearCommand extends Command implements TabExecutor {
             if (targetUUID != null) {
                 IPlayer targetiPlayer = new IPlayer(targetUUID);
                 IKickHistory iKickHistory = LostProxy.getInstance().getHistoryManager().getKickHistory(targetUUID);
-                if (iKickHistory.getHistory().size() > 0) {
+                if (!iKickHistory.getHistory().isEmpty()) {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Möchtest du wirklich die §eKick-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §clöschen§8?").build());
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "§7[§aKlick§7]").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/khclear " + strings[0] + " confirmed").build());
                     if (!LostProxy.getInstance().getHistoryManager().getKickHistoryClearCommandProcess().contains(commandSender.getName())) {
@@ -63,7 +63,7 @@ public class KickHistoryClearCommand extends Command implements TabExecutor {
                         IPlayer targetiPlayer = new IPlayer(targetUUID);
                         IKickHistory iKickHistory = LostProxy.getInstance().getHistoryManager().getKickHistory(targetUUID);
                         LostProxy.getInstance().getHistoryManager().getKickHistoryClearCommandProcess().remove(commandSender.getName());
-                        if (iKickHistory.getHistory().size() > 0) {
+                        if (!iKickHistory.getHistory().isEmpty()) {
                             iKickHistory.getHistory().clear();
                             LostProxy.getInstance().getHistoryManager().saveKickHistory(iKickHistory);
                             commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §aerfolgreich §7die §eKick-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §cgelöscht§8.").build());
@@ -90,7 +90,7 @@ public class KickHistoryClearCommand extends Command implements TabExecutor {
         if (strings.length == 1) {
             LostProxy.getInstance().getDatabase().getMongoDatabase().getCollection(MongoCollection.KICK_HISTORIES).find().forEach((Consumer<? super Document>) one -> {
                 IKickHistory iKickHistory = LostProxy.getInstance().getGson().fromJson(one.toJson(), IKickHistory.class);
-                if (iKickHistory.getHistory().size() > 0) {
+                if (!iKickHistory.getHistory().isEmpty()) {
                     IPlayer iPlayer = new IPlayer(iKickHistory.getUniqueId());
                     if (iPlayer.getPlayerName().toLowerCase().startsWith(strings[0].toLowerCase()))
                         list.add(iPlayer.getPlayerName());

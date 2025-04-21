@@ -57,11 +57,11 @@ public class MuteCommand extends Command implements TabExecutor {
                     IPlayer targetIPlayer = new IPlayer(uuid);
                     IMute iMute = LostProxy.getInstance().getMuteManager().getMute(uuid);
                     if (iMute == null) {
-                        if (commandSender.hasPermission("lostproxy.command.mute.group." + targetIPlayer.getIPermissionGroup().getName().toLowerCase())) {
-                            if (LostProxy.getInstance().getReasonManager().getRegistedMuteReasons().size() > 0) {
+                        if (commandSender.hasPermission("lostproxy.command.mute.group." + targetIPlayer.getPermissionGroup().getDisplayName().toLowerCase())) {
+                            if (!LostProxy.getInstance().getReasonManager().getRegistedMuteReasons().isEmpty()) {
                                 List<IMuteReason> iMuteReasons = LostProxy.getInstance().getReasonManager().getRegistedMuteReasons().stream().filter(one -> commandSender.hasPermission(one.getPermission())).collect(Collectors.toList());
 
-                                if (iMuteReasons.size() > 0) {
+                                if (!iMuteReasons.isEmpty()) {
                                     iMuteReasons.sort(Comparator.comparingInt(IReason::getId));
 
                                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Verfügbare Mutegründe§8:").build());
@@ -97,7 +97,7 @@ public class MuteCommand extends Command implements TabExecutor {
                     IPlayer targetIPlayer = new IPlayer(uuid);
                     IMute iMute = LostProxy.getInstance().getMuteManager().getMute(uuid);
                     if (iMute == null) {
-                        if (commandSender.hasPermission("lostproxy.command.mute.group." + targetIPlayer.getIPermissionGroup().getName().toLowerCase())) {
+                        if (commandSender.hasPermission("lostproxy.command.mute.group." + targetIPlayer.getPermissionGroup().getDisplayName().toLowerCase())) {
                             try {
                                 int reasonId = Integer.parseInt(strings[1]);
 
@@ -171,7 +171,7 @@ public class MuteCommand extends Command implements TabExecutor {
     public Iterable<String> onTabComplete(CommandSender commandSender, String[] strings) {
         ArrayList<String> list = new ArrayList<>();
         if (strings.length == 1) {
-            CloudServices.PLAYER_MANAGER.getOnlinePlayers().forEach(one -> list.add(one.getName()));
+            CloudServices.PLAYER_MANAGER.onlinePlayers().players().forEach(one -> list.add(one.name()));
             list.removeIf(filter -> !filter.toLowerCase().startsWith(strings[0].toLowerCase()));
         } else if (strings.length == 2) {
             LostProxy.getInstance().getReasonManager().getRegistedMuteReasons().stream().filter(one -> commandSender.hasPermission(one.getPermission())).forEach(one -> list.add(String.valueOf(one.getId())));

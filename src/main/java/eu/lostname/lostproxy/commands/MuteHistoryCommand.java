@@ -47,7 +47,7 @@ public class MuteHistoryCommand extends Command implements TabExecutor {
             if (targetUUID != null) {
                 IMuteHistory iMuteHistory = LostProxy.getInstance().getHistoryManager().getMuteHistory(targetUUID);
                 IPlayer targetIPlayer = new IPlayer(targetUUID);
-                if (iMuteHistory.getHistory().size() > 0) {
+                if (!iMuteHistory.getHistory().isEmpty()) {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Mutes von " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + "§8:").build());
                     commandSender.sendMessage(new MessageBuilder("§8» §7Anzahl §8┃ §c" + iMuteHistory.getHistory().size()).build());
                     AtomicInteger currentEntry = new AtomicInteger(-1);
@@ -102,7 +102,7 @@ public class MuteHistoryCommand extends Command implements TabExecutor {
         if (strings.length == 1) {
             LostProxy.getInstance().getDatabase().getMongoDatabase().getCollection(MongoCollection.MUTE_HISTORIES).find().forEach((Consumer<? super Document>) one -> {
                 IMuteHistory iMuteHistory = LostProxy.getInstance().getGson().fromJson(one.toJson(), IMuteHistory.class);
-                if (iMuteHistory.getHistory().size() > 0) {
+                if (!iMuteHistory.getHistory().isEmpty()) {
                     IPlayer iPlayer = new IPlayer(iMuteHistory.getUniqueId());
                     if (iPlayer.getPlayerName().toLowerCase().startsWith(strings[0].toLowerCase()))
                         list.add(iPlayer.getPlayerName());

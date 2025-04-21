@@ -27,8 +27,7 @@ public class PartyCommand extends Command {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        if (commandSender instanceof ProxiedPlayer) {
-            ProxiedPlayer proxiedPlayer = (ProxiedPlayer) commandSender;
+        if (commandSender instanceof ProxiedPlayer proxiedPlayer) {
             IPlayer iPlayer = new IPlayer(proxiedPlayer.getUniqueId());
 
             if (strings.length == 0) {
@@ -195,7 +194,7 @@ public class PartyCommand extends Command {
                     case "deny":
                         invitations = LostProxy.getInstance().getPartyManager().getInvitations(proxiedPlayer);
 
-                        partyInvitation = invitations.stream().filter(filter -> filter.getParty().getLeader().getName().equalsIgnoreCase(strings[1])).collect(Collectors.toList()).stream().findFirst().orElse(null);
+                        partyInvitation = invitations.stream().filter(filter -> filter.getParty().getLeader().getName().equalsIgnoreCase(strings[1])).toList().stream().findFirst().orElse(null);
 
                         if (partyInvitation != null) {
                             IParty party = partyInvitation.getParty();
@@ -214,9 +213,9 @@ public class PartyCommand extends Command {
 
                         if (party != null) {
                             if (party.isLeader(proxiedPlayer)) {
-                                List<ProxiedPlayer> searchedPlayers = party.getOnlyMembers().stream().filter(filter -> filter.getName().equalsIgnoreCase(strings[1])).collect(Collectors.toList());
+                                List<ProxiedPlayer> searchedPlayers = party.getOnlyMembers().stream().filter(filter -> filter.getName().equalsIgnoreCase(strings[1])).toList();
                                 if (searchedPlayers.size() == 1) {
-                                    ProxiedPlayer targetProxiedPlayer = searchedPlayers.get(0);
+                                    ProxiedPlayer targetProxiedPlayer = searchedPlayers.getFirst();
                                     IPlayer targetIPlayer = new IPlayer(targetProxiedPlayer.getUniqueId());
 
                                     party.removeMember(targetProxiedPlayer);
@@ -238,10 +237,10 @@ public class PartyCommand extends Command {
 
                         if (party != null) {
                             if (party.isLeader(proxiedPlayer)) {
-                                List<ProxiedPlayer> searchedPlayers = party.getOnlyMembers().stream().filter(filter -> filter.getName().equalsIgnoreCase(strings[1])).collect(Collectors.toList());
+                                List<ProxiedPlayer> searchedPlayers = party.getOnlyMembers().stream().filter(filter -> filter.getName().equalsIgnoreCase(strings[1])).toList();
 
                                 if (searchedPlayers.size() == 1) {
-                                    ProxiedPlayer targetProxiedPlayer = searchedPlayers.get(0);
+                                    ProxiedPlayer targetProxiedPlayer = searchedPlayers.getFirst();
 
                                     party.setLeader(targetProxiedPlayer);
                                     party.setCurrentServer(targetProxiedPlayer.getServer().getInfo());
