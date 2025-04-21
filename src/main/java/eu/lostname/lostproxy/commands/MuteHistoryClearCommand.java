@@ -14,8 +14,8 @@ import eu.lostname.lostproxy.LostProxy;
 import eu.lostname.lostproxy.builder.MessageBuilder;
 import eu.lostname.lostproxy.interfaces.IPlayer;
 import eu.lostname.lostproxy.interfaces.historyandentries.mute.IMuteHistory;
+import eu.lostname.lostproxy.utils.$;
 import eu.lostname.lostproxy.utils.MongoCollection;
-import eu.lostname.lostproxy.utils.Prefix;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.plugin.Command;
@@ -35,7 +35,7 @@ public class MuteHistoryClearCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0 || strings.length >= 3) {
-            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Benutzung von §c/mhclear§8:").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/mhclear§8:").build());
             commandSender.sendMessage(new MessageBuilder("§8» §c/mhclear <Spieler> §8┃ §7Leert die Mute-History des angegebenen Spielers").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mhclear ").build());
             commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
         } else if (strings.length == 1) {
@@ -43,17 +43,17 @@ public class MuteHistoryClearCommand extends Command implements TabExecutor {
             if (targetUUID != null) {
                 IPlayer targetiPlayer = new IPlayer(targetUUID);
                 IMuteHistory iMuteHistory = LostProxy.getInstance().getHistoryManager().getMuteHistory(targetUUID);
-                if (iMuteHistory.getHistory().size() > 0) {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Möchtest du wirklich die §eMute-History §7von " + targetiPlayer.getColor() + targetiPlayer.getPlayerName() + " §clöschen§8?").build());
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "§7[§a§lKlick§7]").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mhclear " + strings[0] + " confirmed").build());
+                if (!iMuteHistory.getHistory().isEmpty()) {
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Möchtest du wirklich die §eMute-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §clöschen§8?").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "§7[§a§lKlick§7]").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mhclear " + strings[0] + " confirmed").build());
                     if (!LostProxy.getInstance().getHistoryManager().getMuteHistoryClearCommandProcess().contains(commandSender.getName())) {
                         LostProxy.getInstance().getHistoryManager().getMuteHistoryClearCommandProcess().add(commandSender.getName());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Die §eMute-History §7von " + targetiPlayer.getColor() + targetiPlayer.getPlayerName() + " §7ist §cleer§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Die §eMute-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7ist §cleer§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der angegebene Spieler konnte §cnicht §7gefunden werden§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler konnte §cnicht §7gefunden werden§7.").build());
             }
         } else {
             if (strings[1].equalsIgnoreCase("confirmed")) {
@@ -63,21 +63,21 @@ public class MuteHistoryClearCommand extends Command implements TabExecutor {
                         IPlayer targetiPlayer = new IPlayer(targetUUID);
                         IMuteHistory iMuteHistory = LostProxy.getInstance().getHistoryManager().getMuteHistory(targetUUID);
                         LostProxy.getInstance().getHistoryManager().getMuteHistoryClearCommandProcess().remove(commandSender.getName());
-                        if (iMuteHistory.getHistory().size() > 0) {
+                        if (!iMuteHistory.getHistory().isEmpty()) {
                             iMuteHistory.getHistory().clear();
                             LostProxy.getInstance().getHistoryManager().saveMuteHistory(iMuteHistory);
-                            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Du hast §aerfolgreich §7die §eMute-History §7von " + targetiPlayer.getColor() + targetiPlayer.getPlayerName() + " §cgelöscht§8.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §aerfolgreich §7die §eMute-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §cgelöscht§7.").build());
                         } else {
-                            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Die §eMute-History §7von " + targetiPlayer.getColor() + targetiPlayer.getPlayerName() + " §7ist §cleer§8.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Die §eMute-History §7von " + targetiPlayer.getDisplay() + targetiPlayer.getPlayerName() + " §7ist §cleer§7.").build());
                         }
                     } else {
-                        commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der angegebene Spieler konnte §cnicht §7gefunden werden§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler konnte §cnicht §7gefunden werden§7.").build());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Du hast §ckeine §eVerifizierung §7für diesen §eProzess §7beantragt§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §eVerifizierung §7für diesen §eProzess §7beantragt§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
             }
         }
     }

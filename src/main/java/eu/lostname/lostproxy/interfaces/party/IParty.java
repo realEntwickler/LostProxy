@@ -4,7 +4,7 @@ import eu.lostname.lostproxy.LostProxy;
 import eu.lostname.lostproxy.builder.MessageBuilder;
 import eu.lostname.lostproxy.enums.EPartyRole;
 import eu.lostname.lostproxy.interfaces.IPlayer;
-import eu.lostname.lostproxy.utils.Prefix;
+import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class IParty {
 
-    private HashMap<ProxiedPlayer, EPartyRole> members;
+    private final HashMap<ProxiedPlayer, EPartyRole> members;
     private ServerInfo currentServer;
 
     public IParty(ProxiedPlayer proxiedPlayer) {
@@ -43,12 +43,12 @@ public class IParty {
 
     public void addMember (ProxiedPlayer proxiedPlayer) {
         members.put(proxiedPlayer, EPartyRole.MEMBER);
-        sendMessage(new MessageBuilder(Prefix.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getColorWithPlayername() + " §7ist der Party beigetreten§8.").build());
+        sendMessage(new MessageBuilder($.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §7ist der Party beigetreten§7.").build());
     }
 
     public void removeMember (ProxiedPlayer proxiedPlayer) {
         members.remove(proxiedPlayer);
-        sendMessage(new MessageBuilder(Prefix.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getColorWithPlayername() + " §7hat die Party verlassen§8.").build());
+        sendMessage(new MessageBuilder($.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §7hat die Party verlassen§7.").build());
     }
 
     public boolean isLeader (ProxiedPlayer proxiedPlayer) {

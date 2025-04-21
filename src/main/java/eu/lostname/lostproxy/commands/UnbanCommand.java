@@ -17,8 +17,8 @@ import eu.lostname.lostproxy.interfaces.IPlayer;
 import eu.lostname.lostproxy.interfaces.bkms.IBan;
 import eu.lostname.lostproxy.interfaces.historyandentries.ban.IBanEntry;
 import eu.lostname.lostproxy.interfaces.historyandentries.ban.IBanHistory;
+import eu.lostname.lostproxy.utils.$;
 import eu.lostname.lostproxy.utils.MongoCollection;
-import eu.lostname.lostproxy.utils.Prefix;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -39,7 +39,7 @@ public class UnbanCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length <= 1) {
-            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Benutzung von §c/unban§8:").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/unban§8:").build());
             commandSender.sendMessage(new MessageBuilder("§8» §c/unban <Spieler> [Grund] §8┃ §7Entbannt einen gebannten Spieler").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/unban ").build());
             commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
         } else {
@@ -55,13 +55,13 @@ public class UnbanCommand extends Command implements TabExecutor {
 
                     iBanHistory.addEntry(new IBanEntry(EBanEntryType.UNBAN_ENTRY, uuid, invokerId, System.currentTimeMillis(), reason, 0, null, 0));
                     LostProxy.getInstance().getHistoryManager().saveBanHistory(iBanHistory);
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der Spieler " + targetIPlayer.getColor() + targetIPlayer.getPlayerName() + " §7wurde §aentbannt§8.").build());
-                    LostProxy.getInstance().getTeamManager().sendUnbanNotify(commandSender instanceof ProxiedPlayer ? new IPlayer(((ProxiedPlayer) commandSender).getUniqueId()).getColor() + commandSender.getName() : "§4Konsole", targetIPlayer.getColor() + targetIPlayer.getPlayerName(), reason);
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7wurde §aentbannt§7.").build());
+                    LostProxy.getInstance().getTeamManager().sendUnbanNotify(commandSender instanceof ProxiedPlayer ? new IPlayer(((ProxiedPlayer) commandSender).getUniqueId()).getDisplay() + commandSender.getName() : "§4Konsole", targetIPlayer.getDisplay() + targetIPlayer.getPlayerName(), reason);
                 } else {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der Spieler " + targetIPlayer.getColor() + targetIPlayer.getPlayerName() + " §7ist §cnicht §7gebannt§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7ist §cnicht §7gebannt§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
             }
         }
     }

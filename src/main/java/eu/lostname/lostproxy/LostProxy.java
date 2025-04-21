@@ -11,15 +11,16 @@
 package eu.lostname.lostproxy;
 
 import com.google.gson.Gson;
-import de.dytanic.cloudnet.driver.CloudNetDriver;
-import de.dytanic.cloudnet.ext.bridge.player.IPlayerManager;
-import de.dytanic.cloudnet.ext.syncproxy.AbstractSyncProxyManagement;
+import eu.cloudnetservice.driver.inject.InjectionLayer;
+import eu.cloudnetservice.driver.registry.ServiceRegistry;
+import eu.cloudnetservice.modules.syncproxy.SyncProxyManagement;
 import eu.lostname.lostproxy.commands.*;
 import eu.lostname.lostproxy.database.LostProxyDatabase;
 import eu.lostname.lostproxy.listener.*;
 import eu.lostname.lostproxy.manager.*;
 import eu.lostname.lostproxy.utils.CloudServices;
 import eu.lostname.lostproxy.utils.Property;
+import net.luckperms.api.LuckPermsProvider;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.scheduler.ScheduledTask;
 
@@ -27,31 +28,31 @@ public class LostProxy extends Plugin {
 
     private static LostProxy instance;
 
-    private LostProxyDatabase database;
-    private Gson gson;
+    private final LostProxyDatabase database;
+    private final Gson gson;
     //private LinkageManager linkageManager;
-    private PlayerManager playerManager;
-    private HistoryManager historyManager;
-    private TeamManager teamManager;
-    private BanManager banManager;
-    private MuteManager muteManager;
-    private ReasonManager reasonManager;
-    private FriendManager friendManager;
-    private PartyManager partyManager;
-    private ClanManager clanManager;
-    private SettingsManager settingsManager;
-    private ReportManager reportManager;
-    private Property property;
+    private final PlayerManager playerManager;
+    private final HistoryManager historyManager;
+    private final TeamManager teamManager;
+    private final BanManager banManager;
+    private final MuteManager muteManager;
+    private final ReasonManager reasonManager;
+    private final FriendManager friendManager;
+    private final PartyManager partyManager;
+    private final ClanManager clanManager;
+    private final SettingsManager settingsManager;
+    private final ReportManager reportManager;
+    private final Property property;
     private ScheduledTask restartTask;
 
-    public static LostProxy getInstance() {
-        return instance;
-    }
+    public LostProxy () {
+        instance = this;
 
-    @Override
-    public void onEnable() {
+        property = new Property();
+        property.setDefaultProps();
+
         this.gson = new Gson();
-        this.database = new LostProxyDatabase(property.get("cfg", "db.host"), property.get("cfg", "db.port"), property.get("cfg", "db.username"), property.get("cfg", "db.password"), property.get("cfg", "db.database"));
+        this.database = new LostProxyDatabase(property.get("cfg", "db.database"), property.get("cfg", "db.username"), property.get("cfg", "db.password"));
         //this.linkageManager = new LinkageManager(gson);
         this.playerManager = new PlayerManager();
         this.historyManager = new HistoryManager();
@@ -102,25 +103,19 @@ public class LostProxy extends Plugin {
         getProxy().getPluginManager().registerListener(this, new ChatListener());
         getProxy().getPluginManager().registerListener(this, new ServerSwitchListener());
 
-        CloudServices.SYNCPROXY_MANAGEMENT = CloudNetDriver.getInstance().getServicesRegistry().getFirstService(AbstractSyncProxyManagement.class);
-        CloudServices.PERMISSION_MANAGEMENT = CloudNetDriver.getInstance().getPermissionManagement();
-        CloudServices.PLAYER_MANAGER = CloudNetDriver.getInstance().getServicesRegistry().getFirstService(IPlayerManager.class);
-
         this.restartTask = null;
     }
 
     @Override
-    public void onLoad() {
-        instance = this;
-
-        property = new Property();
-        property.setDefaultProps();
+    public void onEnable()
+    {
+        CloudServices.LUCKPERMS = LuckPermsProvider.get();
+        CloudServices.SYNCPROXY_MANAGEMENT = InjectionLayer.ext().instance(ServiceRegistry.class).firstProvider(SyncProxyManagement.class);
+        CloudServices.PLAYER_MANAGER = InjectionLayer.ext().instance(ServiceRegistry.class).firstProvider(eu.cloudnetservice.modules.bridge.player.PlayerManager.class);
     }
 
     @Override
     public void onDisable() {
-        super.onDisable();
-
         database.getMongoClient().close();
         //getTeamSpeakManager().getTs3Query().exit();
     }
@@ -140,10 +135,10 @@ public class LostProxy extends Plugin {
         return banManager;
     }
 
+
 //    public TeamSpeakManager getTeamSpeakManager() {
 //        return teamSpeakManager;
 //    }
-
 
     public ReportManager getReportManager() {
         return reportManager;
@@ -203,5 +198,9 @@ public class LostProxy extends Plugin {
 
     public void setRestartTask(ScheduledTask restartTask) {
         this.restartTask = restartTask;
+    }
+
+    public static LostProxy getInstance() {
+        return instance;
     }
 }

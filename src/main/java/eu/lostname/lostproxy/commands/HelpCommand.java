@@ -11,7 +11,7 @@
 package eu.lostname.lostproxy.commands;
 
 import eu.lostname.lostproxy.builder.MessageBuilder;
-import eu.lostname.lostproxy.utils.Prefix;
+import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 
@@ -23,7 +23,7 @@ public class HelpCommand extends Command {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        commandSender.sendMessage(new MessageBuilder(Prefix.LOSTNAME + "Informationen zum LostName.eu-Netzwerk").build());
+        commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Informationen zum LostName.eu-Netzwerk").build());
         commandSender.sendMessage(new MessageBuilder("§8┃ §c/hub §8» §7Bringt dich auf die Hauptlobby zurück").build());
         commandSender.sendMessage(new MessageBuilder("§8┃ §c/friend §8» §7Verwalte deine Freunde").build());
         commandSender.sendMessage(new MessageBuilder("§8┃ §c/party §8» §7Erstelle eine Party").build());

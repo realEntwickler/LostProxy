@@ -16,7 +16,7 @@ import eu.lostname.lostproxy.interfaces.IPlayer;
 import eu.lostname.lostproxy.interfaces.historyandentries.IEntry;
 import eu.lostname.lostproxy.interfaces.historyandentries.kick.IKickHistory;
 import eu.lostname.lostproxy.utils.MongoCollection;
-import eu.lostname.lostproxy.utils.Prefix;
+import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.plugin.Command;
@@ -39,7 +39,7 @@ public class KickHistoryCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Benutzung von §c/kickhistory§8:").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/kickhistory§8:").build());
             commandSender.sendMessage(new MessageBuilder("§8» §c/kickhistory <Spieler> §8┃ §7Zeigt dir die History-Einträge eines Spielers").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/kickinfo ").build());
             commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
         } else if (strings.length == 1) {
@@ -47,8 +47,8 @@ public class KickHistoryCommand extends Command implements TabExecutor {
             if (targetUUID != null) {
                 IKickHistory iKickHistory = LostProxy.getInstance().getHistoryManager().getKickHistory(targetUUID);
                 IPlayer iPlayer = new IPlayer(targetUUID);
-                if (iKickHistory.getHistory().size() > 0) {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Kicks von " + iPlayer.getColor() + iPlayer.getPlayerName() + "§8:").build());
+                if (!iKickHistory.getHistory().isEmpty()) {
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Kicks von " + iPlayer.getDisplay() + iPlayer.getPlayerName() + "§8:").build());
                     commandSender.sendMessage(new MessageBuilder("§8» §7Anzahl §8┃ §c" + iKickHistory.getHistory().size()).build());
                     AtomicInteger currentEntry = new AtomicInteger(-1);
 
@@ -60,7 +60,7 @@ public class KickHistoryCommand extends Command implements TabExecutor {
                             commandSender.sendMessage(new MessageBuilder("§8» §e" + date + " §7@ §e" + time + " §8┃ §4Konsole §8» §c" + iKickEntry.getReason()).build());
                         } else {
                             IPlayer invokerIPlayer = new IPlayer(UUID.fromString(iKickEntry.getInvokerId()));
-                            commandSender.sendMessage(new MessageBuilder("§8» §e" + date + " §7@ §e" + time + " §8┃ " + invokerIPlayer.getColor() + invokerIPlayer.getPlayerName() + " §8» §c" + iKickEntry.getReason()).build());
+                            commandSender.sendMessage(new MessageBuilder("§8» §e" + date + " §7@ §e" + time + " §8┃ " + invokerIPlayer.getDisplay() + invokerIPlayer.getPlayerName() + " §8» §c" + iKickEntry.getReason()).build());
                         }
 
                         currentEntry.set(currentEntry.get() + 1);
@@ -70,13 +70,13 @@ public class KickHistoryCommand extends Command implements TabExecutor {
                         }
                     });
                 } else {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der Spieler " + iPlayer.getColor() + iPlayer.getPlayerName() + " §7hat §ckeine §7Kick-History§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + iPlayer.getDisplay() + iPlayer.getPlayerName() + " §7hat §ckeine §7Kick-History§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Zu dem angegebenen Spielernamen konnte §ckeine §7UUID gefunden werden§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Zu dem angegebenen Spielernamen konnte §ckeine §7UUID gefunden werden§7.").build());
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§8.").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
         }
     }
 
@@ -86,7 +86,7 @@ public class KickHistoryCommand extends Command implements TabExecutor {
         if (strings.length == 1) {
             LostProxy.getInstance().getDatabase().getMongoDatabase().getCollection(MongoCollection.KICK_HISTORIES).find().forEach((Consumer<? super Document>) one -> {
                 IKickHistory iKickHistory = LostProxy.getInstance().getGson().fromJson(one.toJson(), IKickHistory.class);
-                if (iKickHistory.getHistory().size() > 0) {
+                if (!iKickHistory.getHistory().isEmpty()) {
                     IPlayer iPlayer = new IPlayer(iKickHistory.getUniqueId());
                     if (iPlayer.getPlayerName().toLowerCase().startsWith(strings[0].toLowerCase()))
                         list.add(iPlayer.getPlayerName());

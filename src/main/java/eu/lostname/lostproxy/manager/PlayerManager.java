@@ -10,41 +10,20 @@
 
 package eu.lostname.lostproxy.manager;
 
-import de.dytanic.cloudnet.driver.CloudNetDriver;
-import de.dytanic.cloudnet.driver.permission.IPermissionGroup;
-import de.dytanic.cloudnet.driver.permission.IPermissionUser;
-import de.dytanic.cloudnet.ext.bridge.player.ICloudOfflinePlayer;
-import de.dytanic.cloudnet.ext.bridge.player.ICloudPlayer;
-import de.dytanic.cloudnet.ext.bridge.player.IPlayerManager;
+import eu.cloudnetservice.modules.bridge.player.CloudOfflinePlayer;
 import eu.lostname.lostproxy.utils.CloudServices;
 
+import java.util.List;
 import java.util.UUID;
-import java.util.function.Consumer;
 
 public class PlayerManager {
 
-    @SuppressWarnings("UnstableApiUsage")
     public UUID getUUIDofPlayername(String playername) {
-        ICloudOfflinePlayer player = CloudNetDriver.getInstance().getServicesRegistry().getFirstService(IPlayerManager.class).getRegisteredPlayers().stream().filter(any -> any.getName().equalsIgnoreCase(playername)).findFirst().orElse(null);
-        return player != null ? player.getUniqueId() : null;
-    }
-
-    public void getCloudOfflinePlayer(UUID uniqueId, Consumer<ICloudOfflinePlayer> consumer) {
-        CloudNetDriver.getInstance().getServicesRegistry().getFirstService(IPlayerManager.class).getOfflinePlayerAsync(uniqueId).onComplete(consumer).onFailure(throwable -> consumer.accept(null));
-    }
-
-    public void getCloudPlayer(UUID uniqueId, Consumer<ICloudPlayer> consumer) {
-        CloudNetDriver.getInstance().getServicesRegistry().getFirstService(IPlayerManager.class).getOnlinePlayerAsync(uniqueId).onComplete(consumer::accept).onFailure(throwable -> consumer.accept(null));
-    }
-
-    public void getPermissionUser(UUID uniqueId, Consumer<IPermissionUser> consumer) {
-        CloudServices.PERMISSION_MANAGEMENT.getUserAsync(uniqueId).onComplete(consumer).onFailure(throwable -> consumer.accept(null));
-    }
-
-    public void getPermissionGroup(UUID uniqueId, Consumer<IPermissionGroup> consumer) {
-        getPermissionUser(uniqueId, iPermissionUser -> {
-            consumer.accept(CloudServices.PERMISSION_MANAGEMENT.getHighestPermissionGroup(iPermissionUser));
-        });
+        List<CloudOfflinePlayer> cloudOfflinePlayers = CloudServices.PLAYER_MANAGER.registeredPlayers().stream().filter(filter -> filter.name().equalsIgnoreCase(playername)).toList();
+        if (cloudOfflinePlayers.isEmpty())
+            return null;
+        CloudOfflinePlayer player = cloudOfflinePlayers.getFirst();
+        return player != null ? player.uniqueId() : null;
     }
 
     public void getIPlayerAsync(UUID uniqueId) {
@@ -57,7 +36,7 @@ public class PlayerManager {
                                 iPermissionGroup.getPrefix(),
                                 iPermissionGroup.getSuffix(),
                                 iPermissionGroup.getDisplay(),
-                                iPermissionGroup.getColor(),
+                                iPermissionGroup.getDisplay(),
                                 (iPermissionGroup.getProperties().contains("chatColor") ? iPermissionGroup.getProperties().getString("chatColor") : "§f"),
                                 iPermissionGroup,
                                 iPermissionUser,

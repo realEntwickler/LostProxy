@@ -5,12 +5,12 @@
  *
  * All contents of this source code are protected by copyright. The copyright is owned by Nils Körting-Eberhardt, unless explicitly stated otherwise. All rights reserved.
  *
- * Prefix.java is part of the LostProxy which is licensed under the Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license.
+ * $.java is part of the LostProxy which is licensed under the Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license.
  */
 
 package eu.lostname.lostproxy.utils;
 
-public class Prefix {
+public class $ {
 
     public static final String LOSTPROXY = "§8┃ §cLostProxy §8» §7";
     public static final String LOSTNAME = "§8┃ §cLostName §8» §7";

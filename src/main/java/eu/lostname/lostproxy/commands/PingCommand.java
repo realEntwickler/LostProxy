@@ -12,7 +12,7 @@ package eu.lostname.lostproxy.commands;
 
 import eu.lostname.lostproxy.builder.MessageBuilder;
 import eu.lostname.lostproxy.interfaces.IPlayer;
-import eu.lostname.lostproxy.utils.Prefix;
+import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -34,7 +34,7 @@ public class PingCommand extends Command implements TabExecutor {
             ProxiedPlayer player = (ProxiedPlayer) commandSender;
 
             if (strings.length == 0) {
-                player.sendMessage(new MessageBuilder(Prefix.LOSTNAME + "Dein Ping beträgt aktuell§8: §c" + player.getPing() + "ms").build());
+                player.sendMessage(new MessageBuilder($.LOSTNAME + "Dein Ping beträgt aktuell§8: §c" + player.getPing() + "ms").build());
             } else if (strings.length == 1) {
                 if (player.hasPermission("lostproxy.command.ping.other")) {
                     String argument = strings[0];
@@ -46,18 +46,18 @@ public class PingCommand extends Command implements TabExecutor {
 
                     if (target != null) {
                         IPlayer iPlayer = new IPlayer(target.getUniqueId());
-                        player.sendMessage(new MessageBuilder(Prefix.LOSTNAME + "Der Ping von " + iPlayer.getColor() + target.getName() + " §7beträgt aktuell§8: §c" + target.getPing() + "ms").build());
+                        player.sendMessage(new MessageBuilder($.LOSTNAME + "Der Ping von " + iPlayer.getDisplay() + target.getName() + " §7beträgt aktuell§8: §c" + target.getPing() + "ms").build());
                     } else {
-                        player.sendMessage(new MessageBuilder(Prefix.LOSTNAME + "Der angegebene Spieler konnte §cnicht §7gefunden werden§8.").build());
+                        player.sendMessage(new MessageBuilder($.LOSTNAME + "Der angegebene Spieler konnte §cnicht §7gefunden werden§7.").build());
                     }
                 } else {
-                    player.sendMessage(new MessageBuilder(Prefix.LOSTNAME + "Dein Ping beträgt aktuell §8» §c" + player.getPing() + "ms").build());
+                    player.sendMessage(new MessageBuilder($.LOSTNAME + "Dein Ping beträgt aktuell §8» §c" + player.getPing() + "ms").build());
                 }
             } else {
-                player.sendMessage(new MessageBuilder(Prefix.LOSTNAME + "Bitte beachte die §eBenutzung §7dieses Kommandos§8.").build());
+                player.sendMessage(new MessageBuilder($.LOSTNAME + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder(Prefix.LOSTNAME + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§8.").build());
+            commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§7.").build());
         }
     }
 

@@ -17,8 +17,8 @@ import eu.lostname.lostproxy.interfaces.IPlayer;
 import eu.lostname.lostproxy.interfaces.bkms.IBan;
 import eu.lostname.lostproxy.interfaces.historyandentries.ban.IBanEntry;
 import eu.lostname.lostproxy.interfaces.historyandentries.ban.IBanHistory;
+import eu.lostname.lostproxy.utils.$;
 import eu.lostname.lostproxy.utils.MongoCollection;
-import eu.lostname.lostproxy.utils.Prefix;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -40,7 +40,7 @@ public class EACommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length != 1) {
-            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Benutzung§8: §c/ea <Spieler>").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/ea ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c/ea <Spieler>").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/ea ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").build());
         } else {
             UUID uuid = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (uuid != null) {
@@ -59,26 +59,26 @@ public class EACommand extends Command implements TabExecutor {
                                 LostProxy.getInstance().getBanManager().saveBan(iBan);
                                 if (commandSender instanceof ProxiedPlayer) {
                                     IPlayer invoker = new IPlayer(((ProxiedPlayer) commandSender).getUniqueId());
-                                    LostProxy.getInstance().getTeamManager().sendEANotify(invoker.getColorWithPlayername(), iPlayer.getColorWithPlayername());
+                                    LostProxy.getInstance().getTeamManager().sendEANotify(invoker.getDisplaywithPlayername(), iPlayer.getDisplaywithPlayername());
                                 } else {
-                                    LostProxy.getInstance().getTeamManager().sendEANotify("§4System", iPlayer.getColor() + iPlayer.getPlayerName());
+                                    LostProxy.getInstance().getTeamManager().sendEANotify("§4System", iPlayer.getDisplay() + iPlayer.getPlayerName());
                                 }
 
-                                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der Ban von " + iPlayer.getColorWithPlayername() + " §7läuft nun in §e3 Tagen §7ab§8.").build());
+                                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Ban von " + iPlayer.getDisplaywithPlayername() + " §7läuft nun in §e3 Tagen §7ab.").build());
                             } else {
-                                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Da der Bann bereits in §e3 Tagen §cabläuft§8, §7kann der Bann §cnicht §7nochmal verkürzt werden§8.").build());
+                                commandSender.sendMessage(new MessageBuilder($.BKMS + "Da der Bann bereits in §e3 Tagen §cabläuft§8, §7kann der Bann §cnicht §7nochmal verkürzt werden.").build());
                             }
                         } else {
-                            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Ein §cpermanenter §7Bann kann §cnicht §7verkürzt werden§8.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Ein §cpermanenter §7Bann kann §cnicht §7verkürzt werden.").build());
                         }
                     } else {
-                        commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der Bann von " + iPlayer.getColorWithPlayername() + " §7wurde §cbereits §7verkürzt§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Bann von " + iPlayer.getDisplaywithPlayername() + " §7wurde §cbereits §7verkürzt.").build());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + iPlayer.getColorWithPlayername() + " §7ist §cnicht §7gebannt§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + iPlayer.getDisplaywithPlayername() + " §7ist §cnicht §7gebannt.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden.").build());
             }
         }
     }

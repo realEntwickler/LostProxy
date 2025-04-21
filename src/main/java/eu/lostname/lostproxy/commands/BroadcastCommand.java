@@ -12,11 +12,9 @@ package eu.lostname.lostproxy.commands;
 
 import eu.lostname.lostproxy.LostProxy;
 import eu.lostname.lostproxy.builder.MessageBuilder;
-import eu.lostname.lostproxy.enums.ELocale;
-import eu.lostname.lostproxy.utils.Prefix;
+import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
 public class BroadcastCommand extends Command {
@@ -28,12 +26,12 @@ public class BroadcastCommand extends Command {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage(new MessageBuilder(Prefix.BROADCAST + "Benutzung§8: §e/broadcast [Nachricht§8]").build());
+            commandSender.sendMessage(new MessageBuilder($.BROADCAST + "Benutzung§8: §e/broadcast [Nachricht]").build());
         } else {
             String message = LostProxy.getInstance().formatArrayToString(0, strings).replaceAll("&", "§");
 
             ProxyServer.getInstance().broadcast(new MessageBuilder("").build());
-            ProxyServer.getInstance().broadcast(new MessageBuilder(Prefix.BROADCAST + message).build());
+            ProxyServer.getInstance().broadcast(new MessageBuilder($.BROADCAST + message).build());
             ProxyServer.getInstance().broadcast(new MessageBuilder("").build());
         }
     }

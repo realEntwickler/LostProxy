@@ -3,7 +3,7 @@ package eu.lostname.lostproxy.interfaces.party;
 import eu.lostname.lostproxy.LostProxy;
 import eu.lostname.lostproxy.builder.MessageBuilder;
 import eu.lostname.lostproxy.interfaces.IPlayer;
-import eu.lostname.lostproxy.utils.Prefix;
+import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.Timer;
@@ -14,7 +14,7 @@ public class IPartyInvitation {
 
     private final ProxiedPlayer invitationFor;
     private final IParty party;
-    private Timer timer;
+    private final Timer timer;
 
     public IPartyInvitation(ProxiedPlayer invitationFor, IParty party) {
         this.invitationFor = invitationFor;
@@ -25,8 +25,8 @@ public class IPartyInvitation {
             public void run() {
                 if (invitationFor != null) {
                     LostProxy.getInstance().getPartyManager().getInvitations().remove(IPartyInvitation.this);
-                    invitationFor.sendMessage(new MessageBuilder(Prefix.PARTY + "Deine Einladung für die Party von " + new IPlayer(party.getLeader().getUniqueId()).getColorWithPlayername() + " §7ist §cabgelaufen§8.").build());
-                    party.getLeader().sendMessage(new MessageBuilder(Prefix.PARTY + "Die Einladung für " + new IPlayer(invitationFor.getUniqueId()).getColorWithPlayername() + " §7ist §cabgelaufen§8.").build());
+                    invitationFor.sendMessage(new MessageBuilder($.PARTY + "Deine Einladung für die Party von " + new IPlayer(party.getLeader().getUniqueId()).getDisplaywithPlayername() + " §7ist §cabgelaufen§7.").build());
+                    party.getLeader().sendMessage(new MessageBuilder($.PARTY + "Die Einladung für " + new IPlayer(invitationFor.getUniqueId()).getDisplaywithPlayername() + " §7ist §cabgelaufen§7.").build());
                 }
             }
         }, TimeUnit.MINUTES.toMillis(5));

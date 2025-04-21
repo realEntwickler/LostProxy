@@ -20,8 +20,8 @@ import eu.lostname.lostproxy.interfaces.bkms.IBan;
 import eu.lostname.lostproxy.interfaces.bkms.IBanReason;
 import eu.lostname.lostproxy.interfaces.historyandentries.ban.IBanEntry;
 import eu.lostname.lostproxy.interfaces.historyandentries.ban.IBanHistory;
+import eu.lostname.lostproxy.utils.$;
 import eu.lostname.lostproxy.utils.CloudServices;
-import eu.lostname.lostproxy.utils.Prefix;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -55,14 +55,14 @@ public class BanCommand extends Command implements TabExecutor {
                     IPlayer targetIPlayer = new IPlayer(uuid);
                     IBan iBan = LostProxy.getInstance().getBanManager().getBan(uuid);
                     if (iBan == null) {
-                        if (commandSender.hasPermission("lostproxy.command.ban.group." + targetIPlayer.getIPermissionGroup().getName().toLowerCase())) {
-                            if (LostProxy.getInstance().getReasonManager().getRegistedBanReasons().size() > 0) {
+                        if (commandSender.hasPermission("lostproxy.command.ban.group." + targetIPlayer.getPermissionGroup().getDisplayName().toLowerCase())) {
+                            if (!LostProxy.getInstance().getReasonManager().getRegistedBanReasons().isEmpty()) {
                                 List<IBanReason> iBanReasons = LostProxy.getInstance().getReasonManager().getRegistedBanReasons().stream().filter(one -> commandSender.hasPermission(one.getPermission())).collect(Collectors.toList());
 
-                                if (iBanReasons.size() > 0) {
+                                if (!iBanReasons.isEmpty()) {
                                     iBanReasons.sort(Comparator.comparingInt(IReason::getId));
 
-                                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Verfügbare Banngründe§8:").build());
+                                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Verfügbare Banngründe§8:").build());
                                     iBanReasons.forEach(iBanReason -> {
                                         TextComponent tc1 = new MessageBuilder("§8┃ §7" + iBanReason.getId() + " §8┃ §c" + iBanReason.getName() + " §8» ").build();
                                         TextComponent tc2 = new MessageBuilder("§7[§aKlick§7]").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/ban " + targetIPlayer.getPlayerName() + " " + iBanReason.getId()).build();
@@ -71,22 +71,22 @@ public class BanCommand extends Command implements TabExecutor {
                                     });
                                     commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
                                 } else {
-                                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Zurzeit sind §ckeine §7Banngründe für dich verfügbar§8.").build());
+                                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Zurzeit sind §ckeine §7Banngründe für dich verfügbar.").build());
                                 }
                             } else {
-                                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Zurzeit sind §ckeine §7Banngründe registriert§8.").build());
+                                commandSender.sendMessage(new MessageBuilder($.BKMS + "Zurzeit sind §ckeine §7Banngründe registriert§7.").build());
                             }
                         } else {
-                            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getColor() + targetIPlayer.getPlayerName() + " §7zu §7bannen§8.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7zu §7bannen§7.").build());
                         }
                     } else {
-                        commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + targetIPlayer.getColor() + targetIPlayer.getPlayerName() + " §7ist §cbereits §7gebannt§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7ist §cbereits §7gebannt§7.").build());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Du kannst dich §cnicht §7selber bannen§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Du kannst dich §cnicht §7selber bannen§7.").build());
             }
         } else if (strings.length == 2) {
             if (!commandSender.getName().equalsIgnoreCase(strings[0])) {
@@ -95,7 +95,7 @@ public class BanCommand extends Command implements TabExecutor {
                     IPlayer targetIPlayer = new IPlayer(uuid);
                     IBan iBan = LostProxy.getInstance().getBanManager().getBan(uuid);
                     if (iBan == null) {
-                        if (commandSender.hasPermission("lostproxy.command.ban.group." + targetIPlayer.getIPermissionGroup().getName().toLowerCase())) {
+                        if (commandSender.hasPermission("lostproxy.command.ban.group." + targetIPlayer.getPermissionGroup().getDisplayName().toLowerCase())) {
                             try {
                                 int reasonId = Integer.parseInt(strings[1]);
 
@@ -116,7 +116,7 @@ public class BanCommand extends Command implements TabExecutor {
                                             if (banDuration == -1) {
                                                 target.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
                                                         "\n" +
-                                                        "§7Du wurdest §4permanent §7vom Netzwerk §4gebannt§8." +
+                                                        "§7Du wurdest §4permanent §7vom Netzwerk §4gebannt§7." +
                                                         "\n" +
                                                         "\n" +
                                                         "§7Grund §8➡ §e" + iBanReason.getName() +
@@ -124,14 +124,14 @@ public class BanCommand extends Command implements TabExecutor {
                                                         "\n" +
                                                         "§7Für weitere Fragen oder zum Stellen eines Entbannungsantrags besuche das Forum§8!" +
                                                         "\n" +
-                                                        " §8» §cforum§8.§clostname§8.§ceu §8«" +
+                                                        " §8» §cforum§7.§clostname§7.§ceu §8«" +
                                                         "\n" +
                                                         "\n" +
                                                         "§8§m--------------------------------------§r").build());
                                             } else {
                                                 target.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
                                                         "\n" +
-                                                        "§7Du wurdest §4temporär §7vom Netzwerk §4gebannt§8." +
+                                                        "§7Du wurdest §4temporär §7vom Netzwerk §4gebannt§7." +
                                                         "\n" +
                                                         "\n" +
                                                         "§7Grund §8➡ §e" + iBanReason.getName() +
@@ -143,19 +143,18 @@ public class BanCommand extends Command implements TabExecutor {
                                                         "\n" +
                                                         "§7Für weitere Fragen oder zum Stellen eines Entbannungsantrags besuche das Forum§8!" +
                                                         "\n" +
-                                                        " §8» §cforum§8.§clostname§8.§ceu §8«" +
+                                                        " §8» §cforum§7.§clostname§7.§ceu §8«" +
                                                         "\n" +
                                                         "\n" +
                                                         "§8§m--------------------------------------§r").build());
                                             }
                                         }
 
-                                        if (commandSender instanceof ProxiedPlayer) {
-                                            ProxiedPlayer sender = (ProxiedPlayer) commandSender;
+                                        if (commandSender instanceof ProxiedPlayer sender) {
                                             IPlayer iPlayerSync = new IPlayer(sender.getUniqueId());
-                                            LostProxy.getInstance().getTeamManager().sendBanNotify(iPlayerSync.getColor() + sender.getName(), targetIPlayer.getColor() + targetIPlayer.getPlayerName(), iBanReason);
+                                            LostProxy.getInstance().getTeamManager().sendBanNotify(iPlayerSync.getDisplay() + sender.getName(), targetIPlayer.getDisplay() + targetIPlayer.getPlayerName(), iBanReason);
                                         } else {
-                                            LostProxy.getInstance().getTeamManager().sendBanNotify("System", targetIPlayer.getColor() + targetIPlayer.getPlayerName(), iBanReason);
+                                            LostProxy.getInstance().getTeamManager().sendBanNotify("System", targetIPlayer.getDisplay() + targetIPlayer.getPlayerName(), iBanReason);
                                         }
 
 
@@ -163,27 +162,27 @@ public class BanCommand extends Command implements TabExecutor {
                                         iBanHistory.addEntry(new IBanEntry(EBanEntryType.BAN_ENTRY, uuid, invoker, currentTimeMillis, iBanReason.getName(), iBanReason.getTime(), iBanReason.getETimeUnit(), end));
 
                                         LostProxy.getInstance().getHistoryManager().saveBanHistory(iBanHistory);
-                                        commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Du hast " + targetIPlayer.getColor() + targetIPlayer.getPlayerName() + " §7wegen §e" + iBanReason.getName() + " §7für §c" + "%time%" + (ban.getEnd() == -1 ? "§4permanent" : iBanReason.getTime() + " " + ETimeUnit.getDisplayName(iBanReason.getTime(), iBanReason.getETimeUnit()) + " §7gebannt§8.")).build());
+                                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7wegen §e" + iBanReason.getName() + " §7für §c" + (ban.getEnd() == -1 ? "§4permanent" : iBanReason.getTime() + " " + ETimeUnit.getDisplayName(iBanReason.getTime(), iBanReason.getETimeUnit()) + " §7gebannt§7.")).build());
                                     } else {
-                                        commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Du darfst den Banngrund §e" + iBanReason.getName() + " §cnicht §7benutzen§8.").build());
+                                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst den Banngrund §e" + iBanReason.getName() + " §cnicht §7benutzen§7.").build());
                                     }
                                 } else {
-                                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der angegebene Banngrund wurde §cnicht §7gefunden§8.").build());
+                                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Banngrund wurde §cnicht §7gefunden§7.").build());
                                 }
                             } catch (NumberFormatException numberFormatException) {
-                                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Du hast §ckeine §7Zahl angegeben§8.").build());
+                                commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Zahl angegeben§7.").build());
                             }
                         } else {
-                            commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getColor() + targetIPlayer.getPlayerName() + " §7zu bannen§8.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §7Rechte§8, §7um " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7zu bannen§7.").build());
                         }
                     } else {
-                        commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + targetIPlayer.getColor() + targetIPlayer.getPlayerName() + " §7ist §cbereits §7gebannt§8.").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7ist §cbereits §7gebannt§7.").build());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Du kannst dich §cnicht §7selber bannen§8.").build());
+                commandSender.sendMessage(new MessageBuilder($.BKMS + "Du kannst dich §cnicht §7selber bannen§7.").build());
             }
         } else {
             sendHelp(commandSender);
@@ -191,15 +190,14 @@ public class BanCommand extends Command implements TabExecutor {
     }
 
     private void sendHelp(CommandSender commandSender) {
-        commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Benutzung§8: §c/ban <Spieler> (ID)").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/ban ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").build());
+        commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c/ban <Spieler> (ID)").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/ban ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8[§aKlick§8]").build());
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public Iterable<String> onTabComplete(CommandSender commandSender, String[] strings) {
         ArrayList<String> list = new ArrayList<>();
         if (strings.length == 1) {
-            CloudServices.PLAYER_MANAGER.getOnlinePlayers().stream().filter(one -> one.getName().startsWith(strings[0])).forEach(one -> list.add(one.getName()));
+            CloudServices.PLAYER_MANAGER.onlinePlayers().players().stream().filter(one -> one.name().startsWith(strings[0])).forEach(one -> list.add(one.name()));
         } else if (strings.length == 2) {
             LostProxy.getInstance().getReasonManager().getRegistedBanReasons().stream().filter(one -> commandSender.hasPermission(one.getPermission()) && String.valueOf(one.getId()).startsWith(strings[1])).forEach(one -> list.add(String.valueOf(one.getId())));
         }

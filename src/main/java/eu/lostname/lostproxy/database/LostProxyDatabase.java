@@ -10,11 +10,12 @@
 
 package eu.lostname.lostproxy.database;
 
-import eu.lostname.lostproxy.interfaces.IDatabaseConnection;
+import eu.lostname.lostproxy.interfaces.IMongoConnection;
 
-public class LostProxyDatabase extends IDatabaseConnection {
+public class LostProxyDatabase extends IMongoConnection {
 
-    public LostProxyDatabase(String host, String port, String username, String password, String database) {
-        super(host, port, username, password, database);
+    public LostProxyDatabase(String dbName, String username, String password)
+    {
+        super(dbName, username, password);
     }
 }

@@ -10,13 +10,13 @@
 
 package eu.lostname.lostproxy.utils;
 
-import de.dytanic.cloudnet.driver.permission.IPermissionManagement;
-import de.dytanic.cloudnet.ext.bridge.player.IPlayerManager;
-import de.dytanic.cloudnet.ext.syncproxy.AbstractSyncProxyManagement;
+import eu.cloudnetservice.modules.bridge.player.PlayerManager;
+import eu.cloudnetservice.modules.syncproxy.SyncProxyManagement;
+import net.luckperms.api.LuckPerms;
 
 public class CloudServices {
 
-    public static IPlayerManager PLAYER_MANAGER;
-    public static IPermissionManagement PERMISSION_MANAGEMENT;
-    public static AbstractSyncProxyManagement SYNCPROXY_MANAGEMENT;
+    public static PlayerManager PLAYER_MANAGER;
+    public static LuckPerms LUCKPERMS;
+    public static SyncProxyManagement SYNCPROXY_MANAGEMENT;
 }
