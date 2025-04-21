@@ -22,6 +22,7 @@ public class MessageBuilder {
 
     private final TextComponent textComponent;
 
+    @SuppressWarnings("deprecation")
     public MessageBuilder(String content) {
         this.textComponent = new TextComponent(TextComponent.fromLegacyText(content));
     }
