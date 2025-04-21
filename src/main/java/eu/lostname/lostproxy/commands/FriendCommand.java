@@ -78,8 +78,8 @@ public class FriendCommand extends Command {
                             onlineFriends.forEach(online -> {
                                 IPlayer friendiPlayer = new IPlayer(UUID.fromString(online));
 
-                                TextComponent playerNameComponent = new MessageBuilder("§8┃ " + friendiPlayer.getColorWithPlayername() + " §8» ").build();
-                                TextComponent serverComponent = new MessageBuilder("§e§n" + friendiPlayer.getICloudPlayer().getConnectedService().getServerName()).addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/friend jump " + friendiPlayer.getPlayerName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um " + friendiPlayer.getColorWithPlayername() + " §7nachzuspringen§8.").build();
+                                TextComponent playerNameComponent = new MessageBuilder("§8┃ " + friendiPlayer.getDisplaywithPlayername() + " §8» ").build();
+                                TextComponent serverComponent = new MessageBuilder("§e§n" + friendiPlayer.getCloudPlayer().getConnectedService().getServerName()).addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/friend jump " + friendiPlayer.getPlayerName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um " + friendiPlayer.getDisplaywithPlayername() + " §7nachzuspringen§8.").build();
                                 playerNameComponent.addExtra(serverComponent);
 
                                 player.sendMessage(playerNameComponent);
@@ -89,7 +89,7 @@ public class FriendCommand extends Command {
                                 IPlayer friendiPlayer = new IPlayer(UUID.fromString(offline));
                                 IFriendData friendData = LostProxy.getInstance().getFriendManager().getFriendData(friendiPlayer.getUniqueId());
 
-                                TextComponent playerNameComponent = new MessageBuilder("§8┃ " + friendiPlayer.getColorWithPlayername() + " §8» ").build();
+                                TextComponent playerNameComponent = new MessageBuilder("§8┃ " + friendiPlayer.getDisplaywithPlayername() + " §8» ").build();
                                 TextComponent extraComponent;
 
                                 if (friendData.canFriendsSeeOnlineStatusAllowed()) {
@@ -112,7 +112,7 @@ public class FriendCommand extends Command {
                             iFriendData.getRequests().keySet().forEach(all -> {
                                 IPlayer friendiPlayer = new IPlayer(UUID.fromString(all));
 
-                                TextComponent playerNameComponent = new MessageBuilder("§8┃ " + friendiPlayer.getColorWithPlayername() + " §8» ").build();
+                                TextComponent playerNameComponent = new MessageBuilder("§8┃ " + friendiPlayer.getDisplaywithPlayername() + " §8» ").build();
                                 TextComponent acceptComponent = new MessageBuilder("§a§l✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/friend accept " + friendiPlayer.getPlayerName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um diese Freundschaftsanfrage §aanzunehmen§8.").build();
                                 TextComponent seperateComponent = new MessageBuilder(" §8┃ ").build();
                                 TextComponent denyComponent = new MessageBuilder("§c§l✖").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/friend deny " + friendiPlayer.getPlayerName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um diese Freundschaftsanfrage §cabzulehnen§8.").build();
@@ -139,11 +139,11 @@ public class FriendCommand extends Command {
                                 requestIFriendData.addFriend(player.getUniqueId());
                                 requestIFriendData.save();
 
-                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist nun mit " + requestIPlayer.getColorWithPlayername() + " §7befreundet§8.").build());
+                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist nun mit " + requestIPlayer.getDisplaywithPlayername() + " §7befreundet§8.").build());
 
                                 if (requestIPlayer.isOnline()) {
                                     ProxiedPlayer requestPlayer = ProxyServer.getInstance().getPlayer(requestIPlayer.getUniqueId());
-                                    requestPlayer.sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getColorWithPlayername() + " §7hat deine Freundschaftsanfrage §aakzeptiert§8.").build());
+                                    requestPlayer.sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getDisplaywithPlayername() + " §7hat deine Freundschaftsanfrage §aakzeptiert§8.").build());
                                 }
                             });
                             iFriendData.getRequests().clear();
@@ -157,10 +157,10 @@ public class FriendCommand extends Command {
                             iFriendData.getRequests().keySet().forEach(request -> {
                                 IPlayer requestIPlayer = new IPlayer(UUID.fromString(request));
 
-                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast die Freundschaftsanfrage von " + requestIPlayer.getColorWithPlayername() + " §cabgelehnt§8.").build());
+                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast die Freundschaftsanfrage von " + requestIPlayer.getDisplaywithPlayername() + " §cabgelehnt§8.").build());
 
                                 if (requestIPlayer.isOnline())
-                                    ProxyServer.getInstance().getPlayer(requestIPlayer.getUniqueId()).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getColorWithPlayername() + " §7hat deine Freundschaftsanfrage §cabgelehnt§8.").build());
+                                    ProxyServer.getInstance().getPlayer(requestIPlayer.getUniqueId()).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getDisplaywithPlayername() + " §7hat deine Freundschaftsanfrage §cabgelehnt§8.").build());
                             });
                             iFriendData.getRequests().clear();
                             iFriendData.save();
@@ -226,10 +226,10 @@ public class FriendCommand extends Command {
                             friendData.removeFriend(player.getUniqueId());
                             friendData.save();
 
-                            player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Die Freundschaft mit " + friendIPlayer.getColorWithPlayername() + " §7wurde §caufgelöst§8.").build());
+                            player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Die Freundschaft mit " + friendIPlayer.getDisplaywithPlayername() + " §7wurde §caufgelöst§8.").build());
 
                             if (friendIPlayer.isOnline())
-                                ProxyServer.getInstance().getPlayer(friendIPlayer.getUniqueId()).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getColorWithPlayername() + " §7hat die Freundschaft §caufgelöst§8.").build());
+                                ProxyServer.getInstance().getPlayer(friendIPlayer.getUniqueId()).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getDisplaywithPlayername() + " §7hat die Freundschaft §caufgelöst§8.").build());
                         });
                         iFriendData.getFriends().clear();
                         iFriendData.save();
@@ -253,10 +253,10 @@ public class FriendCommand extends Command {
                                             targetFriendData.addRequest(player.getUniqueId());
                                             targetFriendData.save();
 
-                                            player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast " + targetIPlayer.getColorWithPlayername() + " §7eine §eFreundschaftsanfrage §7gesendet§8.").build());
+                                            player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast " + targetIPlayer.getDisplaywithPlayername() + " §7eine §eFreundschaftsanfrage §7gesendet§8.").build());
 
                                             if (targetIPlayer.isOnline()) {
-                                                TextComponent informationComponent = new MessageBuilder(Prefix.FRIENDS + iPlayer.getColorWithPlayername() + " §7hat dir eine Freundschaftsanfrage gesendet§8. ").build();
+                                                TextComponent informationComponent = new MessageBuilder(Prefix.FRIENDS + iPlayer.getDisplaywithPlayername() + " §7hat dir eine Freundschaftsanfrage gesendet§8. ").build();
                                                 TextComponent acceptComponent = new MessageBuilder("§a§l✔").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/friend accept " + player.getName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um diese Freundschaftsanfrage §aanzunehmen§8.").build();
                                                 TextComponent seperateComponent = new MessageBuilder(" §8┃ ").build();
                                                 TextComponent denyComponent = new MessageBuilder("§c§l✖").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/friend deny " + player.getName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um diese Freundschaftsanfrage §cabzulehnen§8.").build();
@@ -268,13 +268,13 @@ public class FriendCommand extends Command {
                                                 ProxyServer.getInstance().getPlayer(targetUUID).sendMessage(informationComponent);
                                             }
                                         } else {
-                                            player.sendMessage(new MessageBuilder(Prefix.FRIENDS + targetIPlayer.getColorWithPlayername() + " §7hat Freundschaftsanfragen §cdeaktiviert§8.").build());
+                                            player.sendMessage(new MessageBuilder(Prefix.FRIENDS + targetIPlayer.getDisplaywithPlayername() + " §7hat Freundschaftsanfragen §cdeaktiviert§8.").build());
                                         }
                                     } else {
-                                        player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast " + targetIPlayer.getColorWithPlayername() + " §7bereits eine Freundschaftsanfrage gesendet§8.").build());
+                                        player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast " + targetIPlayer.getDisplaywithPlayername() + " §7bereits eine Freundschaftsanfrage gesendet§8.").build());
                                     }
                                 } else {
-                                    player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist §cbereits §7mit " + targetIPlayer.getColorWithPlayername() + " §7befreundet§8.").build());
+                                    player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist §cbereits §7mit " + targetIPlayer.getDisplaywithPlayername() + " §7befreundet§8.").build());
                                 }
                             } else {
                                 player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
@@ -295,13 +295,13 @@ public class FriendCommand extends Command {
                                     iFriendData.removeFriend(targetUUID);
                                     iFriendData.save();
 
-                                    player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Die Freundschaft mit " + targetIPlayer.getColorWithPlayername() + " wurde §caufgelöst§8.").build());
+                                    player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Die Freundschaft mit " + targetIPlayer.getDisplaywithPlayername() + " wurde §caufgelöst§8.").build());
 
                                     if (targetIPlayer.isOnline()) {
-                                        ProxyServer.getInstance().getPlayer(targetUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + "Die Freundschaft mit " + iPlayer.getColorWithPlayername() + " §7wurde §caufgelöst§8.").build());
+                                        ProxyServer.getInstance().getPlayer(targetUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + "Die Freundschaft mit " + iPlayer.getDisplaywithPlayername() + " §7wurde §caufgelöst§8.").build());
                                     }
                                 } else {
-                                    player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist §cnicht §7mit " + targetIPlayer.getColorWithPlayername() + " §7befreundet§8.").build());
+                                    player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist §cnicht §7mit " + targetIPlayer.getDisplaywithPlayername() + " §7befreundet§8.").build());
                                 }
                             } else {
                                 player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
@@ -316,16 +316,16 @@ public class FriendCommand extends Command {
                                 iFriendData.addFriend(targetUUID);
                                 iFriendData.save();
 
-                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist nun mit " + targetIPlayer.getColorWithPlayername() + " §7befreundet§8.").build());
+                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist nun mit " + targetIPlayer.getDisplaywithPlayername() + " §7befreundet§8.").build());
 
                                 IFriendData targetIFriendData = LostProxy.getInstance().getFriendManager().getFriendData(targetUUID);
                                 targetIFriendData.addFriend(player.getUniqueId());
                                 targetIFriendData.save();
 
                                 if (targetIPlayer.isOnline())
-                                    ProxyServer.getInstance().getPlayer(targetUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist nun mit " + iPlayer.getColorWithPlayername() + " §7befreundet§8.").build());
+                                    ProxyServer.getInstance().getPlayer(targetUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist nun mit " + iPlayer.getDisplaywithPlayername() + " §7befreundet§8.").build());
                             } else {
-                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast §ckeine §7Freundschaftsanfrage von " + targetIPlayer.getColorWithPlayername() + " §7erhalten§8.").build());
+                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast §ckeine §7Freundschaftsanfrage von " + targetIPlayer.getDisplaywithPlayername() + " §7erhalten§8.").build());
                             }
                         } else {
                             player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
@@ -339,12 +339,12 @@ public class FriendCommand extends Command {
                                 iFriendData.removeRequest(targetUUID);
                                 iFriendData.save();
 
-                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast die Freundschaftsanfrage von " + targetIPlayer.getColorWithPlayername() + " §cabgelehnt§8.").build());
+                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast die Freundschaftsanfrage von " + targetIPlayer.getDisplaywithPlayername() + " §cabgelehnt§8.").build());
 
                                 if (targetIPlayer.isOnline())
-                                    ProxyServer.getInstance().getPlayer(targetUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getColorWithPlayername() + " §7hat deine Freundschaftsanfrage §cabgelehnt§8.").build());
+                                    ProxyServer.getInstance().getPlayer(targetUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getDisplaywithPlayername() + " §7hat deine Freundschaftsanfrage §cabgelehnt§8.").build());
                             } else {
-                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast §ckeine §7Freundschaftsanfrage von " + targetIPlayer.getColorWithPlayername() + " §7bekommen§8.").build());
+                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du hast §ckeine §7Freundschaftsanfrage von " + targetIPlayer.getDisplaywithPlayername() + " §7bekommen§8.").build());
                             }
                         } else {
                             player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
@@ -362,22 +362,22 @@ public class FriendCommand extends Command {
                                         ServerInfo targetServer = ProxyServer.getInstance().getPlayer(targetUUID).getServer().getInfo();
 
                                         if (!targetServer.getName().equalsIgnoreCase(player.getServer().getInfo().getName())) {
-                                            player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du wirst nun mit dem Server von " + targetIPlayer.getColorWithPlayername() + " §7verbunden§8.").build());
+                                            player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du wirst nun mit dem Server von " + targetIPlayer.getDisplaywithPlayername() + " §7verbunden§8.").build());
                                             player.connect(targetServer);
 
                                             if (targetIFriendData.areNotifyMessagesEnabled())
-                                                ProxyServer.getInstance().getPlayer(targetUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getColorWithPlayername() + " §7ist zu dir §egesprungen§8.").build());
+                                                ProxyServer.getInstance().getPlayer(targetUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getDisplaywithPlayername() + " §7ist zu dir §egesprungen§8.").build());
                                         } else {
-                                            player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du befindest dich §cbereits §7auf dem Server von " + targetIPlayer.getColorWithPlayername() + "§8.").build());
+                                            player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du befindest dich §cbereits §7auf dem Server von " + targetIPlayer.getDisplaywithPlayername() + "§8.").build());
                                         }
                                     } else {
-                                        player.sendMessage(new MessageBuilder(Prefix.FRIENDS + targetIPlayer.getColorWithPlayername() + " §7ist §cnicht §7online§8.").build());
+                                        player.sendMessage(new MessageBuilder(Prefix.FRIENDS + targetIPlayer.getDisplaywithPlayername() + " §7ist §cnicht §7online§8.").build());
                                     }
                                 } else {
-                                    player.sendMessage(new MessageBuilder(Prefix.FRIENDS + targetIPlayer.getColorWithPlayername() + " §7hat das Nachspringen §cdeaktiviert§8.").build());
+                                    player.sendMessage(new MessageBuilder(Prefix.FRIENDS + targetIPlayer.getDisplaywithPlayername() + " §7hat das Nachspringen §cdeaktiviert§8.").build());
                                 }
                             } else {
-                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist §cnicht §7mit " + targetIPlayer.getColorWithPlayername() + " §7befreundet§8.").build());
+                                player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Du bist §cnicht §7mit " + targetIPlayer.getDisplaywithPlayername() + " §7befreundet§8.").build());
                             }
                         } else {
                             player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
@@ -390,7 +390,7 @@ public class FriendCommand extends Command {
                             sortedFriends.forEach(sortedFriend -> {
                                 UUID sortedFriendUUID = UUID.fromString(sortedFriend);
                                 IPlayer sortedFriendIPlayer = new IPlayer(sortedFriendUUID);
-                                ProxyServer.getInstance().getPlayer(sortedFriendUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getColorWithPlayername() + " §8➡ " + sortedFriendIPlayer.getColorWithPlayername() + " §8» §e" + argument).build());
+                                ProxyServer.getInstance().getPlayer(sortedFriendUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getDisplaywithPlayername() + " §8➡ " + sortedFriendIPlayer.getDisplaywithPlayername() + " §8» §e" + argument).build());
                             });
                             player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Deine Nachricht wurde an §e" + sortedFriends.size() + " Freunde §7versendet§8.").build());
                         } else {
@@ -411,7 +411,7 @@ public class FriendCommand extends Command {
                         sortedFriends.forEach(sortedFriend -> {
                             UUID sortedFriendUUID = UUID.fromString(sortedFriend);
                             IPlayer sortedFriendIPlayer = new IPlayer(sortedFriendUUID);
-                            ProxyServer.getInstance().getPlayer(sortedFriendUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getColorWithPlayername() + " §8➡ " + sortedFriendIPlayer.getColorWithPlayername() + " §8» §e" + message).build());
+                            ProxyServer.getInstance().getPlayer(sortedFriendUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getDisplaywithPlayername() + " §8➡ " + sortedFriendIPlayer.getDisplaywithPlayername() + " §8» §e" + message).build());
                         });
                         player.sendMessage(new MessageBuilder(Prefix.FRIENDS + "Deine Nachricht wurde an §e" + sortedFriends.size() + " Freunde §7versendet§8.").build());
                     } else {

@@ -32,7 +32,7 @@ public class PartyChatCommand extends Command {
                         stringBuilder.append(string).append(" ");
                     }
 
-                    party.sendMessage(new MessageBuilder(Prefix.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getColorWithPlayername() + " §8➡ §7" + stringBuilder).build());
+                    party.sendMessage(new MessageBuilder(Prefix.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §8➡ §7" + stringBuilder).build());
                 } else {
                     proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Du bist in §ckeiner §7Party§8.").build());
                 }

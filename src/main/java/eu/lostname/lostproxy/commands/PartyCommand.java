@@ -61,7 +61,7 @@ public class PartyCommand extends Command {
                                     if (newLeader != null) {
                                         party.setLeader(newLeader);
                                         party.setCurrentServer(newLeader.getServer().getInfo());
-                                        party.sendMessage(new MessageBuilder(Prefix.PARTY + new IPlayer(newLeader.getUniqueId()).getColorWithPlayername() + " §7ist der neue §ePartyleiter§8.").build());
+                                        party.sendMessage(new MessageBuilder(Prefix.PARTY + new IPlayer(newLeader.getUniqueId()).getDisplaywithPlayername() + " §7ist der neue §ePartyleiter§8.").build());
                                     } else {
                                         party.sendMessage(new MessageBuilder(Prefix.PARTY + "Es trat ein §cFehler §7bei der Suche nach einem neuen Partyleiter auf§8.").build());
                                     }
@@ -82,8 +82,8 @@ public class PartyCommand extends Command {
 
                         if (party != null) {
                             if (party.getMembers().size() > 1) {
-                                proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Mitglieder der Party von " + new IPlayer(party.getLeader().getUniqueId()).getColorWithPlayername() + "§8:").build());
-                                party.getOnlyMembers().forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8┃ " + new IPlayer(one.getUniqueId()).getColorWithPlayername()).build()));
+                                proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Mitglieder der Party von " + new IPlayer(party.getLeader().getUniqueId()).getDisplaywithPlayername() + "§8:").build());
+                                party.getOnlyMembers().forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8┃ " + new IPlayer(one.getUniqueId()).getDisplaywithPlayername()).build()));
                             } else {
                                 proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Du bist der §cEinzige §7in der Party§8.").build());
                             }
@@ -143,9 +143,9 @@ public class PartyCommand extends Command {
                                                 if (LostProxy.getInstance().getPartyManager().getInvitations(targetProxiedPlayer).stream().filter(filter -> filter.getParty().getLeader() == proxiedPlayer).findFirst().orElse(null) == null) {
                                                     LostProxy.getInstance().getPartyManager().getInvitations().add(new IPartyInvitation(targetProxiedPlayer, party));
 
-                                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + targetIPlayer.getColorWithPlayername() + " §7wurde in die Party eingeladen").build());
+                                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + targetIPlayer.getDisplaywithPlayername() + " §7wurde in die Party eingeladen").build());
 
-                                                    TextComponent informationComponent = new MessageBuilder(Prefix.PARTY + "Du hast eine Einladung zur Party von " + iPlayer.getColorWithPlayername() + " §7erhalten§8. ").build();
+                                                    TextComponent informationComponent = new MessageBuilder(Prefix.PARTY + "Du hast eine Einladung zur Party von " + iPlayer.getDisplaywithPlayername() + " §7erhalten§8. ").build();
                                                     TextComponent acceptComponent = new MessageBuilder("§a§l✔").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/party accept " + proxiedPlayer.getName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um diese Partyeinladung §aanzunehmen§8.").build();
                                                     TextComponent seperateComponent = new MessageBuilder(" §8┃ ").build();
                                                     TextComponent denyComponent = new MessageBuilder("§c§l✖").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/party deny " + proxiedPlayer.getName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um diese Partyeinladung §cabzulehnen§8.").build();
@@ -156,19 +156,19 @@ public class PartyCommand extends Command {
 
                                                     targetProxiedPlayer.sendMessage(informationComponent);
                                                 } else {
-                                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + targetIPlayer.getColorWithPlayername() + " §7hat §cbereits §7eine Einladung erhalten§8.").build());
+                                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + targetIPlayer.getDisplaywithPlayername() + " §7hat §cbereits §7eine Einladung erhalten§8.").build());
                                                 }
                                             } else {
                                                 proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Du bist §cnicht §7der Leiter der Party§8.").build());
                                             }
                                         } else {
-                                            proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + targetIPlayer.getColorWithPlayername() + " §7ist §cbereits §7in einer anderen Party§8.").build());
+                                            proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + targetIPlayer.getDisplaywithPlayername() + " §7ist §cbereits §7in einer anderen Party§8.").build());
                                         }
                                     } else {
-                                        proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + targetIPlayer.getColorWithPlayername() + " §7hat Party-Einladungen §cdeaktiviert§8.").build());
+                                        proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + targetIPlayer.getDisplaywithPlayername() + " §7hat Party-Einladungen §cdeaktiviert§8.").build());
                                     }
                                 } else {
-                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + targetIPlayer.getColorWithPlayername() + " §7ist §cnicht §7online§8.").build());
+                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + targetIPlayer.getDisplaywithPlayername() + " §7ist §cnicht §7online§8.").build());
                                 }
                             } else {
                                 proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
@@ -204,7 +204,7 @@ public class PartyCommand extends Command {
                             partyInvitation.delete();
 
                             proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Du hast die Einladung §cabgelehnt§8.").build());
-                            party.getLeader().sendMessage(new MessageBuilder(Prefix.PARTY + iPlayer.getColorWithPlayername() + " §7hat die Einladung §cabgelehnt§8.").build());
+                            party.getLeader().sendMessage(new MessageBuilder(Prefix.PARTY + iPlayer.getDisplaywithPlayername() + " §7hat die Einladung §cabgelehnt§8.").build());
                         } else {
                             proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Du hast §ckeine §7Einladung zu dieser Party erhalten§8.").build());
                         }
@@ -221,7 +221,7 @@ public class PartyCommand extends Command {
 
                                     party.removeMember(targetProxiedPlayer);
 
-                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Du hast " + targetIPlayer.getColorWithPlayername() + " §7aus der Party §cgekickt§8.").build());
+                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Du hast " + targetIPlayer.getDisplaywithPlayername() + " §7aus der Party §cgekickt§8.").build());
                                     targetProxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Du wurdest aus der Party §cgekickt§8.").build());
                                 } else {
                                     proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
@@ -245,7 +245,7 @@ public class PartyCommand extends Command {
 
                                     party.setLeader(targetProxiedPlayer);
                                     party.setCurrentServer(targetProxiedPlayer.getServer().getInfo());
-                                    party.sendMessage(new MessageBuilder(Prefix.PARTY + new IPlayer(targetProxiedPlayer.getUniqueId()).getColorWithPlayername() + " §7ist der neue §ePartyleiter§8.").build());
+                                    party.sendMessage(new MessageBuilder(Prefix.PARTY + new IPlayer(targetProxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §7ist der neue §ePartyleiter§8.").build());
                                 } else {
                                     proxiedPlayer.sendMessage(new MessageBuilder(Prefix.PARTY + "Der angegebene Spieler wurde §cnicht §7gefunden§8.").build());
                                 }

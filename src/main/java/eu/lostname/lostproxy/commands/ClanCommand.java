@@ -78,15 +78,15 @@ public class ClanCommand extends Command {
                             List<IClanPlayerData> leaders = playerData.stream().filter(filter -> filter.getClanRole() == EClanRole.LEADER).collect(Collectors.toList());
                             proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §7Leader §8(§c" + leaders.size() + "§8):").build());
 
-                            leaders.forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8» " + new IPlayer(one.getUniqueId()).getColorWithPlayername()).build()));
+                            leaders.forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8» " + new IPlayer(one.getUniqueId()).getDisplaywithPlayername()).build()));
 
                             List<IClanPlayerData> moderatoren = playerData.stream().filter(filter -> filter.getClanRole() == EClanRole.MODERATOR).collect(Collectors.toList());
                             proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §7Moderatoren §8(§9" + moderatoren.size() + "§8):").build());
-                            moderatoren.forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8» " + new IPlayer(one.getUniqueId()).getColorWithPlayername()).build()));
+                            moderatoren.forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8» " + new IPlayer(one.getUniqueId()).getDisplaywithPlayername()).build()));
 
                             List<IClanPlayerData> mitglieder = playerData.stream().filter(filter -> filter.getClanRole() == EClanRole.MEMBER).collect(Collectors.toList());
                             proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §7Mitglieder §8(§e" + mitglieder.size() + "§8):").build());
-                            mitglieder.forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8» " + new IPlayer(one.getUniqueId()).getColorWithPlayername()).build()));
+                            mitglieder.forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8» " + new IPlayer(one.getUniqueId()).getDisplaywithPlayername()).build()));
                         } else {
                             proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + "Du bist in §ckeinem §7Clan§8.").build());
                         }
@@ -107,7 +107,7 @@ public class ClanCommand extends Command {
                                     clanPlayerDatasFromClan.forEach(one -> {
                                         ProxiedPlayer oneClanProxiedPlayers = ProxyServer.getInstance().getPlayer(one.getUniqueId());
                                         if (oneClanProxiedPlayers != null) {
-                                            oneClanProxiedPlayers.sendMessage(new MessageBuilder(Prefix.CLANS + iPlayer.getColorWithPlayername() + " §7hat den Clan §cverlassen§8.").build());
+                                            oneClanProxiedPlayers.sendMessage(new MessageBuilder(Prefix.CLANS + iPlayer.getDisplaywithPlayername() + " §7hat den Clan §cverlassen§8.").build());
                                         }
                                     });
                                 } else {
@@ -122,7 +122,7 @@ public class ClanCommand extends Command {
                                 clanPlayerDatasFromClan.forEach(one -> {
                                     ProxiedPlayer oneClanProxiedPlayers = ProxyServer.getInstance().getPlayer(one.getUniqueId());
                                     if (oneClanProxiedPlayers != null) {
-                                        oneClanProxiedPlayers.sendMessage(new MessageBuilder(Prefix.CLANS + iPlayer.getColorWithPlayername() + " §7hat den Clan §cverlassen§8.").build());
+                                        oneClanProxiedPlayers.sendMessage(new MessageBuilder(Prefix.CLANS + iPlayer.getDisplaywithPlayername() + " §7hat den Clan §cverlassen§8.").build());
                                     }
                                 });
                             }
@@ -149,7 +149,7 @@ public class ClanCommand extends Command {
                                                 if (LostProxy.getInstance().getClanManager().getClanInvitationsByPlayer(targetUniqueId).stream().noneMatch(filter -> filter.getClanUid().equalsIgnoreCase(clan.getId()))) {
                                                     new IClanInvitation(targetUniqueId.toString(), clan.getId()).save();
 
-                                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + targetIPlayer.getColorWithPlayername() + " §7wurde in den Clan eingeladen§8.").build());
+                                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + targetIPlayer.getDisplaywithPlayername() + " §7wurde in den Clan eingeladen§8.").build());
 
                                                     ProxiedPlayer targetProxiedPlayer = ProxyServer.getInstance().getPlayer(targetUniqueId);
                                                     if (targetProxiedPlayer != null) {
@@ -165,7 +165,7 @@ public class ClanCommand extends Command {
                                                         targetProxiedPlayer.sendMessage(informationComponent);
                                                     }
                                                 } else {
-                                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + targetIPlayer.getColorWithPlayername() + " §7hat §cbereits §7eine Einladung zum Clan erhalten§8.").build());
+                                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + targetIPlayer.getDisplaywithPlayername() + " §7hat §cbereits §7eine Einladung zum Clan erhalten§8.").build());
                                                 }
                                             } else {
                                                 proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + "Der Clan ist §cvoll§8.").build());
@@ -177,10 +177,10 @@ public class ClanCommand extends Command {
                                         proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + "Du bist in §ckeinem §7Clan§8.").build());
                                     }
                                 } else {
-                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + targetIPlayer.getColorWithPlayername() + " §7hat Clan-Einladungen §cdeaktiviert§8.").build());
+                                    proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + targetIPlayer.getDisplaywithPlayername() + " §7hat Clan-Einladungen §cdeaktiviert§8.").build());
                                 }
                             } else {
-                                proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + targetIPlayer.getColorWithPlayername() + " §7ist §cbereits §7in einem Clan§8.").build());
+                                proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + targetIPlayer.getDisplaywithPlayername() + " §7ist §cbereits §7in einem Clan§8.").build());
 
                             }
                         } else {
@@ -207,7 +207,7 @@ public class ClanCommand extends Command {
 
                                             playerDatasFromClan.add(iClanPlayerData);
                                             playerDatasFromClan.stream().filter(filter -> new IPlayer(filter.getUniqueId()).isOnline()).forEach(one -> {
-                                                ProxyServer.getInstance().getPlayer(one.getUniqueId()).sendMessage(new MessageBuilder(Prefix.CLANS + iPlayer.getColorWithPlayername() + " §7ist dem Clan beigetreten§8.").build());
+                                                ProxyServer.getInstance().getPlayer(one.getUniqueId()).sendMessage(new MessageBuilder(Prefix.CLANS + iPlayer.getDisplaywithPlayername() + " §7ist dem Clan beigetreten§8.").build());
                                             });
                                         } else {
                                             proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + "Die Einladung konnte §cnicht §7akzeptiert werden§8, §7da der Clan §cvoll §7ist§8.").build());
@@ -238,7 +238,7 @@ public class ClanCommand extends Command {
                                     clanInvitation.delete();
 
                                     proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + "Du hast die Einladung von §e" + clan.getName() + " §7erfolgreich §cabgelehnt§8.").build());
-                                    playerDatasFromClan.stream().filter(filter -> filter.getClanRole() != EClanRole.MEMBER && new IPlayer(filter.getUniqueId()).isOnline()).forEach(one -> ProxyServer.getInstance().getPlayer(one.getUniqueId()).sendMessage(new MessageBuilder(Prefix.CLANS + iPlayer.getColorWithPlayername() + " §7hat die Claneinladung §cabgelehnt§8.").build()));
+                                    playerDatasFromClan.stream().filter(filter -> filter.getClanRole() != EClanRole.MEMBER && new IPlayer(filter.getUniqueId()).isOnline()).forEach(one -> ProxyServer.getInstance().getPlayer(one.getUniqueId()).sendMessage(new MessageBuilder(Prefix.CLANS + iPlayer.getDisplaywithPlayername() + " §7hat die Claneinladung §cabgelehnt§8.").build()));
                                 } else {
                                     proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + "Du hast §ckeine §7Einladung von diesem Clan erhalten§8.").build());
                                 }
@@ -258,7 +258,7 @@ public class ClanCommand extends Command {
 
                                 if (targetUniqueId != null) {
                                     IClanPlayerData targetClanPlayerData = LostProxy.getInstance().getClanManager().getClanPlayerData(targetUniqueId);
-                                    String targetColorWithPlayername = new IPlayer(targetUniqueId).getColorWithPlayername();
+                                    String targetColorWithPlayername = new IPlayer(targetUniqueId).getDisplaywithPlayername();
 
                                     if (targetClanPlayerData != null && targetClanPlayerData.getClanUid().equalsIgnoreCase(iClanPlayerData.getClanUid())) {
                                         switch (targetClanPlayerData.getClanRole()) {
@@ -305,7 +305,7 @@ public class ClanCommand extends Command {
 
                                     if (targetUniqueId != null) {
                                         IClanPlayerData targetClanPlayerData = LostProxy.getInstance().getClanManager().getClanPlayerData(targetUniqueId);
-                                        String targetColorWithPlayername = new IPlayer(targetUniqueId).getColorWithPlayername();
+                                        String targetColorWithPlayername = new IPlayer(targetUniqueId).getDisplaywithPlayername();
 
                                         if (targetClanPlayerData != null && targetClanPlayerData.getClanUid().equalsIgnoreCase(iClanPlayerData.getClanUid())) {
                                             switch (targetClanPlayerData.getClanRole()) {

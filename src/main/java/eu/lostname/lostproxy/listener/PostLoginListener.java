@@ -45,7 +45,7 @@ public class PostLoginListener implements Listener {
             iBanHistory.addEntry(new IBanEntry(EBanEntryType.UNBAN_ENTRY, player.getUniqueId(), "console", System.currentTimeMillis(), "BAN_EXPIRED", 0, null, 0));
             LostProxy.getInstance().getHistoryManager().saveBanHistory(iBanHistory);
             LostProxy.getInstance().getTeamManager().getNotificationOn().forEach(all -> {
-                all.sendMessage(new MessageBuilder(Prefix.BKMS + "§cBKM-System" + " §8➼ " + iPlayer.getColor() + player.getName()).build());
+                all.sendMessage(new MessageBuilder(Prefix.BKMS + "§cBKM-System" + " §8➼ " + iPlayer.getDisplay() + player.getName()).build());
                 all.sendMessage(new MessageBuilder("§8» §7Typ §8» §aUnban").build());
                 all.sendMessage(new MessageBuilder("§8» §7Grund §8» §eAbgelaufen").build());
                 all.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
@@ -59,7 +59,7 @@ public class PostLoginListener implements Listener {
         }
 
         if (player.hasPermission("lostproxy.command.team") && player.hasPermission("lostproxy.command.team.login")) {
-            LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder(Prefix.TMS + iPlayer.getColorWithPlayername() + " §7hat das Netzwerk §abetreten§8.").build()));
+            LostProxy.getInstance().getTeamManager().getLoggedIn().forEach(all -> all.sendMessage(new MessageBuilder(Prefix.TMS + iPlayer.getDisplaywithPlayername() + " §7hat das Netzwerk §abetreten§8.").build()));
             if (LostProxy.getInstance().getTeamManager().login(player)) {
                 player.sendMessage(new MessageBuilder(Prefix.TMS + "§7Du wurdest §aeingeloggt§8.").build());
             }
@@ -73,7 +73,7 @@ public class PostLoginListener implements Listener {
                 onlineFriends.forEach(one -> {
                     UUID friendUUID = UUID.fromString(one);
                     if (LostProxy.getInstance().getFriendManager().getFriendData(friendUUID).areNotifyMessagesEnabled())
-                        ProxyServer.getInstance().getPlayer(friendUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getColor() + player.getName() + " §7ist nun §aonline§8.").build());
+                        ProxyServer.getInstance().getPlayer(friendUUID).sendMessage(new MessageBuilder(Prefix.FRIENDS + iPlayer.getDisplay() + player.getName() + " §7ist nun §aonline§8.").build());
                 });
 
 

@@ -48,7 +48,7 @@ public class MuteHistoryCommand extends Command implements TabExecutor {
                 IMuteHistory iMuteHistory = LostProxy.getInstance().getHistoryManager().getMuteHistory(targetUUID);
                 IPlayer targetIPlayer = new IPlayer(targetUUID);
                 if (iMuteHistory.getHistory().size() > 0) {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Mutes von " + targetIPlayer.getColor() + targetIPlayer.getPlayerName() + "§8:").build());
+                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Mutes von " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + "§8:").build());
                     commandSender.sendMessage(new MessageBuilder("§8» §7Anzahl §8┃ §c" + iMuteHistory.getHistory().size()).build());
                     AtomicInteger currentEntry = new AtomicInteger(-1);
 
@@ -68,7 +68,7 @@ public class MuteHistoryCommand extends Command implements TabExecutor {
                                     commandSender.sendMessage(new MessageBuilder("§8» §cMute §8┃ §e" + date + " §7@ §e" + time + " §8» §4Konsole §8» §e" + iMuteEntry.getReason() + " §8» §c" + (muteIsPermanent ? "permanent" : iMuteEntry.getTime() + " " + ETimeUnit.getDisplayName(iMuteEntry.getTime(), iMuteEntry.getETimeUnit())) + " §8» §a" + (muteIsPermanent ? "/" : unmuteDate + " §7@ §a" + unmuteTime)).build());
                                 } else {
                                     IPlayer iPlayer = new IPlayer(UUID.fromString(iMuteEntry.getInvokerId()));
-                                    commandSender.sendMessage(new MessageBuilder("§8» §cMute §8┃ §e" + date + " §7@ §e" + time + " §8» " + iPlayer.getColor() + iPlayer.getPlayerName() + " §8» §e" + iMuteEntry.getReason() + " §8» §c" + (muteIsPermanent ? "permanent" : iMuteEntry.getTime() + " " + ETimeUnit.getDisplayName(iMuteEntry.getTime(), iMuteEntry.getETimeUnit())) + " §8» §a" + (muteIsPermanent ? "/" : unmuteDate + " §7@ §a" + unmuteTime)).build());
+                                    commandSender.sendMessage(new MessageBuilder("§8» §cMute §8┃ §e" + date + " §7@ §e" + time + " §8» " + iPlayer.getDisplay() + iPlayer.getPlayerName() + " §8» §e" + iMuteEntry.getReason() + " §8» §c" + (muteIsPermanent ? "permanent" : iMuteEntry.getTime() + " " + ETimeUnit.getDisplayName(iMuteEntry.getTime(), iMuteEntry.getETimeUnit())) + " §8» §a" + (muteIsPermanent ? "/" : unmuteDate + " §7@ §a" + unmuteTime)).build());
                                 }
                                 break;
                             case UNMUTE_ENTRY:
@@ -76,7 +76,7 @@ public class MuteHistoryCommand extends Command implements TabExecutor {
                                     commandSender.sendMessage(new MessageBuilder("§8» §aUnmute §8┃ §e" + date + " §7@ §e" + time + " §8» §4Konsole §8» §e" + iMuteEntry.getReason()).build());
                                 } else {
                                     IPlayer iPlayer = new IPlayer(UUID.fromString(iMuteEntry.getInvokerId()));
-                                    commandSender.sendMessage(new MessageBuilder("§8» §aUnmute §8┃ §e" + date + " §7@ §e" + time + " §8» " + iPlayer.getColor() + iPlayer.getPlayerName() + "  §e" + iMuteEntry.getReason()).build());
+                                    commandSender.sendMessage(new MessageBuilder("§8» §aUnmute §8┃ §e" + date + " §7@ §e" + time + " §8» " + iPlayer.getDisplay() + iPlayer.getPlayerName() + "  §e" + iMuteEntry.getReason()).build());
                                 }
                                 break;
                         }
@@ -88,7 +88,7 @@ public class MuteHistoryCommand extends Command implements TabExecutor {
                         }
                     });
                 } else {
-                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der Spieler " + targetIPlayer.getColor() + targetIPlayer.getPlayerName() + " §7hat §ckeine §7Mute-History§8.").build());
+                    commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Der Spieler " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7hat §ckeine §7Mute-History§8.").build());
                 }
             } else {
                 commandSender.sendMessage(new MessageBuilder(Prefix.BKMS + "Zu dem angegebenen Spielernamen konnte §ckeine §7UUID gefunden werden§8.").build());

@@ -33,7 +33,7 @@ public class ReportCommand extends Command {
                 if (targetProxiedPlayer != null) {
                     if (!targetProxiedPlayer.getName().equalsIgnoreCase(proxiedPlayer.getName())) {
                         if (LostProxy.getInstance().getReportManager().getReportReasons().size() > 0) {
-                            proxiedPlayer.sendMessage(new MessageBuilder(Prefix.REPORT + "Für welches Verhalten möchtest du " + new IPlayer(targetProxiedPlayer.getUniqueId()).getColorWithPlayername() + " §7melden?").build());
+                            proxiedPlayer.sendMessage(new MessageBuilder(Prefix.REPORT + "Für welches Verhalten möchtest du " + new IPlayer(targetProxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §7melden?").build());
                             LostProxy.getInstance().getReportManager().getReportReasons().forEach(iReportReason -> proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §c" + iReportReason.getID() + " §8» §c" + iReportReason.getName() + " §8┃ §7" + iReportReason.getDescription()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §7aKlicke§8, §7um diesen Meldegrund auszuwählen").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/report " + targetProxiedPlayer.getName() + " " + iReportReason.getID()).build()));
                         } else {
                             proxiedPlayer.sendMessage(new MessageBuilder(Prefix.REPORT + "Es konnten §ckeine §7Meldegründe abgerufen werden§8.").build());
@@ -65,10 +65,10 @@ public class ReportCommand extends Command {
                                 IReport report = new IReport(proxiedPlayer, targetProxiedPlayer, reportReason);
                                 LostProxy.getInstance().getReportManager().getReports().add(report);
 
-                                String targetPlayerNameWithColor = new IPlayer(targetProxiedPlayer.getUniqueId()).getColorWithPlayername();
+                                String targetPlayerNameWithColor = new IPlayer(targetProxiedPlayer.getUniqueId()).getDisplaywithPlayername();
                                 proxiedPlayer.sendMessage(new MessageBuilder(Prefix.REPORT + "Du hast " + targetPlayerNameWithColor + " §7wegen §c" + reportReason.getName() + " §7gemeldet§8.").build());
 
-                                TextComponent reportNotificationMessage = new MessageBuilder(Prefix.REPORT + new IPlayer(proxiedPlayer.getUniqueId()).getColorWithPlayername() + " §8➡ " + targetPlayerNameWithColor + " §8┃ §7" + reportReason.getName()).build();
+                                TextComponent reportNotificationMessage = new MessageBuilder(Prefix.REPORT + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §8➡ " + targetPlayerNameWithColor + " §8┃ §7" + reportReason.getName()).build();
                                 LostProxy.getInstance().getTeamManager().getNotificationOn().forEach(notification -> notification.sendMessage(reportNotificationMessage));
                             } else {
                                 proxiedPlayer.sendMessage(new MessageBuilder(Prefix.REPORT + "Du hast diesen Spieler §cbereits §7gemeldet§8.").build());

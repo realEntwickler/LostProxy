@@ -32,7 +32,7 @@ public class ClanChatCommand extends Command {
                     for (String string : strings)
                         stringBuilder.append(string).append(" ");
 
-                    LostProxy.getInstance().getClanManager().getClanPlayerDatasFromClan(clan.getId()).stream().filter(filter -> ProxyServer.getInstance().getPlayer(filter.getUniqueId()) != null).forEach(all -> ProxyServer.getInstance().getPlayer(all.getUniqueId()).sendMessage(new MessageBuilder(Prefix.CLANS + iPlayer.getColorWithPlayername() + " §8➡ §7" + stringBuilder).build()));
+                    LostProxy.getInstance().getClanManager().getClanPlayerDatasFromClan(clan.getId()).stream().filter(filter -> ProxyServer.getInstance().getPlayer(filter.getUniqueId()) != null).forEach(all -> ProxyServer.getInstance().getPlayer(all.getUniqueId()).sendMessage(new MessageBuilder(Prefix.CLANS + iPlayer.getDisplaywithPlayername() + " §8➡ §7" + stringBuilder).build()));
                 } else {
                     proxiedPlayer.sendMessage(new MessageBuilder(Prefix.CLANS + "Du bist in §ckeinem §7Clan§8.").build());
                 }

@@ -60,7 +60,7 @@ public class ChatListener implements Listener {
                         iMuteHistory.addEntry(new IMuteEntry(EMuteEntryType.UNMUTE_ENTRY, player.getUniqueId(), "console", System.currentTimeMillis(), "MUTE_EXPIRED", 0, null, 0));
                         LostProxy.getInstance().getHistoryManager().saveMuteHistory(iMuteHistory);
                         LostProxy.getInstance().getTeamManager().getNotificationOn().forEach(all -> {
-                            all.sendMessage(new MessageBuilder(Prefix.BKMS + "§4BKM-System" + " §8➼ " + iPlayer.getColor() + player.getName()).build());
+                            all.sendMessage(new MessageBuilder(Prefix.BKMS + "§4BKM-System" + " §8➼ " + iPlayer.getDisplay() + player.getName()).build());
                             all.sendMessage(new MessageBuilder("§8» §7Typ §8» §aUnmute").build());
                             all.sendMessage(new MessageBuilder("§8» §7Grund §8» §eAbgelaufen").build());
                             all.sendMessage(new MessageBuilder("§8§m--------------------§r").build());

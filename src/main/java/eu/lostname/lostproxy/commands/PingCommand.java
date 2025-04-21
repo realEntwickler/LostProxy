@@ -46,7 +46,7 @@ public class PingCommand extends Command implements TabExecutor {
 
                     if (target != null) {
                         IPlayer iPlayer = new IPlayer(target.getUniqueId());
-                        player.sendMessage(new MessageBuilder(Prefix.LOSTNAME + "Der Ping von " + iPlayer.getColor() + target.getName() + " §7beträgt aktuell§8: §c" + target.getPing() + "ms").build());
+                        player.sendMessage(new MessageBuilder(Prefix.LOSTNAME + "Der Ping von " + iPlayer.getDisplay() + target.getName() + " §7beträgt aktuell§8: §c" + target.getPing() + "ms").build());
                     } else {
                         player.sendMessage(new MessageBuilder(Prefix.LOSTNAME + "Der angegebene Spieler konnte §cnicht §7gefunden werden§8.").build());
                     }

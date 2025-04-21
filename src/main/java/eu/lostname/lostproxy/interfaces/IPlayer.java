@@ -10,114 +10,102 @@
 
 package eu.lostname.lostproxy.interfaces;
 
-import de.dytanic.cloudnet.driver.permission.IPermissionGroup;
-import de.dytanic.cloudnet.driver.permission.IPermissionUser;
-import de.dytanic.cloudnet.ext.bridge.player.ICloudOfflinePlayer;
-import de.dytanic.cloudnet.ext.bridge.player.ICloudPlayer;
+import eu.cloudnetservice.modules.bridge.player.CloudOfflinePlayer;
+import eu.cloudnetservice.modules.bridge.player.CloudPlayer;
 import eu.lostname.lostproxy.utils.CloudServices;
+import net.luckperms.api.model.group.Group;
+import net.luckperms.api.model.user.User;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class IPlayer {
 
     private final UUID uniqueId;
-    private final ICloudOfflinePlayer iCloudOfflinePlayer;
+    private final CloudOfflinePlayer cloudOfflinePlayer;
     private final String playerName;
     private final boolean exists;
 
     public IPlayer(UUID uniqueId) {
         this.uniqueId = uniqueId;
-        this.iCloudOfflinePlayer = CloudServices.PLAYER_MANAGER.getOfflinePlayer(uniqueId);
-        if (iCloudOfflinePlayer == null) {
+        this.cloudOfflinePlayer = CloudServices.PLAYER_MANAGER.offlinePlayer(uniqueId);
+        if (cloudOfflinePlayer == null) {
             this.exists = false;
             this.playerName = "NOT_FOUND";
             return;
         }
         this.exists = true;
-        this.playerName = iCloudOfflinePlayer.getName();
+        this.playerName = cloudOfflinePlayer.name();
     }
 
     public String getPrefix() {
-        return getIPermissionGroup().getPrefix();
+        return getPermissionGroup().getCachedData().getMetaData().getPrefix();
     }
 
     public String getSuffix() {
-        return getIPermissionGroup().getSuffix();
+        return getPermissionGroup().getCachedData().getMetaData().getSuffix();
     }
 
     public String getDisplay() {
-        return getIPermissionGroup().getDisplay();
+        return getPermissionGroup().getCachedData().getMetaData().getMetaValue("display");
     }
 
-    public String getColor() {
-        return getIPermissionGroup().getColor();
-    }
-
-    public String getColorWithPlayername() {
-        return getIPermissionGroup().getColor() + getPlayerName();
+    public String getDisplaywithPlayername() {
+        return getDisplay() + getPlayerName();
     }
 
     public int getPotency() {
-        return getIPermissionGroup().getPotency();
+        return getPermissionGroup().getWeight().orElse(0);
     }
 
     public int getSortId() {
-        return getIPermissionGroup().getSortId();
+        return Integer.parseInt(Objects.requireNonNull(getPermissionGroup().getCachedData().getMetaData().getMetaValue("sortid")));
     }
 
-    public String getHighestGroupName() {
-        return getIPermissionGroup().getName();
+    public String getGroupName() {
+        return getPermissionGroup().getDisplayName();
     }
 
-    public String getChatColor() {
+    /*public String getChatColor() {
         if (getIPermissionGroup().getProperties().contains("chatColor")) {
             return getIPermissionGroup().getProperties().getString("chatColor");
         } else {
-            if (CloudServices.PERMISSION_MANAGEMENT.getDefaultPermissionGroup().getProperties().contains("chatColor")) {
-                return CloudServices.PERMISSION_MANAGEMENT.getDefaultPermissionGroup().getProperties().getString("chatColor");
+            if (CloudServices.LUCKPERMS.getDefaultPermissionGroup().getProperties().contains("chatColor")) {
+                return CloudServices.LUCKPERMS.getDefaultPermissionGroup().getProperties().getString("chatColor");
             } else {
                 return "§f";
             }
         }
+    }*/
+
+    @SuppressWarnings("OptionalGetWithoutIsPresent")
+    public Group getPermissionGroup() {
+        return CloudServices.LUCKPERMS.getGroupManager().loadGroup(getPermissionUser().getPrimaryGroup()).join().get();
     }
 
-
-    /**
-     * @return An instance of an IPermissionUser that belongs to the provided UUID in the constructor
-     * @throws NullPointerException When the provided UUID in the IPlayer Constructor cannot be found in the CloudNet Player database
-     */
-    public IPermissionUser getIPermissionUser() {
-        return CloudServices.PERMISSION_MANAGEMENT.getUser(uniqueId);
+    public User getPermissionUser() {
+        return CloudServices.LUCKPERMS.getUserManager().loadUser(uniqueId).join();
     }
-
-    /**
-     * @return An instance of an IPermissionGroup that is the highest permission group sorted by the potency the IPermissionUser have
-     * @throws NullPointerException When IPermissionUser is null
-     */
-    public IPermissionGroup getIPermissionGroup() {
-        return CloudServices.PERMISSION_MANAGEMENT.getHighestPermissionGroup(getIPermissionUser());
-    }
-
     /**
      * @return A boolean whether the player is online. This is being checked by getting a ICloudPlayer instance via the UUID and if this is null, the player isn't online.
      */
     public boolean isOnline() {
-        return getICloudPlayer() != null;
+        return getCloudPlayer() != null;
     }
 
     /**
      * @return The instance of the online ICloudPlayer which the CloudNet DB has cached
      */
-    public ICloudPlayer getICloudPlayer() {
-        return CloudServices.PLAYER_MANAGER.getOnlinePlayer(uniqueId);
+    public CloudPlayer getCloudPlayer() {
+        return CloudServices.PLAYER_MANAGER.onlinePlayer(uniqueId);
     }
 
     public UUID getUniqueId() {
         return uniqueId;
     }
 
-    public ICloudOfflinePlayer getiCloudOfflinePlayer() {
-        return iCloudOfflinePlayer;
+    public CloudOfflinePlayer getCloudOfflinePlayer() {
+        return cloudOfflinePlayer;
     }
 
     public String getPlayerName() {
