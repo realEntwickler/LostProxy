@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public class IParty {
 
-    private HashMap<ProxiedPlayer, EPartyRole> members;
+    private final HashMap<ProxiedPlayer, EPartyRole> members;
     private ServerInfo currentServer;
 
     public IParty(ProxiedPlayer proxiedPlayer) {
