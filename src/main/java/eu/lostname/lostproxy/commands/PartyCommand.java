@@ -2,6 +2,7 @@ package eu.lostname.lostproxy.commands;
 
 import eu.lostname.lostproxy.LostProxy;
 import eu.lostname.lostproxy.builder.MessageBuilder;
+import eu.lostname.lostproxy.enums.EPartyRole;
 import eu.lostname.lostproxy.interfaces.IPlayer;
 import eu.lostname.lostproxy.interfaces.party.IParty;
 import eu.lostname.lostproxy.interfaces.party.IPartyInvitation;
@@ -242,6 +243,7 @@ public class PartyCommand extends Command {
                                 if (searchedPlayers.size() == 1) {
                                     ProxiedPlayer targetProxiedPlayer = searchedPlayers.getFirst();
 
+                                    party.getMembers().replace(proxiedPlayer, EPartyRole.MEMBER);
                                     party.setLeader(targetProxiedPlayer);
                                     party.setCurrentServer(targetProxiedPlayer.getServer().getInfo());
                                     party.sendMessage(new MessageBuilder($.PARTY + new IPlayer(targetProxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §7ist der neue §ePartyleiter§7.").build());
