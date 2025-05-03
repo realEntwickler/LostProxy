@@ -28,4 +28,5 @@ public class $ {
     public static final String littleDot = "•";
     public static final String bigDot = "●";
     public static final String line = "┃";
+    public static final String arrow = "➜";
 }
