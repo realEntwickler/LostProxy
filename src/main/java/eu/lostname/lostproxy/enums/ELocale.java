@@ -27,6 +27,7 @@ public enum ELocale {
         this.fileName = fileName;
     }
 
+    @SuppressWarnings("deprecation")
     public String getMessage(String key) {
         String[] s = fileName.split("_");
         ResourceBundle bundle = ResourceBundle.getBundle("messages", new Locale(s[0], s[1]));

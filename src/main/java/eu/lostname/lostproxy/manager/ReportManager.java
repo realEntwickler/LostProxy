@@ -13,9 +13,9 @@ import java.util.function.Consumer;
 
 public class ReportManager {
 
-    private Gson gson;
-    private Collection<IReportReason> reportReasons;
-    private Collection<IReport> reports;
+    private final Gson gson;
+    private final Collection<IReportReason> reportReasons;
+    private final Collection<IReport> reports;
 
     public ReportManager(Gson gson) {
         this.gson = gson;

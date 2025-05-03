@@ -12,7 +12,6 @@ package eu.lostname.lostproxy.listener;
 
 import eu.lostname.lostproxy.LostProxy;
 import eu.lostname.lostproxy.builder.DisconnectScreenBuilder;
-import eu.lostname.lostproxy.builder.MessageBuilder;
 import eu.lostname.lostproxy.interfaces.bkms.IBan;
 import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.event.LoginEvent;
@@ -23,6 +22,7 @@ import java.text.SimpleDateFormat;
 
 public class PreLoginListener implements Listener {
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPreLogin(LoginEvent event) {
         IBan iBan = LostProxy.getInstance().getBanManager().getBan(event.getConnection().getUniqueId());

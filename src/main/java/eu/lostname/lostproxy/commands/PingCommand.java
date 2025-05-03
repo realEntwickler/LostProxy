@@ -30,8 +30,7 @@ public class PingCommand extends Command implements TabExecutor {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        if (commandSender instanceof ProxiedPlayer) {
-            ProxiedPlayer player = (ProxiedPlayer) commandSender;
+        if (commandSender instanceof ProxiedPlayer player) {
 
             if (strings.length == 0) {
                 player.sendMessage(new MessageBuilder($.LOSTNAME + "Dein Ping beträgt aktuell§8: §c" + player.getPing() + "ms").build());

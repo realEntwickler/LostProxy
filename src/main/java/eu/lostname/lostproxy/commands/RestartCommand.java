@@ -3,21 +3,16 @@ package eu.lostname.lostproxy.commands;
 import eu.lostname.lostproxy.LostProxy;
 import eu.lostname.lostproxy.builder.DisconnectScreenBuilder;
 import eu.lostname.lostproxy.builder.MessageBuilder;
-import eu.lostname.lostproxy.interfaces.IPlayer;
-import eu.lostname.lostproxy.interfaces.bkms.IMute;
 import eu.lostname.lostproxy.utils.$;
-import eu.lostname.lostproxy.utils.MongoCollection;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
-import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 public class RestartCommand extends Command implements TabExecutor {
 

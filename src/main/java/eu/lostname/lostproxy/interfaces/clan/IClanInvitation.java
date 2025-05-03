@@ -11,8 +11,8 @@ import java.util.UUID;
 
 public class IClanInvitation {
 
-    private String _id;
-    private String clanUid;
+    private final String _id;
+    private final String clanUid;
 
     public IClanInvitation(String _id, String clanUid) {
         this._id = _id;

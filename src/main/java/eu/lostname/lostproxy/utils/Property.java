@@ -10,6 +10,8 @@
 
 package eu.lostname.lostproxy.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -48,19 +50,7 @@ public class Property {
             dir.mkdirs();
             try (OutputStream output = new FileOutputStream("LostProxy/cfg.properties")) {
 
-                Properties prop = new Properties();
-
-                // set the properties value
-                prop.setProperty("db.username", "lostproxy");
-                prop.setProperty("db.password", "lostproxy123");
-                prop.setProperty("db.database", "lostproxy");
-
-                prop.setProperty("ts.username", "serveradmin");
-                prop.setProperty("ts.password", "password");
-                prop.setProperty("ts.hostname", "localhost");
-                prop.setProperty("ts.queryPort", "10011");
-                prop.setProperty("ts.virtualServerPort", "9987");
-                prop.setProperty("ts.nickname", "LostProxy - TeamSpeakManager");
+                Properties prop = getProperties();
 
                 // save properties to project folder
                 prop.store(output, null);
@@ -68,5 +58,23 @@ public class Property {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static @NotNull Properties getProperties()
+    {
+        Properties prop = new Properties();
+
+        // set the properties value
+        prop.setProperty("db.username", "lostproxy");
+        prop.setProperty("db.password", "lostproxy123");
+        prop.setProperty("db.database", "lostproxy");
+
+        prop.setProperty("ts.username", "serveradmin");
+        prop.setProperty("ts.password", "password");
+        prop.setProperty("ts.hostname", "localhost");
+        prop.setProperty("ts.queryPort", "10011");
+        prop.setProperty("ts.virtualServerPort", "9987");
+        prop.setProperty("ts.nickname", "LostProxy - TeamSpeakManager");
+        return prop;
     }
 }

@@ -13,7 +13,6 @@ package eu.lostname.lostproxy.manager;
 import com.google.gson.Gson;
 import com.mongodb.client.model.ReplaceOptions;
 import eu.lostname.lostproxy.LostProxy;
-import eu.lostname.lostproxy.enums.ELocale;
 import eu.lostname.lostproxy.interfaces.bkms.IBan;
 import eu.lostname.lostproxy.utils.MongoCollection;
 import org.bson.Document;

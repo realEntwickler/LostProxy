@@ -29,8 +29,7 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onChat(ChatEvent event) {
-        if (event.getSender() instanceof ProxiedPlayer) {
-            ProxiedPlayer player = (ProxiedPlayer) event.getSender();
+        if (event.getSender() instanceof ProxiedPlayer player) {
             IPlayer iPlayer = new IPlayer(player.getUniqueId());
 
             if (!event.getMessage().startsWith("/")) {

@@ -18,7 +18,6 @@ import eu.lostname.lostproxy.interfaces.historyandentries.kick.IKickHistory;
 import eu.lostname.lostproxy.utils.MongoCollection;
 import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
 import org.bson.Document;

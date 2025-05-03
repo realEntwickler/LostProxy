@@ -18,7 +18,6 @@ import net.md_5.bungee.api.plugin.Command;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class PartyCommand extends Command {
 

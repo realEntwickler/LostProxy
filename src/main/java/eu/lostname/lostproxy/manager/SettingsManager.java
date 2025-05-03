@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class SettingsManager {
 
-    private HashMap<UUID, Document> cacheData;
+    private final HashMap<UUID, Document> cacheData;
 
     public SettingsManager() {
         this.cacheData = new HashMap<>();

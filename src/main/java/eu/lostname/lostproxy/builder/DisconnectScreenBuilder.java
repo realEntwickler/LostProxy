@@ -5,7 +5,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class DisconnectScreenBuilder {
 
-    private StringBuilder message;
+    private final StringBuilder message;
 
     public DisconnectScreenBuilder()
     {

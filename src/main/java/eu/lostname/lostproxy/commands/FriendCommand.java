@@ -27,7 +27,6 @@ import net.md_5.bungee.api.plugin.Command;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class FriendCommand extends Command {
 
@@ -37,8 +36,7 @@ public class FriendCommand extends Command {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        if (commandSender instanceof ProxiedPlayer) {
-            ProxiedPlayer player = (ProxiedPlayer) commandSender;
+        if (commandSender instanceof ProxiedPlayer player) {
             IFriendData iFriendData = LostProxy.getInstance().getFriendManager().getFriendData(player.getUniqueId());
             IPlayer iPlayer = new IPlayer(player.getUniqueId());
 

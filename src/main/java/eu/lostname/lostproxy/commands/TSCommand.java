@@ -210,7 +210,6 @@ public class TSCommand extends Command implements TabExecutor {
 
     @Override
     public Iterable<String> onTabComplete(CommandSender commandSender, String[] strings) {
-        ArrayList<String> list = new ArrayList<>();
         /*if (strings.length == 1) {
             list.addAll(Arrays.asList("set", "unlink", "info"));
 
@@ -252,6 +251,6 @@ public class TSCommand extends Command implements TabExecutor {
         }
 
 */
-        return list;
+        return new ArrayList<>();
     }
 }

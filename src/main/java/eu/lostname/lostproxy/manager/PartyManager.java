@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 public class PartyManager {
 
-    private ArrayList<IParty> parties;
-    private ArrayList<IPartyInvitation> invitations;
+    private final ArrayList<IParty> parties;
+    private final ArrayList<IPartyInvitation> invitations;
 
     public PartyManager() {
         this.parties = new ArrayList<>();

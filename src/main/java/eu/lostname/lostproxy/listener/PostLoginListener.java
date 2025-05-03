@@ -29,7 +29,6 @@ import net.md_5.bungee.event.EventHandler;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class PostLoginListener implements Listener {
 
