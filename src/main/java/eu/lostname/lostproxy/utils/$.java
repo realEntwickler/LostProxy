@@ -25,4 +25,7 @@ public class $ {
     public static final String PARTY = "§d•§5● Party §8┃ §7";
     public static final String CLANS = "§6•§e● Clans §8┃ §7";
     public static final String REPORT = "§4•§c● Report §8┃ §7";
+    public static final String littleDot = "•";
+    public static final String bigDot = "●";
+    public static final String line = "┃";
 }
