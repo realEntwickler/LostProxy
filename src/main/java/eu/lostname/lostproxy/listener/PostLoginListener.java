@@ -44,12 +44,7 @@ public class PostLoginListener implements Listener {
             IBanHistory iBanHistory = LostProxy.getInstance().getHistoryManager().getBanHistory(player.getUniqueId());
             iBanHistory.addEntry(new IBanEntry(EBanEntryType.UNBAN_ENTRY, player.getUniqueId(), "console", System.currentTimeMillis(), "BAN_EXPIRED", 0, null, 0));
             LostProxy.getInstance().getHistoryManager().saveBanHistory(iBanHistory);
-            LostProxy.getInstance().getTeamManager().getNotificationOn().forEach(all -> {
-                all.sendMessage(new MessageBuilder($.BKMS + "§cBKM-System" + " §8➼ " + iPlayer.getDisplay() + player.getName()).build());
-                all.sendMessage(new MessageBuilder("§8┃ §7Typ §8» §aUnban").build());
-                all.sendMessage(new MessageBuilder("§8┃ §7Grund §8» §eAbgelaufen").build());
-                all.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
-            });
+            LostProxy.getInstance().getTeamManager().sendUnbanNotify("$4System", iPlayer.getDisplaywithPlayername(), "Abgelaufen");
         }
 
         if (player.hasPermission("lostproxy.notify")) {

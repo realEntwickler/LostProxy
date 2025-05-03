@@ -22,31 +22,23 @@ import java.util.stream.Collectors;
 
 public class PartyCommand extends Command {
 
-    public PartyCommand(String name) {
+    public PartyCommand(String name)
+    {
         super(name);
     }
 
     @Override
-    public void execute(CommandSender commandSender, String[] strings) {
+    public void execute(CommandSender commandSender, String[] strings)
+    {
         if (commandSender instanceof ProxiedPlayer proxiedPlayer) {
             IPlayer iPlayer = new IPlayer(proxiedPlayer.getUniqueId());
 
             if (strings.length == 0) {
-                proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Benutzung von §5/party§8:").build());
-                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §5/party invite <Spieler> §8» §7Lädt einen Spieler ein").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/party invite ").build());
-                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §5/party leave §8» §7Verlässt die Party").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/party leave").build());
-                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §5/party list §8» §7Listet Mitglieder der Party auf").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/party list").build());
-                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §5/party toggle §8» §7De- und aktiviert Partyeinladungen").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/party toggle").build());
-                proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §5/party 2 §8» §7zeigt weitere Hilfe").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/party 2").build());
+                sendHelpMessage(proxiedPlayer, 0);
             } else if (strings.length == 1) {
                 switch (strings[0]) {
                     case "2":
-                        proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Weitere Hilfe§8:").build());
-                        proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §5/party kick <Spieler> §8» §7Entfernt einen Spieler").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/party kick ").build());
-                        proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §5/party promote <Spieler> §8» §7Legt jemanden als Partyleader fest").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/party promote ").build());
-                        proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §5/party jump §8» §7Verbindet zum aktuellen Server").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/party jump").build());
-                        proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §5/party accept <Spieler> §8» §7Akzeptiert Partyeinladungen").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/party jump").build());
-                        proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §5/party deny <Spieler> §8» §7Lehnt Partyeinladungen ab").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/party jump").build());
+                        sendHelpMessage(proxiedPlayer, 1);
                         break;
                     case "leave":
                         IParty party = LostProxy.getInstance().getPartyManager().getParty(proxiedPlayer);
@@ -83,7 +75,7 @@ public class PartyCommand extends Command {
                         if (party != null) {
                             if (party.getMembers().size() > 1) {
                                 proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Mitglieder der Party von " + new IPlayer(party.getLeader().getUniqueId()).getDisplaywithPlayername() + "§8:").build());
-                                party.getOnlyMembers().forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§8┃ " + new IPlayer(one.getUniqueId()).getDisplaywithPlayername()).build()));
+                                party.getOnlyMembers().forEach(one -> proxiedPlayer.sendMessage(new MessageBuilder("§d" + $.littleDot + " " + new IPlayer(one.getUniqueId()).getDisplaywithPlayername()).build()));
                             } else {
                                 proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Du bist der §cEinzige §7in der Party§7.").build());
                             }
@@ -146,9 +138,9 @@ public class PartyCommand extends Command {
                                                     proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + targetIPlayer.getDisplaywithPlayername() + " §7wurde in die Party eingeladen").build());
 
                                                     TextComponent informationComponent = new MessageBuilder($.PARTY + "Du hast eine Einladung zur Party von " + iPlayer.getDisplaywithPlayername() + " §7erhalten§7. ").build();
-                                                    TextComponent acceptComponent = new MessageBuilder("§a§l✔").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/party accept " + proxiedPlayer.getName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um diese Partyeinladung §aanzunehmen§7.").build();
+                                                    TextComponent acceptComponent = new MessageBuilder("§a☑").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/party accept " + proxiedPlayer.getName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§aKlicke §7zum §aannehmen").build();
                                                     TextComponent seperateComponent = new MessageBuilder(" §8┃ ").build();
-                                                    TextComponent denyComponent = new MessageBuilder("§c§l✖").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/party deny " + proxiedPlayer.getName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §eKlicke§8, §7um diese Partyeinladung §cabzulehnen§7.").build();
+                                                    TextComponent denyComponent = new MessageBuilder("§c☒").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/party deny " + proxiedPlayer.getName()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§cKlicke §7zum §cablehnen").build();
 
                                                     informationComponent.addExtra(acceptComponent);
                                                     informationComponent.addExtra(seperateComponent);
@@ -261,6 +253,25 @@ public class PartyCommand extends Command {
             }
         } else {
             commandSender.sendMessage(new MessageBuilder($.PARTY + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§7.").build());
+        }
+    }
+
+    private static void sendHelpMessage(ProxiedPlayer proxiedPlayer, int page)
+    {
+        if (page == 0) {
+            proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Benutzung §8" + $.arrow + " §5/party").build());
+            proxiedPlayer.sendMessage(new MessageBuilder("§d" + $.littleDot + " §5/party invite <Spieler> §8" + $.arrow + " §7Lädt einen Spieler ein").build());
+            proxiedPlayer.sendMessage(new MessageBuilder("§d" + $.littleDot + " §5/party leave §8" + $.arrow + " §7Verlässt die Party").build());
+            proxiedPlayer.sendMessage(new MessageBuilder("§d" + $.littleDot + " §5/party list §8" + $.arrow + " §7Listet Mitglieder der Party auf").build());
+            proxiedPlayer.sendMessage(new MessageBuilder("§d" + $.littleDot + " §5/party toggle §8" + $.arrow + " §7De- und aktiviert Partyeinladungen").build());
+            proxiedPlayer.sendMessage(new MessageBuilder("§d" + $.littleDot + " §5/party 2 §8" + $.arrow + " §7zeigt weitere Hilfe").build());
+        } else if (page == 1) {
+            proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Weitere Hilfe§8:").build());
+            proxiedPlayer.sendMessage(new MessageBuilder("§d" + $.littleDot + " §5/party kick <Spieler> §8" + $.arrow + " §7Entfernt einen Spieler").build());
+            proxiedPlayer.sendMessage(new MessageBuilder("§d" + $.littleDot + " §5/party promote <Spieler> §8" + $.arrow + " §7Legt jemanden als Partyleader fest").build());
+            proxiedPlayer.sendMessage(new MessageBuilder("§d" + $.littleDot + " §5/party jump §8" + $.arrow + " §7Verbindet zum aktuellen Server").build());
+            proxiedPlayer.sendMessage(new MessageBuilder("§d" + $.littleDot + " §5/party accept <Spieler> §8" + $.arrow + " §7Akzeptiert Partyeinladungen").build());
+            proxiedPlayer.sendMessage(new MessageBuilder("§d" + $.littleDot + " §5/party deny <Spieler> §8" + $.arrow + " §7Lehnt Partyeinladungen ab").build());
         }
     }
 }

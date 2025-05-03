@@ -42,29 +42,22 @@ public class ChatListener implements Listener {
                         if (player.hasPermission("lostproxy.bkms.bypasschat")) {
                             return;
                         }
-                        player.sendMessage(new MessageBuilder($.BKMS + "Du bist §4permanent §7gemutet§7.").build());
-                        player.sendMessage(new MessageBuilder("§8┃ §7Grund §8» §c" + iMute.getReason()).build());
-                        player.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+                        player.sendMessage(new MessageBuilder($.BKMS + "Du bist §4permanent §7gemutet.").build());
+                        player.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Grund §8" + $.arrow + " §c" + iMute.getReason()).build());
                     } else if (iMute.getEnd() > System.currentTimeMillis()) {
                         if (player.hasPermission("lostproxy.bkms.bypasschat")) {
                             return;
                         }
-                        player.sendMessage(new MessageBuilder($.BKMS + "Du bist §ctemporär §7gemutet§7.").build());
-                        player.sendMessage(new MessageBuilder("§8┃ §7Grund §8» §c" + iMute.getReason()).build());
-                        player.sendMessage(new MessageBuilder("§8┃ §7Verleibende Zeit §8» §c" + LostProxy.getInstance().getMuteManager().calculateRemainingTime(iMute.getEnd())).build());
-                        player.sendMessage(new MessageBuilder("§8┃ §7Läuft ab am §8» §c" + new SimpleDateFormat("dd.MM.yyyy").format(iMute.getEnd()) + " §7um §c" + new SimpleDateFormat("HH:mm:ss").format(iMute.getEnd()) + " §7Uhr").build());
-                        player.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+                        player.sendMessage(new MessageBuilder($.BKMS + "Du bist §ctemporär §7gemutet.").build());
+                        player.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Grund §8" + $.arrow + " §c" + iMute.getReason()).build());
+                        player.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Verleibende Zeit §8" + $.arrow + " §c" + LostProxy.getInstance().getMuteManager().calculateRemainingTime(iMute.getEnd())).build());
+                        player.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Läuft ab am §8" + $.arrow + " §c" + new SimpleDateFormat("dd.MM.yyyy").format(iMute.getEnd()) + " §7um §c" + new SimpleDateFormat("HH:mm:ss").format(iMute.getEnd()) + " §7Uhr").build());
                     } else if (iMute.getEnd() < System.currentTimeMillis()) {
                         LostProxy.getInstance().getMuteManager().deleteMute(iMute);
                         IMuteHistory iMuteHistory = LostProxy.getInstance().getHistoryManager().getMuteHistory(player.getUniqueId());
                         iMuteHistory.addEntry(new IMuteEntry(EMuteEntryType.UNMUTE_ENTRY, player.getUniqueId(), "console", System.currentTimeMillis(), "MUTE_EXPIRED", 0, null, 0));
                         LostProxy.getInstance().getHistoryManager().saveMuteHistory(iMuteHistory);
-                        LostProxy.getInstance().getTeamManager().getNotificationOn().forEach(all -> {
-                            all.sendMessage(new MessageBuilder($.BKMS + "§4BKM-System" + " §8➼ " + iPlayer.getDisplay() + player.getName()).build());
-                            all.sendMessage(new MessageBuilder("§8┃ §7Typ §8» §aUnmute").build());
-                            all.sendMessage(new MessageBuilder("§8┃ §7Grund §8» §eAbgelaufen").build());
-                            all.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
-                        });
+                        LostProxy.getInstance().getTeamManager().sendUnmuteNotify("§4System", iPlayer.getDisplay() + iPlayer.getPlayerName(), "Abgelaufen");
                     }
                 }
 

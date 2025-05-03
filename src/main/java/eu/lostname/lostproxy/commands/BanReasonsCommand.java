@@ -39,7 +39,7 @@ public class BanReasonsCommand extends Command implements TabExecutor {
             if ("list".equals(strings[0])) {
                 if (commandSender.hasPermission("lostproxy.command.banreasons.list")) {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Folgende §cBanngründe §7sind §eregistriert§8:").build());
-                    LostProxy.getInstance().getReasonManager().getRegistedBanReasons().stream().sorted(Comparator.comparingInt(IReason::getId)).forEach(iBanReason -> commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §e" + iBanReason.getId() + " §8" + $.arrow + " §e" + iBanReason.getName()).addClickEvent(ClickEvent.Action.RUN_COMMAND, "/banreasons " + iBanReason.getId()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§aKlicke §7für mehr Infos").build()));
+                    LostProxy.getInstance().getReasonManager().getRegistedBanReasons().stream().sorted(Comparator.comparingInt(IReason::getId)).forEach(iBanReason -> commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §e" + iBanReason.getId() + " §8" + $.arrow + " §e" + iBanReason.getName()).build()));
                 } else {
                     commandSender.sendMessage($.NO_PERMISSION($.BKMS));
                 }

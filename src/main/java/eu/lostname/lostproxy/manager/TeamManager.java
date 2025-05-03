@@ -92,8 +92,8 @@ public class TeamManager {
     public void sendKickNotify(String invokerDisplay, String targetDisplay, String reason) {
         notificationOn.forEach(all -> {
             all.sendMessage(new MessageBuilder($.BKMS + invokerDisplay + " §8➼ " + targetDisplay).build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Typ §8» §cKick").build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Grund §8» §e" + reason).build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Typ §8" + $.arrow + " §cKick").build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Grund §8" + $.arrow + " §e" + reason).build());
         });
     }
 
@@ -106,8 +106,8 @@ public class TeamManager {
     public void sendUnbanNotify(String invokerDisplay, String targetDisplay, String reason) {
         notificationOn.forEach(all -> {
             all.sendMessage(new MessageBuilder($.BKMS + invokerDisplay + " §8➼ " + targetDisplay).build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Typ §8» §aUnban").build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Grund §8» §e" + reason).build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Typ §8" + $.arrow + " §aUnban").build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Grund §8" + $.arrow + " §e" + reason).build());
         });
     }
 
@@ -121,8 +121,8 @@ public class TeamManager {
     public void sendUnmuteNotify(String invokerDisplay, String targetDisplay, String reason) {
         notificationOn.forEach(all -> {
             all.sendMessage(new MessageBuilder($.BKMS + invokerDisplay + " §8➼ " + targetDisplay).build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Typ §8» §aUnmute").build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Grund §8» §e" + reason).build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Typ §8" + $.arrow + " §aUnmute").build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Grund §8" + $.arrow + " §e" + reason).build());
         });
     }
 
@@ -136,9 +136,9 @@ public class TeamManager {
     public void sendBanNotify(String invokerDisplay, String targetDisplay, IBanReason iBanReason) {
         notificationOn.forEach(all -> {
             all.sendMessage(new MessageBuilder($.BKMS + invokerDisplay + " §8➼ " + targetDisplay).build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Typ §8» §4Ban").build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Grund §8» §e" + iBanReason.getName()).build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Dauer §8» §e" + (iBanReason.getTime() == -1 ? "Permanent" : iBanReason.getTime() + " " + ETimeUnit.getDisplayName(iBanReason.getTime(), iBanReason.getETimeUnit()))).build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Typ §8" + $.arrow + " §4Ban").build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Grund §8" + $.arrow + " §e" + iBanReason.getName()).build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Dauer §8" + $.arrow + " §e" + (iBanReason.getTime() == -1 ? "Permanent" : iBanReason.getTime() + " " + ETimeUnit.getDisplayName(iBanReason.getTime(), iBanReason.getETimeUnit()))).build());
         });
     }
 
@@ -152,9 +152,9 @@ public class TeamManager {
     public void sendMuteNotify(String invokerDisplay, String targetDisplay, IMuteReason iMuteReason) {
         notificationOn.forEach(all -> {
             all.sendMessage(new MessageBuilder($.BKMS + invokerDisplay + " §8➼ " + targetDisplay).build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Typ §8» §cMute").build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Grund §8» §e" + iMuteReason.getName()).build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Dauer §8» §e" + (iMuteReason.getTime() == -1 ? "Permanent" : iMuteReason.getTime() + " " + ETimeUnit.getDisplayName(iMuteReason.getTime(), iMuteReason.getETimeUnit()))).build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Typ §8" + $.arrow + " §cMute").build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Grund §8" + $.arrow + " §e" + iMuteReason.getName()).build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Dauer §8" + $.arrow + " §e" + (iMuteReason.getTime() == -1 ? "Permanent" : iMuteReason.getTime() + " " + ETimeUnit.getDisplayName(iMuteReason.getTime(), iMuteReason.getETimeUnit()))).build());
         });
     }
 
@@ -167,7 +167,7 @@ public class TeamManager {
     public void sendEANotify(String invokerDisplay, String targetDisplay) {
         notificationOn.forEach(all -> {
             all.sendMessage(new MessageBuilder($.BKMS + invokerDisplay + " §8➼ " + targetDisplay).build());
-            all.sendMessage(new MessageBuilder("§8┃ §7Typ §8» §dEA").build());
+            all.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Typ §8" + $.arrow + " §dEA").build());
         });
     }
 

@@ -11,8 +11,10 @@
 package eu.lostname.lostproxy.listener;
 
 import eu.lostname.lostproxy.LostProxy;
+import eu.lostname.lostproxy.builder.DisconnectScreenBuilder;
 import eu.lostname.lostproxy.builder.MessageBuilder;
 import eu.lostname.lostproxy.interfaces.bkms.IBan;
+import eu.lostname.lostproxy.utils.$;
 import net.md_5.bungee.api.event.LoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
@@ -27,42 +29,24 @@ public class PreLoginListener implements Listener {
         if (iBan != null) {
             if (iBan.getEnd() == -1) {
                 event.setCancelled(true);
-                event.setCancelReason(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
-                        "\n" +
-                        "§7Du bist §4§npermanent§r §7vom Netzwerk §4gebannt§7." +
-                        "\n" +
-                        "\n" +
-                        "§7Grund §8➡ §e" + iBan.getReason() +
-                        "\n" +
-                        "\n" +
-                        "§7FÜr weitere Fragen oder zum Stellen eines Entbannugsantrag besuche das Forum§8!" +
-                        "\n" +
-                        " §8» §cforum§7.§clostname§7.§ceu §8«" +
-                        "\n" +
-                        "\n" +
-                        "§8§m--------------------------------------§r").build());
+                event.setCancelReason(new DisconnectScreenBuilder()
+                        .add("§7Du bist §4§npermanent§r §7vom Netzwerk §4gebannt§7.")
+                        .newLine()
+                        .newLine()
+                        .add("§7Grund §8" + $.arrow + " §e" + iBan.getReason())
+                        .build());
             } else if (iBan.getEnd() > System.currentTimeMillis()) {
                 String remainingTime = LostProxy.getInstance().getBanManager().calculateRemainingTime(iBan.getEnd());
 
                 event.setCancelled(true);
-                event.setCancelReason(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
-                        "\n" +
-                        "§7Du bist §4temporär §7vom Netzwerk §4gebannt§7." +
-                        "\n" +
-                        "\n" +
-                        "§7Grund §8➡ §e" + iBan.getReason() +
-                        "\n" +
-                        "§7Verbleibende Zeit §8➡ §c" + remainingTime +
-                        "\n" +
-                        "§7Läuft ab am §8➡ §c" + new SimpleDateFormat("dd.MM.yyyy").format(iBan.getEnd()) + " §7um §c" + new SimpleDateFormat("HH:mm:ss").format(iBan.getEnd()) + " §7Uhr" +
-                        "\n" +
-                        "\n" +
-                        "§7FÜr weitere Fragen oder zum Stellen eines Entbannugsantrag besuche das Forum§8!" +
-                        "\n" +
-                        " §8» §cforum§7.§clostname§7.§ceu §8«" +
-                        "\n" +
-                        "\n" +
-                        "§8§m--------------------------------------§r").build());
+                event.setCancelReason(new DisconnectScreenBuilder()
+                        .add("§7Du bist §4temporär §7vom Netzwerk §4gebannt§7.")
+                        .newLine()
+                        .newLine()
+                        .add("§7Grund §8" + $.arrow + " §e" + iBan.getReason())
+                        .newLine().add("§7Verbleibende Zeit §8" + $.arrow + " §c" + remainingTime)
+                                .newLine().add("§7Läuft ab am §8" + $.arrow + " §c" + new SimpleDateFormat("dd.MM.yyyy").format(iBan.getEnd()) + " §7um §c" + new SimpleDateFormat("HH:mm:ss").format(iBan.getEnd()) + " §7Uhr")
+                        .build());
             }
         }
     }

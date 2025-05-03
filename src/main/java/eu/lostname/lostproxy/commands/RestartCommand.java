@@ -1,6 +1,7 @@
 package eu.lostname.lostproxy.commands;
 
 import eu.lostname.lostproxy.LostProxy;
+import eu.lostname.lostproxy.builder.DisconnectScreenBuilder;
 import eu.lostname.lostproxy.builder.MessageBuilder;
 import eu.lostname.lostproxy.interfaces.IPlayer;
 import eu.lostname.lostproxy.interfaces.bkms.IMute;
@@ -27,24 +28,17 @@ public class RestartCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Benutzung§8: §c/restart <now,30,60,cancel> [Grund]").build());
+            sendHelpMessage(commandSender);
         } else {
             if (strings.length == 1) {
                 if (strings[0].equalsIgnoreCase("now")) {
-                    ProxyServer.getInstance().getPlayers().forEach(all -> all.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
-                            "\n" +
-                            "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7." +
-                            "\n" +
-                            "\n" +
-                            "§7Grund §8➡ §eNeustart des Netzwerkes" +
-                            "\n" +
-                            "\n" +
-                            "§7Bei weiteren Fragen besuche unser §eForum§8!" +
-                            "\n" +
-                            " §8» §cforum§7.§clostname§7.§ceu §8«" +
-                            "\n" +
-                            "\n" +
-                            "§8§m--------------------------------------§r").build()));
+                    ProxyServer.getInstance().getPlayers().forEach(all -> all.disconnect(new DisconnectScreenBuilder()
+                            .add("§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7.")
+                            .newLine()
+                            .newLine()
+                            .add("§7Grund §8➡ §eNeustart des Netzwerkes")
+                            .build()
+                    ));
                     ProxyServer.getInstance().stop("COMMAND_RESTART_NOW");
                 } else if (strings[0].equalsIgnoreCase("30")) {
                     if (LostProxy.getInstance().getRestartTask() == null) {
@@ -62,20 +56,13 @@ public class RestartCommand extends Command implements TabExecutor {
                                     ProxyServer.getInstance().broadcast(new MessageBuilder($.LOSTNAME + "Das Netzwerk wird in §c" + seconds[0] + " Sekunde" + (seconds[0] == 1 ? "" : "n") + " §7neugestartet§7.").build());
                                     break;
                                 case 0:
-                                    ProxyServer.getInstance().getPlayers().forEach(all -> all.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
-                                            "\n" +
-                                            "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7." +
-                                            "\n" +
-                                            "\n" +
-                                            "§7Grund §8➡ §eNeustart des Netzwerkes" +
-                                            "\n" +
-                                            "\n" +
-                                            "§7Bei weiteren Fragen besuche unser §eForum§8!" +
-                                            "\n" +
-                                            " §8» §cforum§7.§clostname§7.§ceu §8«" +
-                                            "\n" +
-                                            "\n" +
-                                            "§8§m--------------------------------------§r").build()));
+                                    ProxyServer.getInstance().getPlayers().forEach(all -> all.disconnect(new DisconnectScreenBuilder()
+                                            .add("§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7.")
+                                            .newLine()
+                                            .newLine()
+                                            .add("§7Grund §8➡ §eNeustart des Netzwerkes")
+                                            .build()
+                                    ));
 
                                     ProxyServer.getInstance().stop("COMMAND_RESTART_30");
                                     return;
@@ -102,21 +89,13 @@ public class RestartCommand extends Command implements TabExecutor {
                                     ProxyServer.getInstance().broadcast(new MessageBuilder($.LOSTNAME + "Das Netzwerk wird in §c" + seconds[0] + " Sekunde" + (seconds[0] == 1 ? "" : "n") + " §7neugestartet§7.").build());
                                     break;
                                 case 0:
-                                    ProxyServer.getInstance().getPlayers().forEach(all -> all.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
-                                            "\n" +
-                                            "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7." +
-                                            "\n" +
-                                            "\n" +
-                                            "§7Grund §8➡ §eNeustart des Netzwerkes" +
-                                            "\n" +
-                                            "\n" +
-                                            "§7Bei weiteren Fragen besuche unser §eForum§8!" +
-                                            "\n" +
-                                            " §8» §cforum§7.§clostname§7.§ceu §8«" +
-                                            "\n" +
-                                            "\n" +
-                                            "§8§m--------------------------------------§r").build()));
-
+                                    ProxyServer.getInstance().getPlayers().forEach(all -> all.disconnect(new DisconnectScreenBuilder()
+                                            .add("§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7.")
+                                            .newLine()
+                                            .newLine()
+                                            .add("§7Grund §8➡ §eNeustart des Netzwerkes")
+                                            .build()
+                                    ));
                                     ProxyServer.getInstance().stop("COMMAND_RESTART_30");
                                     return;
                             }
@@ -136,9 +115,14 @@ public class RestartCommand extends Command implements TabExecutor {
                     }
                 }
             } else if (strings.length >= 2) {
-                //TODO: Restart with custom grund
+                //TODO: Restart with custom reason
             }
         }
+    }
+
+    private static void sendHelpMessage(CommandSender commandSender)
+    {
+        commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Benutzung §8" + $.arrow +" §c/restart <now,30,60,cancel> [Grund]").build());
     }
 
     @Override

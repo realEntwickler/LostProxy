@@ -25,7 +25,7 @@ public class ReportCommand extends Command {
         if (commandSender instanceof ProxiedPlayer proxiedPlayer) {
 
             if (strings.length == 0) {
-                proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Benutzung§8: §c/report <Spieler>").build());
+                sendHelpMessage(proxiedPlayer);
             } else if (strings.length == 1) {
                 ProxiedPlayer targetProxiedPlayer = ProxyServer.getInstance().getPlayers().stream().filter(filter -> filter.getName().equalsIgnoreCase(strings[0])).findFirst().orElse(null);
 
@@ -33,7 +33,7 @@ public class ReportCommand extends Command {
                     if (!targetProxiedPlayer.getName().equalsIgnoreCase(proxiedPlayer.getName())) {
                         if (!LostProxy.getInstance().getReportManager().getReportReasons().isEmpty()) {
                             proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Für welches Verhalten möchtest du " + new IPlayer(targetProxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §7melden?").build());
-                            LostProxy.getInstance().getReportManager().getReportReasons().forEach(iReportReason -> proxiedPlayer.sendMessage(new MessageBuilder("§8┃ §c" + iReportReason.getID() + " §8» §c" + iReportReason.getName() + " §8┃ §7" + iReportReason.getDescription()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §7aKlicke§8, §7um diesen Meldegrund auszuwählen").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/report " + targetProxiedPlayer.getName() + " " + iReportReason.getID()).build()));
+                            LostProxy.getInstance().getReportManager().getReportReasons().forEach(iReportReason -> proxiedPlayer.sendMessage(new MessageBuilder("§4" + $.littleDot + " §c" + iReportReason.getID() + " §8" + $.arrow + " §c" + iReportReason.getName() + " §8" + $.arrow +" §7" + iReportReason.getDescription()).build()));
                         } else {
                             proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Es konnten §ckeine §7Meldegründe abgerufen werden§7.").build());
                         }
@@ -41,7 +41,7 @@ public class ReportCommand extends Command {
                         proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Du kannst dich §cnicht §7selbst melden§7.").build());
                     }
                 } else {
-                    proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
+                    proxiedPlayer.sendMessage($.PLAYER_NOT_FOUND($.REPORT));
                 }
             } else if (strings.length == 2) {
                 ProxiedPlayer targetProxiedPlayer = ProxyServer.getInstance().getPlayers().stream().filter(filter -> filter.getName().equalsIgnoreCase(strings[0])).findFirst().orElse(null);
@@ -67,7 +67,7 @@ public class ReportCommand extends Command {
                                 String targetPlayerNameWithColor = new IPlayer(targetProxiedPlayer.getUniqueId()).getDisplaywithPlayername();
                                 proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Du hast " + targetPlayerNameWithColor + " §7wegen §c" + reportReason.getName() + " §7gemeldet§7.").build());
 
-                                TextComponent reportNotificationMessage = new MessageBuilder($.REPORT + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §8➡ " + targetPlayerNameWithColor + " §8┃ §7" + reportReason.getName()).build();
+                                TextComponent reportNotificationMessage = new MessageBuilder($.REPORT + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §8" + $.arrow + " " + targetPlayerNameWithColor + " §8" + $.arrow + " §7" + reportReason.getName()).build();
                                 LostProxy.getInstance().getTeamManager().getNotificationOn().forEach(notification -> notification.sendMessage(reportNotificationMessage));
                             } else {
                                 proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Du hast diesen Spieler §cbereits §7gemeldet§7.").build());
@@ -79,13 +79,18 @@ public class ReportCommand extends Command {
                         proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Du kannst dich §cnicht §7selbst melden§7.").build());
                     }
                 } else {
-                    proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
+                    proxiedPlayer.sendMessage($.PLAYER_NOT_FOUND($.REPORT));
                 }
             } else {
-                proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Benutzung§8: §c/report <Spieler>").build());
+                sendHelpMessage(proxiedPlayer);
             }
         } else {
             commandSender.sendMessage(new MessageBuilder($.REPORT + "Du kannst diesen Befehl §cnicht §7als Konsole ausführen§7.").build());
         }
+    }
+
+    private static void sendHelpMessage(ProxiedPlayer proxiedPlayer)
+    {
+        proxiedPlayer.sendMessage(new MessageBuilder($.REPORT + "Benutzung §8" + $.arrow + " §c/report <Spieler>").build());
     }
 }

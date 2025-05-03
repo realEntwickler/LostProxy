@@ -40,8 +40,7 @@ public class UnbanCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length <= 1) {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/unban§8:").build());
-            commandSender.sendMessage(new MessageBuilder("§8┃ §c/unban <Spieler> <Grund> §8» §7Entbannt einen gebannten Spieler").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/unban ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").build());
+            sendHelpMessage(commandSender);
         } else {
             UUID uuid = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (uuid != null) {
@@ -55,15 +54,20 @@ public class UnbanCommand extends Command implements TabExecutor {
 
                     iBanHistory.addEntry(new IBanEntry(EBanEntryType.UNBAN_ENTRY, uuid, invokerId, System.currentTimeMillis(), reason, 0, null, 0));
                     LostProxy.getInstance().getHistoryManager().saveBanHistory(iBanHistory);
-                    LostProxy.getInstance().getTeamManager().sendUnbanNotify(commandSender instanceof ProxiedPlayer ? new IPlayer(((ProxiedPlayer) commandSender).getUniqueId()).getDisplay() + commandSender.getName() : "§4Konsole", targetIPlayer.getDisplay() + targetIPlayer.getPlayerName(), reason);
+                    LostProxy.getInstance().getTeamManager().sendUnbanNotify(commandSender instanceof ProxiedPlayer ? new IPlayer(((ProxiedPlayer) commandSender).getUniqueId()).getDisplay() + commandSender.getName() : "§4System", targetIPlayer.getDisplay() + targetIPlayer.getPlayerName(), reason);
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplaywithPlayername() + " §aentbannt§7.").build());
                 } else {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + targetIPlayer.getDisplaywithPlayername() + " §7ist §cnicht §7gebannt.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
+                commandSender.sendMessage($.PLAYER_NOT_FOUND($.BKMS));
             }
         }
+    }
+
+    private static void sendHelpMessage(CommandSender commandSender)
+    {
+        commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung §8" + $.arrow + " §c/unban <Spieler> [Grund]").build());
     }
 
     @Override

@@ -21,7 +21,7 @@ public class PartyChatCommand extends Command {
         if (commandSender instanceof ProxiedPlayer proxiedPlayer) {
 
             if (strings.length == 0) {
-                proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Benutzung§8: §5/pc [Nachricht]").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/pc ").build());
+                proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Benutzung §8" + $.arrow + " §5/pc [Nachricht]").build());
             } else {
                 IParty party = LostProxy.getInstance().getPartyManager().getParty(proxiedPlayer);
 
@@ -31,7 +31,7 @@ public class PartyChatCommand extends Command {
                         stringBuilder.append(string).append(" ");
                     }
 
-                    party.sendMessage(new MessageBuilder($.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §8➡ §7" + stringBuilder).build());
+                    party.sendMessage(new MessageBuilder($.PARTY + new IPlayer(proxiedPlayer.getUniqueId()).getDisplaywithPlayername() + " §8" + $.arrow + " §7" + stringBuilder).build());
                 } else {
                     proxiedPlayer.sendMessage(new MessageBuilder($.PARTY + "Du bist in §ckeiner §7Party.").build());
                 }

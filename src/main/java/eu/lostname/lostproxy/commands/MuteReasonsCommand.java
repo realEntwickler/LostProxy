@@ -34,31 +34,25 @@ public class MuteReasonsCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0 || strings.length == 5 || strings.length >= 7) {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/mutereasons§8:").build());
-            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mutereasons list §8» §7Liste dir alle Mutegruende auf").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons list").build());
-            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mutereasons add <ID> <Name> <Zeit> <Zeiteinheit> <Permission> §8» §7Liste dir alle Mutegruende auf").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons add NAME ZEIT ZEITEINHEIT PERMISSION").build());
-            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mutereasons <ID> §8» §7Zeige Informationen über einen Mutegrund an").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons ID").build());
-            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mutereasons <ID> set <id,name,time,timeunit,permission> <Wert> §8» §7Bearbeite einen Mutegrund").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons ID set ").build());
-            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mutereasons <ID> delete §8» §7Lösche einen Mutegrund").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mutereasons ID set ").build());
+            sendHelpMessage(commandSender);
         } else if (strings.length == 1) {
             if ("list".equals(strings[0])) {
                 if (commandSender.hasPermission("lostproxy.command.mutereasons.list")) {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Folgende Mutegründe sind registriert§8:").build());
-                    LostProxy.getInstance().getReasonManager().getRegistedMuteReasons().stream().sorted(Comparator.comparingInt(IReason::getId)).forEach(iMuteReason -> commandSender.sendMessage(new MessageBuilder("§8» §e" + iMuteReason.getId() + " §8» §e" + iMuteReason.getName()).addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mutereasons " + iMuteReason.getId()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§8» §7Klicke diese Nachricht§8, §7um genaue Informationen zu diesem Mutegrund zu erhalten§7.").build()));
+                    LostProxy.getInstance().getReasonManager().getRegistedMuteReasons().stream().sorted(Comparator.comparingInt(IReason::getId)).forEach(iMuteReason -> commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §e" + iMuteReason.getId() + " §8" + $.arrow + " §e" + iMuteReason.getName()).build()));
                 } else {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§7.").build());
+                    commandSender.sendMessage($.NO_PERMISSION($.BKMS));
                 }
             } else {
                 try {
                     IMuteReason iMuteReason = LostProxy.getInstance().getReasonManager().getMuteReasonByID(Integer.parseInt(strings[0]));
 
                     if (iMuteReason != null) {
-                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Informationen zum angegebenen Mutegrund§8:").build());
-                        commandSender.sendMessage(new MessageBuilder("§8» §7Name §8┃ §c" + iMuteReason.getName()).build());
-                        commandSender.sendMessage(new MessageBuilder("§8» §7ID §8┃ §c" + iMuteReason.getId()).build());
-                        commandSender.sendMessage(new MessageBuilder("§8» §7Mutezeit §8┃ §c" + (iMuteReason.getTime() == -1 ? "permanent" : iMuteReason.getTime() + " " + ETimeUnit.getDisplayName(iMuteReason.getTime(), iMuteReason.getETimeUnit()))).build());
-                        commandSender.sendMessage(new MessageBuilder("§8» §7Berechtigung §8┃ §c" + iMuteReason.getPermission()).build());
-                        commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Informationen zum Mutegrund").build());
+                        commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Name §8" + $.arrow + " §c" + iMuteReason.getName()).build());
+                        commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7ID §8" + $.arrow + " §c" + iMuteReason.getId()).build());
+                        commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Mutezeit §8" + $.arrow + " §c" + (iMuteReason.getTime() == -1 ? "permanent" : iMuteReason.getTime() + " " + ETimeUnit.getDisplayName(iMuteReason.getTime(), iMuteReason.getETimeUnit()))).build());
+                        commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Berechtigung §8" + $.arrow + " §c" + iMuteReason.getPermission()).build());
 
                     } else {
                         commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Mutegrund wurde §cnicht §7gefunden§7.").build());
@@ -74,14 +68,13 @@ public class MuteReasonsCommand extends Command implements TabExecutor {
                 if (iMuteReason != null) {
                     if (strings[1].equalsIgnoreCase("delete")) {
                         if (commandSender.hasPermission("lostproxy.command.mutereasons.delete")) {
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Soll der Mutegrund §e" + iMuteReason.getName() + " §8(§e" + iMuteReason.getId() + "§8) §7tatsächlich gelöscht werden§7.").build());
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "§a┃").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mutereasons " + iMuteReason.getId() + " delete confirmed").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Soll der Mutegrund §e" + iMuteReason.getName() + " §8(§e" + iMuteReason.getId() + "§8) §7wirklich gelöscht werden? ").addExtra(new MessageBuilder("§a☑").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mutereasons " + iMuteReason.getId() + " delete confirmed").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§aKlicke §7zum löschen").build()).build());
 
                             if (!LostProxy.getInstance().getReasonManager().getMuteReasonCommandProcess().contains(commandSender.getName())) {
                                 LostProxy.getInstance().getReasonManager().getMuteReasonCommandProcess().add(commandSender.getName());
                             }
                         } else {
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§7.").build());
+                            commandSender.sendMessage($.NO_PERMISSION($.BKMS));
                         }
                     } else {
                         commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
@@ -112,7 +105,7 @@ public class MuteReasonsCommand extends Command implements TabExecutor {
                                 commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §ckeine §eVerifizierung §7für diesen §eProzess §7beantragt§7.").build());
                             }
                         } else {
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§7.").build());
+                            commandSender.sendMessage($.NO_PERMISSION($.BKMS));
                         }
                     } else {
                         commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
@@ -176,7 +169,7 @@ public class MuteReasonsCommand extends Command implements TabExecutor {
                                     break;
                             }
                         } else {
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §cnicht §7die erforderlichen Rechte§8, §7um dieses Kommando auszuführen§7.").build());
+                            commandSender.sendMessage($.NO_PERMISSION($.BKMS));
                         }
                     } else {
                         commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
@@ -189,34 +182,48 @@ public class MuteReasonsCommand extends Command implements TabExecutor {
             }
         } else {
             if (strings[0].equalsIgnoreCase("add")) {
-                try {
-                    int id = Integer.parseInt(strings[1]);
+                if (commandSender.hasPermission("lostproxy.command.mutereasons.add")) {
+                    try {
+                        int id = Integer.parseInt(strings[1]);
 
-                    if (LostProxy.getInstance().getReasonManager().getMuteReasonByID(id) == null) {
-                        String name = strings[2].replaceAll("_", " ");
-                        int time = Integer.parseInt(strings[3]);
-                        ETimeUnit eTimeUnit = Arrays.stream(ETimeUnit.values()).filter(one -> one.name().equalsIgnoreCase(strings[4])).findFirst().orElse(null);
+                        if (LostProxy.getInstance().getReasonManager().getMuteReasonByID(id) == null) {
+                            String name = strings[2].replaceAll("_", " ");
+                            int time = Integer.parseInt(strings[3]);
+                            ETimeUnit eTimeUnit = Arrays.stream(ETimeUnit.values()).filter(one -> one.name().equalsIgnoreCase(strings[4])).findFirst().orElse(null);
 
-                        if (eTimeUnit != null) {
-                            String permission = strings[5];
-                            IMuteReason iMuteReason = new IMuteReason(id, name, time, eTimeUnit, permission);
+                            if (eTimeUnit != null) {
+                                String permission = strings[5];
+                                IMuteReason iMuteReason = new IMuteReason(id, name, time, eTimeUnit, permission);
 
-                            LostProxy.getInstance().getReasonManager().saveMuteReason(iMuteReason);
-                            LostProxy.getInstance().getReasonManager().reloadMuteReasons();
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §aerfolgreich §7den Mutegrund §e" + name + " §7mit der ID §e" + id + " §7erstellt§7.").build());
+                                LostProxy.getInstance().getReasonManager().saveMuteReason(iMuteReason);
+                                LostProxy.getInstance().getReasonManager().reloadMuteReasons();
+                                commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast §aerfolgreich §7den Mutegrund §e" + name + " §7mit der ID §e" + id + " §7erstellt§7.").build());
+                            } else {
+                                commandSender.sendMessage(new MessageBuilder($.BKMS + "Die angegebene §eZeiteinheit §7wurde §cnicht §7gefunden§7.").build());
+                            }
                         } else {
-                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Die angegebene §eZeiteinheit §7wurde §cnicht §7gefunden§7.").build());
+                            commandSender.sendMessage(new MessageBuilder($.BKMS + "Es existiert §cbereits §7ein Mutegrund mit der ID §e" + id + "§7.").build());
                         }
-                    } else {
-                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Es existiert §cbereits §7ein Mutegrund mit der ID §e" + id + "§7.").build());
+                    } catch (NumberFormatException numberFormatException) {
+                        commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast als Argument §ckeine §7Zahl angegeben§7.").build());
                     }
-                } catch (NumberFormatException numberFormatException) {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast als Argument §ckeine §7Zahl angegeben§7.").build());
+                } else {
+                    commandSender.sendMessage($.NO_PERMISSION($.BKMS));
                 }
             } else {
                 commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
             }
         }
+    }
+
+    private static void sendHelpMessage(CommandSender commandSender)
+    {
+        commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/mutereasons§8:").build());
+        commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " /mutereasons list §8" + $.arrow + " §7Liste dir alle Mutegruende auf").build());
+        commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " /mutereasons add <ID> <Name> <Zeit> <Zeiteinheit> <Permission> §8" + $.arrow + " §7Liste dir alle Mutegruende auf").build());
+        commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " /mutereasons <ID> §8" + $.arrow + " §7Zeige Informationen über einen Mutegrund an").build());
+        commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " /mutereasons <ID> set <id,name,time,timeunit,permission> <Wert> §8" + $.arrow + " §7Bearbeite einen Mutegrund").build());
+        commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " /mutereasons <ID> delete §8" + $.arrow + " §7Lösche einen Mutegrund").build());
     }
 
     @Override
