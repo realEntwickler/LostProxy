@@ -22,7 +22,7 @@ public class ClanChatCommand extends Command {
             IPlayer iPlayer = new IPlayer(proxiedPlayer.getUniqueId());
 
             if (strings.length == 0) {
-                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Benutzung§8: §e/clanchat [Nachricht]").build());
+                proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Benutzung §8" + $.arrow + " §e/clanchat [Nachricht]").build());
             } else {
                 IClanPlayerData clanPlayerData = LostProxy.getInstance().getClanManager().getClanPlayerData(proxiedPlayer.getUniqueId());
                 if (clanPlayerData != null) {
@@ -31,7 +31,7 @@ public class ClanChatCommand extends Command {
                     for (String string : strings)
                         stringBuilder.append(string).append(" ");
 
-                    LostProxy.getInstance().getClanManager().getClanPlayerDatasFromClan(clan.getId()).stream().filter(filter -> ProxyServer.getInstance().getPlayer(filter.getUniqueId()) != null).forEach(all -> ProxyServer.getInstance().getPlayer(all.getUniqueId()).sendMessage(new MessageBuilder($.CLANS + iPlayer.getDisplaywithPlayername() + " §8➡ §7" + stringBuilder).build()));
+                    LostProxy.getInstance().getClanManager().getClanPlayerDatasFromClan(clan.getId()).stream().filter(filter -> ProxyServer.getInstance().getPlayer(filter.getUniqueId()) != null).forEach(all -> ProxyServer.getInstance().getPlayer(all.getUniqueId()).sendMessage(new MessageBuilder($.CLANS + iPlayer.getDisplaywithPlayername() + " §8" + $.arrow + " §7" + stringBuilder).build()));
                 } else {
                     proxiedPlayer.sendMessage(new MessageBuilder($.CLANS + "Du bist in §ckeinem §7Clan.").build());
                 }

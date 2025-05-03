@@ -26,7 +26,7 @@ public class BroadcastCommand extends Command {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage(new MessageBuilder($.BROADCAST + "Benutzung§8: §e/broadcast [Nachricht]").build());
+            commandSender.sendMessage(new MessageBuilder($.BROADCAST + "Benutzung §8" + $.arrow + " §e/broadcast [Nachricht]").build());
         } else {
             String message = LostProxy.getInstance().formatArrayToString(0, strings).replaceAll("&", "§");
 

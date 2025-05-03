@@ -40,17 +40,15 @@ public class BanHistoryCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length != 1) {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c/banhistory <Spieler>").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/bh ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
+            sendHelpMessage(commandSender);
         } else {
             UUID targetUUID = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (targetUUID != null) {
                 IBanHistory iBanHistory = LostProxy.getInstance().getHistoryManager().getBanHistory(targetUUID);
                 IPlayer targetIPlayer = new IPlayer(targetUUID);
                 if (!iBanHistory.getHistory().isEmpty()) {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Bans von " + targetIPlayer.getDisplaywithPlayername() + "§8:").build());
-                    commandSender.sendMessage(new MessageBuilder("§8┃ §7Anzahl §8» §e" + iBanHistory.getHistory().size()).build());
-                    AtomicInteger currentEntry = new AtomicInteger(-1);
-
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "§cBans von " + targetIPlayer.getDisplaywithPlayername() + "§8:").build());
+                    commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Anzahl §8" + $.arrow + " §e" + iBanHistory.getHistory().size()).build());
                     iBanHistory.getHistory().forEach(iBanEntry -> {
 
                         String date = new SimpleDateFormat("dd.MM.yyyy").format(new Date(iBanEntry.getTimestamp()));
@@ -63,29 +61,28 @@ public class BanHistoryCommand extends Command implements TabExecutor {
                                 String unbanTime = new SimpleDateFormat("HH:mm:ss").format(new Date(iBanEntry.getEnd()));
 
                                 boolean banIsPermanent = iBanEntry.getTime() == -1;
-                                commandSender.sendMessage(new MessageBuilder("§8┃ §cBan §8» §e" + date + " §7@ §e" + time + " §8» " + (iBanEntry.isInvokerConsole() ? "§4System" : new IPlayer(UUID.fromString(iBanEntry.getInvokerId())).getDisplaywithPlayername()) + " §8» §e" + iBanEntry.getReason() + " §8» §c" + (banIsPermanent ? "§4permanent" : iBanEntry.getTime() + " " + ETimeUnit.getDisplayName(iBanEntry.getTime(), iBanEntry.getETimeUnit())) + " §8» §a" + (banIsPermanent ? "/" : unbanDate + " §7@ §a" + unbanTime)).build());
+                                commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §cBan §8" + $.arrow + " §e" + date + " §7@ §e" + time + " §8" + $.arrow + " " + (iBanEntry.isInvokerConsole() ? "§4System" : new IPlayer(UUID.fromString(iBanEntry.getInvokerId())).getDisplaywithPlayername()) + " §8" + $.arrow + " §e" + iBanEntry.getReason() + " §8" + $.arrow + " §c" + (banIsPermanent ? "§4permanent" : iBanEntry.getTime() + " " + ETimeUnit.getDisplayName(iBanEntry.getTime(), iBanEntry.getETimeUnit())) + " §8" + $.arrow + " §a" + (banIsPermanent ? "/" : unbanDate + " §7@ §a" + unbanTime)).build());
                                 break;
                             case UNBAN_ENTRY:
-                                commandSender.sendMessage(new MessageBuilder("§8┃ §aUnban §8» §e" + date + " §7@ §e" + time + " §8» " + (iBanEntry.isInvokerConsole() ? "§4System" : new IPlayer(UUID.fromString(iBanEntry.getInvokerId())).getDisplaywithPlayername()) + " §8» §e" + iBanEntry.getReason()).build());
+                                commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §aUnban §8" + $.arrow + " §e" + date + " §7@ §e" + time + " §8" + $.arrow + " " + (iBanEntry.isInvokerConsole() ? "§4System" : new IPlayer(UUID.fromString(iBanEntry.getInvokerId())).getDisplaywithPlayername()) + " §8" + $.arrow + " §e" + iBanEntry.getReason()).build());
                                 break;
                             case BAN_APPEAL_ENTRY:
-                                commandSender.sendMessage(new MessageBuilder("§8┃ §eEA §8» §e" + date + " §7@ §e" + time + " §8» " + (iBanEntry.isInvokerConsole() ? "§4System" : new IPlayer(UUID.fromString(iBanEntry.getInvokerId())).getDisplaywithPlayername()) + " §8» §e" + iBanEntry.getReason()).build());
+                                commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §eEA §8" + $.arrow + " §e" + date + " §7@ §e" + time + " §8" + $.arrow + " " + (iBanEntry.isInvokerConsole() ? "§4System" : new IPlayer(UUID.fromString(iBanEntry.getInvokerId())).getDisplaywithPlayername()) + " §8" + $.arrow + " §e" + iBanEntry.getReason()).build());
                                 break;
                         }
-
-                        currentEntry.set(currentEntry.get() + 1);
-
-                        /*if (iBanHistory.getHistory().size() == currentEntry.get()) {
-                            commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
-                        }*/
                     });
                 } else {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + targetIPlayer.getDisplaywithPlayername() + " §7hat §ckeine §7Ban-History.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + targetIPlayer.getDisplaywithPlayername() + " §7hat §ckeine Ban-History§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder($.BKMS + "Zu dem angegebenen Spielernamen konnte §ckeine §7UUID gefunden werden.").build());
+                commandSender.sendMessage($.PLAYER_NOT_FOUND($.BKMS));
             }
         }
+    }
+
+    private static void sendHelpMessage(CommandSender commandSender)
+    {
+        commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung §8" + $.arrow + " §c/banhistory <Spieler>").build());
     }
 
     @Override

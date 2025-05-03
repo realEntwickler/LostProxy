@@ -24,11 +24,11 @@ public class HelpCommand extends Command {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Informationen zum LostName.eu-Netzwerk").build());
-        commandSender.sendMessage(new MessageBuilder("§8┃ §c/hub §8» §7Bringt dich auf die Hauptlobby zurück").build());
-        commandSender.sendMessage(new MessageBuilder("§8┃ §c/friend §8» §7Verwalte deine Freunde").build());
-        commandSender.sendMessage(new MessageBuilder("§8┃ §c/party §8» §7Erstelle eine Party").build());
-        commandSender.sendMessage(new MessageBuilder("§8┃ §c/clan §8» §7Verwalte deinen Clan").build());
-        commandSender.sendMessage(new MessageBuilder("§8┃ §c/report §8» §7Melde einen regelbrechenden Spieler").build());
+        commandSender.sendMessage(new MessageBuilder("§6" + $.littleDot + " §c/hub §8" + $.arrow + " §7Bringt dich auf die Hauptlobby zurück").build());
+        commandSender.sendMessage(new MessageBuilder("§6" + $.littleDot + " §c/friend §8" + $.arrow + " §7Verwalte deine Freunde").build());
+        commandSender.sendMessage(new MessageBuilder("§6" + $.littleDot + " §c/party §8" + $.arrow + " §7Erstelle eine Party").build());
+        commandSender.sendMessage(new MessageBuilder("§6" + $.littleDot + " §c/clan §8" + $.arrow + " §7Verwalte deinen Clan").build());
+        commandSender.sendMessage(new MessageBuilder("§6" + $.littleDot + " §c/report §8" + $.arrow + " §7Melde einen regelbrechenden Spieler").build());
         commandSender.sendMessage(new MessageBuilder("§7Für weitere Informationen besuche unser §eForum§8: §cforum.lostname.eu").build());
         commandSender.sendMessage(new MessageBuilder("§7Folge uns auch auf §bTwitter§8: §e@LostNameEU").build());
         commandSender.sendMessage(new MessageBuilder("§7Betrete ebenfalls auch unseren §9Discord-Server§8: §elostname.eu/discord").build());

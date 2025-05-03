@@ -39,17 +39,15 @@ public class KickHistoryCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/kickhistory§8:").build());
-            commandSender.sendMessage(new MessageBuilder("§8» §c/kickhistory <Spieler> §8┃ §7Zeigt dir die History-Einträge eines Spielers").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/kickinfo ").build());
-            commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+            sendHelpMessage(commandSender);
         } else if (strings.length == 1) {
             UUID targetUUID = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (targetUUID != null) {
                 IKickHistory iKickHistory = LostProxy.getInstance().getHistoryManager().getKickHistory(targetUUID);
                 IPlayer iPlayer = new IPlayer(targetUUID);
                 if (!iKickHistory.getHistory().isEmpty()) {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Kicks von " + iPlayer.getDisplay() + iPlayer.getPlayerName() + "§8:").build());
-                    commandSender.sendMessage(new MessageBuilder("§8» §7Anzahl §8┃ §c" + iKickHistory.getHistory().size()).build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Kicks von " + iPlayer.getDisplay() + iPlayer.getPlayerName()).build());
+                    commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Anzahl §8" + $.arrow+ " §c" + iKickHistory.getHistory().size()).build());
                     AtomicInteger currentEntry = new AtomicInteger(-1);
 
                     iKickHistory.getHistory().stream().sorted(Comparator.comparingLong(IEntry::getTimestamp)).forEach(iKickEntry -> {
@@ -57,27 +55,32 @@ public class KickHistoryCommand extends Command implements TabExecutor {
                         String time = new SimpleDateFormat("HH:mm:ss").format(new Date(iKickEntry.getTimestamp()));
 
                         if (iKickEntry.getInvokerId().equalsIgnoreCase("console")) {
-                            commandSender.sendMessage(new MessageBuilder("§8» §e" + date + " §7@ §e" + time + " §8┃ §4Konsole §8» §c" + iKickEntry.getReason()).build());
+                            commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §e" + date + " §7@ §e" + time + " §8" + $.arrow + " §4System §8" + $.arrow + " §c" + iKickEntry.getReason()).build());
                         } else {
                             IPlayer invokerIPlayer = new IPlayer(UUID.fromString(iKickEntry.getInvokerId()));
-                            commandSender.sendMessage(new MessageBuilder("§8» §e" + date + " §7@ §e" + time + " §8┃ " + invokerIPlayer.getDisplay() + invokerIPlayer.getPlayerName() + " §8» §c" + iKickEntry.getReason()).build());
+                            commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " §e" + date + " §7@ §e" + time + " §8" + $.arrow + " " + invokerIPlayer.getDisplay() + invokerIPlayer.getPlayerName() + " §8" + $.arrow + " §c" + iKickEntry.getReason()).build());
                         }
 
                         currentEntry.set(currentEntry.get() + 1);
 
-                        if (iKickHistory.getHistory().size() == currentEntry.get()) {
+                        /*if (iKickHistory.getHistory().size() == currentEntry.get()) {
                             commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
-                        }
+                        }*/
                     });
                 } else {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + iPlayer.getDisplay() + iPlayer.getPlayerName() + " §7hat §ckeine §7Kick-History§7.").build());
+                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + iPlayer.getDisplay() + iPlayer.getPlayerName() + " §7hat §ckeine §7Kick-History.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder($.BKMS + "Zu dem angegebenen Spielernamen konnte §ckeine §7UUID gefunden werden§7.").build());
+                commandSender.sendMessage($.PLAYER_NOT_FOUND($.BKMS));
             }
         } else {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos.").build());
         }
+    }
+
+    private static void sendHelpMessage(CommandSender commandSender)
+    {
+        commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung §8" + $.arrow + " §c/kickhistory <Spieler>").build());
     }
 
     @Override

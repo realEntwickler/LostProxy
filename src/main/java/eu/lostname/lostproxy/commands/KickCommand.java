@@ -11,6 +11,7 @@
 package eu.lostname.lostproxy.commands;
 
 import eu.lostname.lostproxy.LostProxy;
+import eu.lostname.lostproxy.builder.DisconnectScreenBuilder;
 import eu.lostname.lostproxy.builder.MessageBuilder;
 import eu.lostname.lostproxy.interfaces.IPlayer;
 import eu.lostname.lostproxy.interfaces.historyandentries.kick.IKickEntry;
@@ -36,7 +37,7 @@ public class KickCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c§c/kick <Spieler> [Grund]").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/kick ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
+            sendHelpMessage(commandSender);
         } else if (strings.length == 1) {
             commandSender.sendMessage(new MessageBuilder($.BKMS + "Bitte beachte die §eBenutzung §7dieses Kommandos§7.").build());
         } else {
@@ -57,26 +58,17 @@ public class KickCommand extends Command implements TabExecutor {
                         IKickHistory iKickHistory = LostProxy.getInstance().getHistoryManager().getKickHistory(target.getUniqueId());
                         iKickHistory.addEntry(new IKickEntry(target.getUniqueId(), (commandSender instanceof ProxiedPlayer ? ((ProxiedPlayer) commandSender).getUniqueId().toString() : "console"), reason, System.currentTimeMillis()));
                         LostProxy.getInstance().getHistoryManager().saveKickHistory(iKickHistory);
-                        target.disconnect(new MessageBuilder("§6§o■§r §8┃ §cLostName §8● §7the new version of us §8┃ §6§o■§r \n" +
-                                "\n" +
-                                "§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7." +
-                                "\n" +
-                                "\n" +
-                                "§7Grund §8➡ §e" + reason +
-                                "\n" +
-                                "\n" +
-                                "§7Bei weiteren Fragen besuche unser §eForum§8!" +
-                                "\n" +
-                                " §8» §cforum§7.§clostname§7.§ceu §8«" +
-                                "\n" +
-                                "\n" +
-                                "§8§m--------------------------------------§r").build());
-
+                        target.disconnect(new DisconnectScreenBuilder()
+                                .add("§7Deine bestehende Verbindung zum Netzwerk wurde §egetrennt§7.")
+                                .newLine()
+                                .newLine()
+                                .add("§7Grund §8" + $.arrow + " §e" + reason)
+                                .build());
 
                         if (commandSender instanceof ProxiedPlayer) {
                             LostProxy.getInstance().getTeamManager().sendKickNotify(new IPlayer(((ProxiedPlayer) commandSender).getUniqueId()).getDisplaywithPlayername(), targetIPlayer.getDisplaywithPlayername(), reason);
                         } else {
-                            LostProxy.getInstance().getTeamManager().sendKickNotify("§4Konsole", targetIPlayer.getDisplaywithPlayername(), reason);
+                            LostProxy.getInstance().getTeamManager().sendKickNotify("§4System", targetIPlayer.getDisplaywithPlayername(), reason);
                         }
                         commandSender.sendMessage(new MessageBuilder($.BKMS + "Du hast " + targetIPlayer.getDisplaywithPlayername() + " §7wegen §e" + reason + " §7gekickt.").build());
                     } else {
@@ -86,9 +78,14 @@ public class KickCommand extends Command implements TabExecutor {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst dich §cnicht §7selber §ekicken§7.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler konnte §cnicht §7gefunden werden§7.").build());
+                commandSender.sendMessage($.PLAYER_NOT_FOUND($.BKMS));
             }
         }
+    }
+
+    private static void sendHelpMessage(CommandSender commandSender)
+    {
+        commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung §8" + $.arrow + " §c/kick <Spieler> [Grund]").build());
     }
 
     @Override

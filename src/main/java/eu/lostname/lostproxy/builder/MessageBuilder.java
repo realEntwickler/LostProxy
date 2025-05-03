@@ -38,12 +38,12 @@ public class MessageBuilder {
     }
 
     public MessageBuilder addExtra(TextComponent textComponent) {
-        textComponent.addExtra(textComponent);
+        this.textComponent.addExtra(textComponent);
         return this;
     }
 
     public MessageBuilder setExtra(List<BaseComponent> textComponents) {
-        textComponent.setExtra(textComponents);
+        this.textComponent.setExtra(textComponents);
         return this;
     }
 

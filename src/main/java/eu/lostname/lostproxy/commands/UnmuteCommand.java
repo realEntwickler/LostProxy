@@ -41,7 +41,7 @@ public class UnmuteCommand extends Command implements TabExecutor {
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length <= 1) {
             commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/unmute§8:").build());
-            commandSender.sendMessage(new MessageBuilder("§8┃ §c/unmute <Spieler> [Grund] §8» §7Entmutet einen gemuteten Spieler").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/unmute ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
+            commandSender.sendMessage(new MessageBuilder("§8┃ §c/unmute <Spieler> [Grund] §8» §7Entmutet einen gemuteten Spieler").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/unmute ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").build());
         } else {
             UUID uuid = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (uuid != null) {

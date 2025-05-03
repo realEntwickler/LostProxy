@@ -40,7 +40,7 @@ public class EACommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length != 1) {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung§8: §c/ea <Spieler>").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/ea ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
+            sendHelpMessage(commandSender);
         } else {
             UUID uuid = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (uuid != null) {
@@ -78,9 +78,14 @@ public class EACommand extends Command implements TabExecutor {
                     commandSender.sendMessage(new MessageBuilder($.BKMS + iPlayer.getDisplaywithPlayername() + " §7ist §cnicht §7gebannt.").build());
                 }
             } else {
-                commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden.").build());
+                commandSender.sendMessage($.PLAYER_NOT_FOUND($.BKMS));
             }
         }
+    }
+
+    private static void sendHelpMessage(CommandSender commandSender)
+    {
+        commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung §8" + $.arrow + " §c/ea <Spieler>").build());
     }
 
     @Override

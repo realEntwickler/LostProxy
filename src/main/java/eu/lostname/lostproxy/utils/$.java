@@ -10,6 +10,9 @@
 
 package eu.lostname.lostproxy.utils;
 
+
+import net.md_5.bungee.api.chat.TextComponent;
+
 public class $ {
 
     public static final String LOSTPROXY = "§4•§c● LostProxy §8┃ §7";
@@ -29,4 +32,6 @@ public class $ {
     public static final String bigDot = "●";
     public static final String line = "┃";
     public static final String arrow = "➜";
+    public static TextComponent PLAYER_NOT_FOUND(String prefix) { return new TextComponent(TextComponent.fromLegacyText(prefix + "Dieser Spieler wurde §cnicht gefunden§7.")); }
+    public static TextComponent NO_PERMISSION(String prefix) { return new TextComponent(TextComponent.fromLegacyText(prefix + "Dafür hast du §ckeine Berechtigung§7.")); }
 }

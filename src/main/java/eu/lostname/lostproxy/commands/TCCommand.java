@@ -32,7 +32,7 @@ public class TCCommand extends Command {
 
             if (strings.length == 0) {
                 player.sendMessage(new MessageBuilder($.TMS + "Benutzung von §e/tc§8:").build());
-                player.sendMessage(new MessageBuilder("§8┃ §e/tc [Nachricht] §8» §7Schreibe in den TeamChat").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tc ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
+                player.sendMessage(new MessageBuilder("§8┃ §e/tc [Nachricht] §8» §7Schreibe in den TeamChat").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tc ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").build());
             } else {
                 if (LostProxy.getInstance().getTeamManager().isLoggedIn(player)) {
                     String msg = LostProxy.getInstance().formatArrayToString(0, strings);

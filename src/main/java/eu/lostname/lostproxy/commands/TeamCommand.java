@@ -37,9 +37,9 @@ public class TeamCommand extends Command implements TabExecutor {
 
             if (strings.length == 0) {
                 player.sendMessage(new MessageBuilder($.TMS + "Benutzung von §e/team§8:").build());
-                player.sendMessage(new MessageBuilder("§8┃ §e/team login §8» §7Loggt dich in das Team Management System ein").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team login").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
-                player.sendMessage(new MessageBuilder("§8┃ §e/team logout §8» §7Loggt dich aus dem Team Management System aus").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team logout").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
-                player.sendMessage(new MessageBuilder("§8┃ §e/team list §8» §7Liste dir alle verfügbaren Teammitglieder auf").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team list").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
+                player.sendMessage(new MessageBuilder("§8┃ §e/team login §8» §7Loggt dich in das Team Management System ein").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team login").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").build());
+                player.sendMessage(new MessageBuilder("§8┃ §e/team logout §8» §7Loggt dich aus dem Team Management System aus").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team logout").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").build());
+                player.sendMessage(new MessageBuilder("§8┃ §e/team list §8» §7Liste dir alle verfügbaren Teammitglieder auf").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/team list").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").build());
             } else if (strings.length == 1) {
                 IPlayer iPlayer = new IPlayer(player.getUniqueId());
                 switch (strings[0]) {

@@ -25,6 +25,7 @@ import eu.lostname.lostproxy.utils.CloudServices;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -46,9 +47,9 @@ public class MuteCommand extends Command implements TabExecutor {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/mute§8:").build());
-            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mute <Spieler> §8» §7Zeigt dir alle verfügbaren Mutegründe an").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mute ").build());
-            commandSender.sendMessage(new MessageBuilder("§8┃ §c/mute <Spieler> <ID> §8» §7Mute einen Spieler direkt").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mute ").build());
+            commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung §8" + $.arrow + " §c/mute").build());
+            commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " /mute <Spieler> §8" + $.arrow + " §7Zeigt dir alle verfügbaren Mutegründe an").build());
+            commandSender.sendMessage(new MessageBuilder("§c" + $.littleDot + " /mute <Spieler> <ID> §8" + $.arrow +" §7Mute einen Spieler direkt").build());
         } else if (strings.length == 1) {
             if (!commandSender.getName().equalsIgnoreCase(strings[0])) {
                 UUID uuid = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
@@ -63,14 +64,11 @@ public class MuteCommand extends Command implements TabExecutor {
                                 if (!iMuteReasons.isEmpty()) {
                                     iMuteReasons.sort(Comparator.comparingInt(IReason::getId));
 
-                                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Verfügbare Mutegründe§8:").build());
+                                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Verfügbare Mutegründe").build());
                                     iMuteReasons.forEach(iMuteReason -> {
-                                        TextComponent tc1 = new MessageBuilder("§8» §e" + iMuteReason.getId() + " §8» §c" + iMuteReason.getName() + " §8» ").build();
-                                        TextComponent tc2 = new MessageBuilder("§a☑").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mute " + targetIPlayer.getPlayerName() + " " + iMuteReason.getId()).build();
-                                        tc1.addExtra(tc2);
+                                        TextComponent tc1 = new MessageBuilder("§c" + $.littleDot + " §e" + iMuteReason.getId() + " §8" + $.arrow + " §c" + iMuteReason.getName() + " §8" + $.arrow + " ").addExtra(new MessageBuilder("§a☑").addClickEvent(ClickEvent.Action.RUN_COMMAND, "/mute " + targetIPlayer.getPlayerName() + " " + iMuteReason.getId()).addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§aKlicke §7zum muten").build()).build();
                                         commandSender.sendMessage(tc1);
                                     });
-                                    commandSender.sendMessage(new MessageBuilder("§8§m--------------------§r").build());
                                 } else {
                                     commandSender.sendMessage(new MessageBuilder($.BKMS + "Zurzeit sind §ckeinerlei §7Mutegründe für dich verfügbar§7.").build());
                                 }
@@ -84,7 +82,7 @@ public class MuteCommand extends Command implements TabExecutor {
                         commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7ist §cbereits §7gemutet§7.").build());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
+                    commandSender.sendMessage($.PLAYER_NOT_FOUND($.BKMS));
                 }
             } else {
                 commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst dich §cnicht §7selber muten§7.").build());
@@ -116,14 +114,12 @@ public class MuteCommand extends Command implements TabExecutor {
                                         if (targetIPlayer.isOnline()) {
                                             if (muteDuration == -1) {
                                                 ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder($.BKMS + "Du wurdest §4permanent §7gemutet§7.").build());
-                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§8┃ §7Grund §8» §c" + mute.getReason()).build());
-                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Grund §8" + $.arrow +" §c" + mute.getReason()).build());
                                             } else {
                                                 ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder($.BKMS + "Du wurdest §ctemporär §7gemutet§7.").build());
-                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§8┃ §7Grund §8» §c" + mute.getReason()).build());
-                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§8┃ §7Verleibende Zeit §8» §c" + LostProxy.getInstance().getMuteManager().calculateRemainingTime(mute.getEnd())).build());
-                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§8┃ §7Läuft ab am §8» §c" + new SimpleDateFormat("dd.MM.yyyy").format(mute.getEnd()) + " §7um §c" + new SimpleDateFormat("HH:mm:ss").format(mute.getEnd()) + " §7Uhr").build());
-                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§8§m--------------------§r").build());
+                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Grund §8" + $.arrow + " §c" + mute.getReason()).build());
+                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Verleibende Zeit §8" + $.arrow + " §c" + LostProxy.getInstance().getMuteManager().calculateRemainingTime(mute.getEnd())).build());
+                                                ProxyServer.getInstance().getPlayer(uuid).sendMessage(new MessageBuilder("§c" + $.littleDot + " §7Läuft ab am §8" + $.arrow + " §c" + new SimpleDateFormat("dd.MM.yyyy").format(mute.getEnd()) + " §7um §c" + new SimpleDateFormat("HH:mm:ss").format(mute.getEnd()) + " §7Uhr").build());
                                             }
                                         }
 
@@ -155,7 +151,7 @@ public class MuteCommand extends Command implements TabExecutor {
                         commandSender.sendMessage(new MessageBuilder($.BKMS + "Der Spieler " + targetIPlayer.getDisplay() + targetIPlayer.getPlayerName() + " §7ist §cbereits §7gemutet§7.").build());
                     }
                 } else {
-                    commandSender.sendMessage(new MessageBuilder($.BKMS + "Der angegebene Spieler wurde §cnicht §7gefunden§7.").build());
+                    commandSender.sendMessage($.PLAYER_NOT_FOUND($.BKMS));
                 }
             } else {
                 commandSender.sendMessage(new MessageBuilder($.BKMS + "Du darfst dich §cnicht §7selber muten§7.").build());

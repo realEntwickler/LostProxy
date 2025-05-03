@@ -41,7 +41,7 @@ public class UnbanCommand extends Command implements TabExecutor {
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length <= 1) {
             commandSender.sendMessage(new MessageBuilder($.BKMS + "Benutzung von §c/unban§8:").build());
-            commandSender.sendMessage(new MessageBuilder("§8┃ §c/unban <Spieler> <Grund> §8» §7Entbannt einen gebannten Spieler").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/unban ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a☑").build());
+            commandSender.sendMessage(new MessageBuilder("§8┃ §c/unban <Spieler> <Grund> §8» §7Entbannt einen gebannten Spieler").addClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/unban ").addHoverEvent(HoverEvent.Action.SHOW_TEXT, "§a✔").build());
         } else {
             UUID uuid = LostProxy.getInstance().getPlayerManager().getUUIDofPlayername(strings[0]);
             if (uuid != null) {
