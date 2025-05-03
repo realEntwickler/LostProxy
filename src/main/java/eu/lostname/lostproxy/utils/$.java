@@ -12,17 +12,17 @@ package eu.lostname.lostproxy.utils;
 
 public class $ {
 
-    public static final String LOSTPROXY = "§8┃ §cLostProxy §8» §7";
-    public static final String LOSTNAME = "§8┃ §cLostName §8» §7";
-    public static final String NOTIFICATIONS = "§8┃ §bNotify §8» §7";
-    public static final String WARTUNGEN = "§8┃ §5Maintenance §8» §7";
-    public static final String BKMS = "§8┃ §cBKMS §8» §7";
-    public static final String TEAMSPEAK = "§8┃ §bTeamSpeak §8» §7";
-    public static final String TMS = "§8┃ §eTeam §8» §7";
-    public static final String TEAM_CHAT = "§8┃ §eTeamChat §8» §7";
-    public static final String FRIENDS = "§8┃ §aFreunde §8» §7";
-    public static final String BROADCAST = "§8┃ §eBroadcast §8» §7";
-    public static final String PARTY = "§8┃ §5Party §8» §7";
-    public static final String CLANS = "§8┃ §eClans §8» §7";
-    public static final String REPORT = "§8┃ §cReport §8» §7";
+    public static final String LOSTPROXY = "§4•§c● LostProxy §8┃ §7";
+    public static final String LOSTNAME = "§6•§e● LostName §8┃ §7";
+    public static final String NOTIFICATIONS = "§3•§b● Notify §8┃ §7";
+    public static final String WARTUNGEN = "§d•§5● Maintenance §8┃ §7";
+    public static final String BKMS = "§c•§4● BKMS §8┃ §7";
+    //public static final String TEAMSPEAK = "•● §8┃ §7";
+    public static final String TMS = "§6•§e● Team §8┃ §7";
+    public static final String TEAM_CHAT = "§6•§e● TeamChat §8┃ §7";
+    public static final String FRIENDS = "§2•§a● Freunde §8┃ §7";
+    public static final String BROADCAST = "§6•§e● Broadcast §8┃ §7";
+    public static final String PARTY = "§d•§5● Party §8┃ §7";
+    public static final String CLANS = "§6•§e● Clans §8┃ §7";
+    public static final String REPORT = "§4•§c● Report §8┃ §7";
 }
