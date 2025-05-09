@@ -9,11 +9,14 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.TabExecutor;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-public class CommandWatchCommand extends Command {
+public class CommandWatchCommand extends Command implements TabExecutor {
 
 
     public CommandWatchCommand(String name, String permission, String... aliases)
@@ -54,5 +57,20 @@ public class CommandWatchCommand extends Command {
     private void sendHelpMessage(CommandSender commandSender)
     {
         commandSender.sendMessage($.LOSTNAME + "Benutzung §8" + $.arrow + " §e/commandwatcher <Spieler>");
+    }
+
+
+    @Override
+    public Iterable<String> onTabComplete(CommandSender commandSender, String[] strings)
+    {
+        List<String> list = new ArrayList<>();
+        
+        if (strings.length == 1) {
+            List<ProxiedPlayer> list1 = ProxyServer.getInstance().getPlayers().stream().filter(filter -> filter.getName().startsWith(strings[0])).toList();
+            if (list1 != null && !list1.isEmpty())
+                list1.forEach(all -> list.add(all.getName()));
+        }
+
+        return list;
     }
 }
