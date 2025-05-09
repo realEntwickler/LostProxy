@@ -17,13 +17,16 @@ import eu.lostname.lostproxy.interfaces.IPlayer;
 import eu.lostname.lostproxy.interfaces.bkms.IMute;
 import eu.lostname.lostproxy.interfaces.historyandentries.mute.IMuteEntry;
 import eu.lostname.lostproxy.interfaces.historyandentries.mute.IMuteHistory;
+import eu.lostname.lostproxy.records.RCommandWatch;
 import eu.lostname.lostproxy.utils.$;
+import net.luckperms.api.node.types.PrefixNode;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class ChatListener implements Listener {
 
@@ -60,6 +63,13 @@ public class ChatListener implements Listener {
                     }
                 }
 
+            } else {
+                List<RCommandWatch> commandWatchers = LostProxy.getInstance().getPlayerManager().getCommandWatches(player);
+                if (commandWatchers != null) {
+                    commandWatchers.forEach(all -> {
+                        all.commandSender().sendMessage(new MessageBuilder($.LOSTNAME + iPlayer.getDisplaywithPlayername() + " §8" + $.arrow + " §e" + event.getMessage()).build());
+                    });
+                }
             }
         }
     }

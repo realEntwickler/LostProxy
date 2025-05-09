@@ -96,6 +96,7 @@ public class LostProxy extends Plugin {
         getProxy().getPluginManager().registerCommand(this, new RestartCommand("restart", "lostproxy.command.restart", ""));
         getProxy().getPluginManager().registerCommand(this, new ReportCommand("report"));
         getProxy().getPluginManager().registerCommand(this, new ReportsCommand("reports", "lostproxy.command.reports", ""));
+        getProxy().getPluginManager().registerCommand(this, new CommandWatchCommand("commandwatch", "lostproxy.command.commandwatch", "cw"));
 
         getProxy().getPluginManager().registerListener(this, new PostLoginListener());
         getProxy().getPluginManager().registerListener(this, new PlayerDisconnectListener());

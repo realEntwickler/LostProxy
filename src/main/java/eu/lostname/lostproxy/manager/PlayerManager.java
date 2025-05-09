@@ -11,12 +11,36 @@
 package eu.lostname.lostproxy.manager;
 
 import eu.cloudnetservice.modules.bridge.player.CloudOfflinePlayer;
+import eu.lostname.lostproxy.records.RCommandWatch;
 import eu.lostname.lostproxy.utils.CloudServices;
+import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class PlayerManager {
+
+    private List<RCommandWatch> commandWatchers;
+
+    public PlayerManager()
+    {
+        this.commandWatchers = new ArrayList<>();
+    }
+
+    public List<RCommandWatch> getCommandWatches (CommandSender commandSender) {
+        return commandWatchers.stream().filter(filter -> filter.commandSender().equals(commandSender)).toList();
+    }
+
+    public List<RCommandWatch> getCommandWatches (ProxiedPlayer player) {
+        return commandWatchers.stream().filter(filter -> filter.target().getUniqueId().equals(player.getUniqueId())).toList();
+    }
+
+    public List<RCommandWatch> getCommandWatchers()
+    {
+        return commandWatchers;
+    }
 
     public UUID getUUIDofPlayername(String playername) {
         List<CloudOfflinePlayer> cloudOfflinePlayers = CloudServices.PLAYER_MANAGER.registeredPlayers().stream().filter(filter -> filter.name().equalsIgnoreCase(playername)).toList();
