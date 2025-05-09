@@ -32,10 +32,15 @@ public class CommandWatchCommand extends Command {
                 IPlayer targetIPlayer = new IPlayer(target.getUniqueId());
 
                 List<RCommandWatch> commandWatches = LostProxy.getInstance().getPlayerManager().getCommandWatches(commandSender);
-                RCommandWatch commandWatch = Objects.requireNonNull(commandWatches.stream().filter(filter -> filter.target().getUniqueId().equals(target.getUniqueId())).findFirst().orElse(null));
-                if (commandWatch != null) {
-                    commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Du beobachtest " + targetIPlayer.getDisplaywithPlayername() + " §cnicht mehr§7.").build());
-                    LostProxy.getInstance().getPlayerManager().getCommandWatchers().remove(commandWatch);
+                if (commandWatches != null) {
+                    RCommandWatch commandWatch = commandWatches.stream().filter(filter -> filter.target().getUniqueId().equals(target.getUniqueId())).findFirst().orElse(null);
+                    if (commandWatch != null) {
+                        commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Du beobachtest " + targetIPlayer.getDisplaywithPlayername() + " §cnicht mehr§7.").build());
+                        LostProxy.getInstance().getPlayerManager().getCommandWatchers().remove(commandWatch);
+                    } else {
+                        commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Du beobachtest " + targetIPlayer.getDisplaywithPlayername() + " §anun§7.").build());
+                        LostProxy.getInstance().getPlayerManager().getCommandWatchers().add(new RCommandWatch(commandSender, target));
+                    }
                 } else {
                     commandSender.sendMessage(new MessageBuilder($.LOSTNAME + "Du beobachtest " + targetIPlayer.getDisplaywithPlayername() + " §anun§7.").build());
                     LostProxy.getInstance().getPlayerManager().getCommandWatchers().add(new RCommandWatch(commandSender, target));
